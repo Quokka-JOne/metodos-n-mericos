@@ -2,7 +2,7 @@ const CACHE_NAME = 'numericos-pwa-v1';
 const urlsToCache = [
   './hii.html',
   './manifest.json',
-  './Logo.png'
+  './logo-uni.png'
 ];
 
 // Instalación del Service Worker y almacenamiento en caché
