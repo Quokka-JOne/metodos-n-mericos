@@ -2,7 +2,7 @@
   "name": "Plataforma Premium de Métodos Numéricos",
   "short_name": "Numéricos",
   "description": "Plataforma académica interactiva para la resolución de métodos numéricos.",
-  "start_url": "./hii.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#080b11",
   "theme_color": "#6366f1",
