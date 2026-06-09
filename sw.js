@@ -1,6 +1,6 @@
 const CACHE_NAME = 'numericos-pwa-v1';
 const urlsToCache = [
-  './hii.html',
+  './index.html',
   './manifest.json',
   './logo-uni.png'
 ];
@@ -15,12 +15,11 @@ self.addEventListener('install', event => {
   );
 });
 
-// Interceptar peticiones y devolver desde caché si no hay red
+// Interceptar peticiones
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        // Devuelve la respuesta de caché si existe, sino hace la petición a la red
         return response || fetch(event.request);
       })
   );
