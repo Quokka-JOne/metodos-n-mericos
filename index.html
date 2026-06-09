@@ -502,7 +502,10 @@
 
         /* Filtrar logotipo de universidad en tema oscuro */
         [data-theme="dark"] #university-logo-container img {
-            filter: brightness(0) invert(1);
+            /* Se removió el filtro para evitar el cuadro blanco con imágenes sin transparencia */
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2px;
+            border-radius: 4px;
         }
 
         /* Breadcrumb de navegación */
