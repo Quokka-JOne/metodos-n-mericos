@@ -1,0 +1,21 @@
+{
+  "name": "Plataforma Premium de Métodos Numéricos",
+  "short_name": "Numéricos",
+  "description": "Plataforma académica interactiva para la resolución de métodos numéricos.",
+  "start_url": "./hii.html",
+  "display": "standalone",
+  "background_color": "#080b11",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "Logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "Logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
