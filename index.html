@@ -12,6 +12,9 @@
     <!-- FontAwesome para Íconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
     <!-- Librerías Externas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -1718,6 +1721,18 @@
 
     <!-- LÓGICA JAVASCRIPT -->
     <script>
+        // ── Firebase Inicialización ──
+        firebase.initializeApp({
+            apiKey: "AIzaSyDhEwE9OqISI1BevavD2lQG0U0TqmxBJbE",
+            authDomain: "metodos-numericos-254e8.firebaseapp.com",
+            databaseURL: "https://metodos-numericos-254e8-default-rtdb.firebaseio.com",
+            projectId: "metodos-numericos-254e8",
+            storageBucket: "metodos-numericos-254e8.firebasestorage.app",
+            messagingSenderId: "883064206236",
+            appId: "1:883064206236:web:0eb81b44a0fc3ad4484e59"
+        });
+        const _db = firebase.database();
+
         // Registrar 'ln' nativamente en math.js para evaluar directamente
         math.import({ ln: math.log }, { override: true });
 
@@ -1821,9 +1836,288 @@
         // 1. SISTEMA DE USUARIOS Y LOGIN
         // ==========================================
 
-        // ── Credenciales del admin (hardcoded, nunca en localStorage) ──
+        // ── Credenciales del admin (hardcoded, nunca en base de datos) ──
         const ADMIN_USER = "Métodos numéricos";
         const ADMIN_PASS = "yo123456";
+
+        // ── Helpers Firebase (reemplazan localStorage para usuarios) ──
+        async function getUsuarios() {
+            try {
+                const snap = await _db.ref('usuarios').once('value');
+                const val = snap.val();
+                if (!val) return [];
+                // Firebase puede devolver objeto con claves numéricas en vez de array
+                if (Array.isArray(val)) return val.filter(Boolean);
+                return Object.values(val).filter(Boolean);
+            } catch(e) {
+                console.error('Firebase getUsuarios:', e);
+                return [];
+            }
+        }
+
+        async function setUsuarios(arr) {
+            try {
+                await _db.ref('usuarios').set(arr.length ? arr : null);
+            } catch(e) {
+                console.error('Firebase setUsuarios:', e);
+                throw e;
+            }
+        }
+
+        // ── Normalizar texto (comparación robusta sin importar acentos/mayúsculas) ──
+        function normalizar(str) {
+            return str.normalize('NFC').toLowerCase().trim();
+        }
+
+        // ── Iniciar sesión (async por Firebase) ──
+        async function iniciarSesion() {
+            const user = document.getElementById('login-user').value.trim();
+            const pass = document.getElementById('login-pass').value.trim();
+
+            // Estado de carga en el botón
+            const btn = document.querySelector('#login-overlay .btn-primary');
+            const origHtml = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Verificando...';
+            btn.disabled = true;
+            document.getElementById('login-error').style.display = 'none';
+
+            try {
+                let sesion = null;
+
+                if (normalizar(user) === normalizar(ADMIN_USER) && pass === ADMIN_PASS) {
+                    sesion = { username: ADMIN_USER, role: 'admin' };
+                } else {
+                    const usuarios = await getUsuarios();
+                    const encontrado = usuarios.find(u =>
+                        normalizar(u.username) === normalizar(user) && u.password === pass
+                    );
+                    if (encontrado) sesion = { username: encontrado.username, role: 'user' };
+                }
+
+                if (sesion) {
+                    localStorage.setItem('mnSesion', JSON.stringify(sesion));
+                    abrirApp(sesion);
+                    showToast(`¡Bienvenido, ${sesion.username}!`, 'success');
+                } else {
+                    document.getElementById('login-error').style.display = 'block';
+                }
+            } catch(e) {
+                showToast('Error de conexión con la base de datos. Intenta de nuevo.', 'error');
+            } finally {
+                btn.innerHTML = origHtml;
+                btn.disabled = false;
+            }
+        }
+
+        // ── Abrir app y aplicar UI según rol ──
+        function abrirApp(sesion) {
+            document.getElementById('login-overlay').style.display = 'none';
+            document.getElementById('app-container').style.display = 'flex';
+            document.getElementById('top-nav').style.display = 'flex';
+            aplicarRolUI(sesion);
+            showTab('muller');
+            setTimeout(initGeoGebra, 300);
+        }
+
+        // ── Aplicar UI según rol ──
+        function aplicarRolUI(sesion) {
+            const btnAdmin = document.getElementById('btn-admin');
+            const badgeEl  = document.getElementById('navbar-username');
+            const badgeTxt = document.getElementById('navbar-username-text');
+
+            btnAdmin.style.display = sesion.role === 'admin' ? 'flex' : 'none';
+
+            if (badgeEl && badgeTxt) {
+                badgeTxt.textContent = sesion.username;
+                badgeEl.style.display = 'flex';
+            }
+        }
+
+        // ── Restaurar sesión al cargar la página (sesión sigue en localStorage) ──
+        window.addEventListener('DOMContentLoaded', () => {
+            try {
+                const sesionStr = localStorage.getItem('mnSesion');
+                if (sesionStr) {
+                    const sesion = JSON.parse(sesionStr);
+                    if (sesion && sesion.username && sesion.role) {
+                        abrirApp(sesion);
+                        return;
+                    }
+                }
+                // Compatibilidad con clave anterior
+                const legacy = localStorage.getItem('sesionMetodosNumericos');
+                if (legacy === 'true') {
+                    localStorage.removeItem('sesionMetodosNumericos');
+                    const sesion = { username: ADMIN_USER, role: 'admin' };
+                    localStorage.setItem('mnSesion', JSON.stringify(sesion));
+                    abrirApp(sesion);
+                }
+            } catch(e) { /* sesión corrupta, mostrar login */ }
+        });
+
+        // ── Cerrar sesión ──
+        function cerrarSesion() {
+            localStorage.removeItem('mnSesion');
+            localStorage.removeItem('sesionMetodosNumericos');
+            window.location.reload();
+        }
+
+        // ── Panel de administración ──
+        function abrirAdminPanel() {
+            document.getElementById('admin-modal-overlay').classList.add('open');
+            document.getElementById('new-user-name').value = '';
+            document.getElementById('new-user-pass').value = '';
+            document.getElementById('admin-form-error').style.display = 'none';
+            renderUsuarios();
+        }
+
+        function cerrarAdminPanel() {
+            document.getElementById('admin-modal-overlay').classList.remove('open');
+        }
+
+        function cerrarAdminPanelSiEsOverlay(event) {
+            if (event.target === document.getElementById('admin-modal-overlay')) {
+                cerrarAdminPanel();
+            }
+        }
+
+        // ── Renderizar tabla de usuarios (async) ──
+        async function renderUsuarios() {
+            const container = document.getElementById('user-table-container');
+            container.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);"><i class="fa-solid fa-circle-notch fa-spin"></i> Cargando...</div>';
+
+            const usuarios = await getUsuarios();
+
+            let html = `
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th><i class="fa-solid fa-user" style="margin-right:6px;opacity:0.6;"></i>Usuario</th>
+                        <th>Rol</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>${ADMIN_USER}</strong></td>
+                        <td><span class="role-badge admin"><i class="fa-solid fa-shield-halved"></i> Admin</span></td>
+                        <td><span style="color:var(--text-muted);font-size:12px;">—</span></td>
+                    </tr>`;
+
+            if (usuarios.length === 0) {
+                html += `
+                    <tr><td colspan="3">
+                        <div class="user-table-empty">
+                            <i class="fa-solid fa-users-slash"></i>
+                            No hay usuarios registrados aún.
+                        </div>
+                    </td></tr>`;
+            } else {
+                usuarios.forEach((u, idx) => {
+                    html += `
+                    <tr>
+                        <td>${u.username}</td>
+                        <td><span class="role-badge user"><i class="fa-solid fa-user"></i> Usuario</span></td>
+                        <td>
+                            <button class="btn-danger-sm" onclick="eliminarUsuario(${idx})">
+                                <i class="fa-solid fa-trash-can"></i> Eliminar
+                            </button>
+                        </td>
+                    </tr>`;
+                });
+            }
+
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+
+        // ── Agregar usuario (async) ──
+        async function agregarUsuario() {
+            const nombre = document.getElementById('new-user-name').value.trim();
+            const pass   = document.getElementById('new-user-pass').value.trim();
+            const errEl  = document.getElementById('admin-form-error');
+            errEl.style.display = 'none';
+
+            if (!nombre) { errEl.textContent = 'El nombre no puede estar vacío.'; errEl.style.display = 'block'; return; }
+            if (!pass)   { errEl.textContent = 'La contraseña no puede estar vacía.'; errEl.style.display = 'block'; return; }
+            if (normalizar(nombre) === normalizar(ADMIN_USER)) { errEl.textContent = 'No puedes usar el nombre del administrador.'; errEl.style.display = 'block'; return; }
+
+            const usuarios = await getUsuarios();
+            if (usuarios.find(u => normalizar(u.username) === normalizar(nombre))) {
+                errEl.textContent = 'Ya existe un usuario con ese nombre.';
+                errEl.style.display = 'block';
+                return;
+            }
+
+            usuarios.push({ username: nombre, password: pass });
+            try {
+                await setUsuarios(usuarios);
+                document.getElementById('new-user-name').value = '';
+                document.getElementById('new-user-pass').value = '';
+                renderUsuarios();
+                showToast(`Usuario "${nombre}" creado exitosamente.`, 'success');
+            } catch(e) {
+                errEl.textContent = 'Error al guardar. Verifica tu conexión.';
+                errEl.style.display = 'block';
+            }
+        }
+
+        // ── Eliminar usuario (async) ──
+        async function eliminarUsuario(idx) {
+            const usuarios = await getUsuarios();
+            const nombre = usuarios[idx]?.username;
+            if (!nombre) return;
+            if (!confirm(`¿Eliminar al usuario "${nombre}"? Esta acción no se puede deshacer.`)) return;
+            usuarios.splice(idx, 1);
+            await setUsuarios(usuarios);
+            renderUsuarios();
+            showToast(`Usuario "${nombre}" eliminado.`, 'warning');
+        }
+
+        // ── Exportar usuarios como código Base64 (async) ──
+        async function exportarUsuarios() {
+            const usuarios = await getUsuarios();
+            if (usuarios.length === 0) { showToast('No hay usuarios que exportar.', 'warning'); return; }
+            const json = JSON.stringify(usuarios);
+            const codigo = btoa(unescape(encodeURIComponent(json)));
+            const area = document.getElementById('export-code-area');
+            area.value = codigo;
+            area.select();
+            try { document.execCommand('copy'); showToast('¡Código copiado al portapapeles!', 'success'); }
+            catch(e) { showToast('Código generado. Selecciónalo y cópialo.', 'info'); }
+        }
+
+        // ── Importar usuarios desde código Base64 (async) ──
+        async function importarUsuarios() {
+            const errEl = document.getElementById('import-form-error');
+            errEl.style.display = 'none';
+            const codigo = document.getElementById('import-code-area').value.trim();
+            if (!codigo) { errEl.textContent = 'Pega el código primero.'; errEl.style.display = 'block'; return; }
+            try {
+                const json = decodeURIComponent(escape(atob(codigo)));
+                const importados = JSON.parse(json);
+                if (!Array.isArray(importados)) throw new Error();
+                const actuales = await getUsuarios();
+                let nuevos = 0, omitidos = 0;
+                importados.forEach(u => {
+                    if (!u.username || !u.password) return;
+                    const yaExiste = actuales.find(a => normalizar(a.username) === normalizar(u.username));
+                    const esAdmin = normalizar(u.username) === normalizar(ADMIN_USER);
+                    if (yaExiste || esAdmin) { omitidos++; return; }
+                    actuales.push({ username: u.username, password: u.password });
+                    nuevos++;
+                });
+                await setUsuarios(actuales);
+                renderUsuarios();
+                document.getElementById('import-code-area').value = '';
+                showToast(`Importación: ${nuevos} nuevo(s), ${omitidos} omitido(s).`, 'success');
+            } catch(e) {
+                errEl.textContent = 'Código inválido o corrupto.';
+                errEl.style.display = 'block';
+            }
+        }
+
+
 
         // ── Helpers de localStorage ──
         function getUsuarios() {
