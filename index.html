@@ -1277,6 +1277,9 @@
             <div class="icon-btn" title="Perfil de Usuario Académico" aria-label="Perfil del Estudiante">
                 <i class="fa-solid fa-user-graduate"></i>
             </div>
+            <button class="icon-btn" onclick="cerrarSesion()" title="Cerrar Sesión" aria-label="Cerrar Sesión" id="btn-cerrar-sesion">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
         </div>
     </div>
 
@@ -1477,15 +1480,36 @@
             const pass = document.getElementById('login-pass').value.trim();
 
             if (user === "Métodos numéricos" && pass === "yo123456") {
+                // Guardar sesión en localStorage para persistencia móvil/desktop
+                localStorage.setItem('sesionMetodosNumericos', 'true');
                 document.getElementById('login-overlay').style.display = 'none';
                 document.getElementById('app-container').style.display = 'flex';
                 document.getElementById('top-nav').style.display = 'flex'; // Show navbar
                 // Cargar primer método y GeoGebra
                 showTab('muller');
                 setTimeout(initGeoGebra, 300);
+                showToast('¡Bienvenido al sistema!', 'success');
             } else {
                 document.getElementById('login-error').style.display = 'block';
             }
+        }
+
+        // Restaurar sesión automáticamente si ya se había iniciado sesión previamente
+        window.addEventListener('DOMContentLoaded', () => {
+            const sesionActiva = localStorage.getItem('sesionMetodosNumericos');
+            if (sesionActiva === 'true') {
+                document.getElementById('login-overlay').style.display = 'none';
+                document.getElementById('app-container').style.display = 'flex';
+                document.getElementById('top-nav').style.display = 'flex';
+                showTab('muller');
+                setTimeout(initGeoGebra, 300);
+            }
+        });
+
+        // Cerrar sesión: limpia localStorage y recarga la página
+        function cerrarSesion() {
+            localStorage.removeItem('sesionMetodosNumericos');
+            window.location.reload();
         }
 
         // ==========================================
