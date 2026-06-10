@@ -1593,6 +1593,37 @@
                     <p class="admin-form-error" id="admin-form-error"></p>
                 </div>
 
+                <!-- Exportar / Importar usuarios -->
+                <div class="add-user-form" style="border-color: rgba(99,102,241,0.3); background: rgba(99,102,241,0.04);">
+                    <h4><i class="fa-solid fa-arrow-right-arrow-left"></i> Sincronizar entre dispositivos</h4>
+                    <p style="margin:0 0 12px 0; font-size:12px; color:var(--text-muted); line-height:1.5;">
+                        Genera un código en este dispositivo y pégalo en otro para compartir los usuarios.
+                    </p>
+                    <!-- Exportar -->
+                    <div style="display:flex; gap:8px; margin-bottom:10px;">
+                        <button class="btn-success-sm" style="background:linear-gradient(135deg,var(--primary),var(--primary-hover)); box-shadow:0 3px 10px rgba(var(--primary-rgb),0.3);" onclick="exportarUsuarios()">
+                            <i class="fa-solid fa-upload"></i> Generar código
+                        </button>
+                    </div>
+                    <textarea id="export-code-area" readonly placeholder="El código aparecerá aquí..."
+                        style="width:100%; height:70px; resize:none; background:var(--bg-body); border:1px solid var(--border-color);
+                               border-radius:var(--radius-md); padding:8px 10px; color:var(--text-main); font-family:var(--font-mono);
+                               font-size:11px; outline:none; display:block; box-sizing:border-box; cursor:pointer;"
+                        onclick="this.select()" title="Haz clic para seleccionar todo"></textarea>
+                    <!-- Importar -->
+                    <div style="margin-top:14px;">
+                        <textarea id="import-code-area" placeholder="Pega aquí el código de otro dispositivo..."
+                            style="width:100%; height:70px; resize:none; background:var(--bg-body); border:1px solid var(--border-color);
+                                   border-radius:var(--radius-md); padding:8px 10px; color:var(--text-main); font-family:var(--font-mono);
+                                   font-size:11px; outline:none; display:block; box-sizing:border-box; margin-bottom:8px;"
+                        ></textarea>
+                        <button class="btn-success-sm" onclick="importarUsuarios()">
+                            <i class="fa-solid fa-download"></i> Importar usuarios
+                        </button>
+                        <p class="admin-form-error" id="import-form-error" style="margin-top:8px;"></p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -1998,6 +2029,60 @@
             setUsuarios(usuarios);
             renderUsuarios();
             showToast(`Usuario "${nombre}" eliminado.`, 'warning');
+        }
+
+        // ── Exportar usuarios como código Base64 ──
+        function exportarUsuarios() {
+            const usuarios = getUsuarios();
+            if (usuarios.length === 0) {
+                showToast('No hay usuarios que exportar.', 'warning');
+                return;
+            }
+            const json = JSON.stringify(usuarios);
+            const codigo = btoa(unescape(encodeURIComponent(json)));
+            const area = document.getElementById('export-code-area');
+            area.value = codigo;
+            area.select();
+            try { document.execCommand('copy'); showToast('¡Código copiado al portapapeles!', 'success'); }
+            catch(e) { showToast('Código generado. Seléccionalo y cópialo.', 'info'); }
+        }
+
+        // ── Importar usuarios desde código Base64 ──
+        function importarUsuarios() {
+            const errEl = document.getElementById('import-form-error');
+            errEl.style.display = 'none';
+            const codigo = document.getElementById('import-code-area').value.trim();
+            if (!codigo) {
+                errEl.textContent = 'Pega el código de exportación primero.';
+                errEl.style.display = 'block';
+                return;
+            }
+            try {
+                const json = decodeURIComponent(escape(atob(codigo)));
+                const importados = JSON.parse(json);
+                if (!Array.isArray(importados)) throw new Error('Formato inválido');
+
+                const actuales = getUsuarios();
+                let nuevos = 0, omitidos = 0;
+
+                importados.forEach(u => {
+                    if (!u.username || !u.password) return;
+                    // No importar si ya existe o si tiene el nombre del admin
+                    const yaExiste = actuales.find(a => a.username.toLowerCase() === u.username.toLowerCase());
+                    const esAdmin = u.username.toLowerCase() === ADMIN_USER.toLowerCase();
+                    if (yaExiste || esAdmin) { omitidos++; return; }
+                    actuales.push({ username: u.username, password: u.password });
+                    nuevos++;
+                });
+
+                setUsuarios(actuales);
+                renderUsuarios();
+                document.getElementById('import-code-area').value = '';
+                showToast(`Importación completada: ${nuevos} nuevo(s), ${omitidos} omitido(s).`, 'success');
+            } catch(e) {
+                errEl.textContent = 'Código inválido o corrupto. Vuelve a generarlo.';
+                errEl.style.display = 'block';
+            }
         }
 
         // ==========================================
