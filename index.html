@@ -1810,14 +1810,21 @@
 
             let sesion = null;
 
-            // Verificar admin
-            if (user === ADMIN_USER && pass === ADMIN_PASS) {
-                sesion = { username: user, role: 'admin' };
+            // Normalizar texto para comparación robusta (elimina diferencias de acentos/mayúsculas)
+            function normalizar(str) {
+                return str.normalize('NFC').toLowerCase();
+            }
+
+            // Verificar admin (comparación normalizada)
+            if (normalizar(user) === normalizar(ADMIN_USER) && pass === ADMIN_PASS) {
+                sesion = { username: ADMIN_USER, role: 'admin' };
             } else {
                 // Buscar en usuarios registrados
                 const usuarios = getUsuarios();
-                const encontrado = usuarios.find(u => u.username === user && u.password === pass);
-                if (encontrado) sesion = { username: user, role: 'user' };
+                const encontrado = usuarios.find(u =>
+                    normalizar(u.username) === normalizar(user) && u.password === pass
+                );
+                if (encontrado) sesion = { username: encontrado.username, role: 'user' };
             }
 
             if (sesion) {
