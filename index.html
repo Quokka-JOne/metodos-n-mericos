@@ -1218,6 +1218,275 @@
                 background: var(--primary-hover) !important;
             }
         }
+
+        /* ----- MODAL GESTIÓN DE USUARIOS (ADMIN) ----- */
+        #admin-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 7, 12, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.2s ease;
+        }
+
+        #admin-modal-overlay.open {
+            display: flex;
+        }
+
+        .admin-modal {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg), var(--shadow-glow);
+            width: 100%;
+            max-width: 560px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: springUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .admin-modal-header {
+            padding: 22px 28px 18px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .admin-modal-header h3 {
+            margin: 0;
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-modal-header h3 i { color: var(--primary); }
+
+        .admin-modal-close {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .admin-modal-close:hover {
+            color: var(--danger);
+            border-color: var(--danger);
+            background: rgba(244, 63, 94, 0.08);
+        }
+
+        .admin-modal-body {
+            padding: 24px 28px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .user-table th {
+            text-align: left;
+            padding: 8px 12px;
+            color: var(--text-muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .user-table td {
+            padding: 11px 12px;
+            border-bottom: 1px solid rgba(55, 65, 81, 0.2);
+            color: var(--text-main);
+            font-weight: 500;
+            vertical-align: middle;
+        }
+
+        .user-table tr:last-child td { border-bottom: none; }
+        .user-table tr:hover td { background: rgba(255,255,255,0.02); }
+        [data-theme="light"] .user-table tr:hover td { background: rgba(0,0,0,0.02); }
+
+        .role-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .role-badge.admin {
+            background: rgba(99, 102, 241, 0.12);
+            color: var(--primary);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .role-badge.user {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--secondary);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+
+        .btn-danger-sm {
+            background: transparent;
+            border: 1px solid rgba(244, 63, 94, 0.35);
+            color: var(--danger);
+            padding: 5px 12px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: var(--font-display);
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-danger-sm:hover {
+            background: rgba(244, 63, 94, 0.1);
+            border-color: var(--danger);
+        }
+
+        .add-user-form {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+        }
+
+        .add-user-form h4 {
+            margin: 0 0 16px 0;
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .add-user-form h4 i { color: var(--secondary); }
+
+        .add-user-form .form-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .add-user-form .form-row input {
+            flex: 1;
+            min-width: 140px;
+            padding: 10px 14px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .add-user-form .form-row input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+        }
+
+        .add-user-form .form-row input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.7;
+        }
+
+        .btn-success-sm {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-hover) 100%);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-family: var(--font-display);
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-success-sm:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 16px rgba(16, 185, 129, 0.45);
+        }
+
+        .admin-form-error {
+            color: var(--danger);
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+            display: none;
+        }
+
+        #navbar-username {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            font-family: var(--font-display);
+            display: none;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            background: rgba(var(--primary-rgb), 0.06);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+        }
+
+        #navbar-username i {
+            color: var(--primary);
+            font-size: 11px;
+        }
+
+        .user-table-empty {
+            text-align: center;
+            padding: 28px 0;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .user-table-empty i {
+            font-size: 28px;
+            margin-bottom: 8px;
+            display: block;
+            opacity: 0.4;
+        }
     </style>
     
     <!-- PWA Config -->
@@ -1272,8 +1541,17 @@
         </div>
         
         <div class="actions">
+            <!-- Badge de usuario logueado -->
+            <div id="navbar-username">
+                <i class="fa-solid fa-circle-user"></i>
+                <span id="navbar-username-text"></span>
+            </div>
             <button class="icon-btn" onclick="toggleTheme()" title="Cambiar Tema de Interfaz" aria-label="Cambiar Tema">
                 <i class="fa-solid fa-sun" id="theme-icon"></i>
+            </button>
+            <!-- Botón gestión de usuarios (solo admin) -->
+            <button class="icon-btn" id="btn-admin" onclick="abrirAdminPanel()" title="Gestionar Usuarios" aria-label="Gestionar Usuarios" style="display:none;">
+                <i class="fa-solid fa-users-gear"></i>
             </button>
             <div class="icon-btn" title="Perfil de Usuario Académico" aria-label="Perfil del Estudiante">
                 <i class="fa-solid fa-user-graduate"></i>
@@ -1281,6 +1559,41 @@
             <button class="icon-btn" onclick="cerrarSesion()" title="Cerrar Sesión" aria-label="Cerrar Sesión" id="btn-cerrar-sesion">
                 <i class="fa-solid fa-right-from-bracket"></i>
             </button>
+        </div>
+    </div>
+
+    <!-- MODAL GESTIÓN DE USUARIOS (ADMIN) -->
+    <div id="admin-modal-overlay" onclick="cerrarAdminPanelSiEsOverlay(event)">
+        <div class="admin-modal">
+            <div class="admin-modal-header">
+                <h3><i class="fa-solid fa-users-gear"></i> Gestión de Usuarios</h3>
+                <button class="admin-modal-close" onclick="cerrarAdminPanel()" aria-label="Cerrar">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="admin-modal-body">
+
+                <!-- Lista de usuarios -->
+                <div>
+                    <div id="user-table-container">
+                        <!-- Renderizado por JS -->
+                    </div>
+                </div>
+
+                <!-- Formulario agregar usuario -->
+                <div class="add-user-form">
+                    <h4><i class="fa-solid fa-user-plus"></i> Agregar Nuevo Usuario</h4>
+                    <div class="form-row">
+                        <input type="text" id="new-user-name" placeholder="Nombre de usuario" autocomplete="off" />
+                        <input type="password" id="new-user-pass" placeholder="Contraseña" autocomplete="new-password" />
+                        <button class="btn-success-sm" onclick="agregarUsuario()">
+                            <i class="fa-solid fa-plus"></i> Agregar
+                        </button>
+                    </div>
+                    <p class="admin-form-error" id="admin-form-error"></p>
+                </div>
+
+            </div>
         </div>
     </div>
 
@@ -1474,43 +1787,210 @@
         }
 
         // ==========================================
-        // 1. SISTEMA DE LOGIN Y UI
+        // 1. SISTEMA DE USUARIOS Y LOGIN
         // ==========================================
+
+        // ── Credenciales del admin (hardcoded, nunca en localStorage) ──
+        const ADMIN_USER = "Métodos numéricos";
+        const ADMIN_PASS = "yo123456";
+
+        // ── Helpers de localStorage ──
+        function getUsuarios() {
+            try { return JSON.parse(localStorage.getItem('mnUsuarios')) || []; }
+            catch(e) { return []; }
+        }
+        function setUsuarios(arr) {
+            localStorage.setItem('mnUsuarios', JSON.stringify(arr));
+        }
+
+        // ── Iniciar sesión ──
         function iniciarSesion() {
             const user = document.getElementById('login-user').value.trim();
             const pass = document.getElementById('login-pass').value.trim();
 
-            if (user === "Métodos numéricos" && pass === "yo123456") {
-                // Guardar sesión en localStorage para persistencia móvil/desktop
-                localStorage.setItem('sesionMetodosNumericos', 'true');
-                document.getElementById('login-overlay').style.display = 'none';
-                document.getElementById('app-container').style.display = 'flex';
-                document.getElementById('top-nav').style.display = 'flex'; // Show navbar
-                // Cargar primer método y GeoGebra
-                showTab('muller');
-                setTimeout(initGeoGebra, 300);
-                showToast('¡Bienvenido al sistema!', 'success');
+            let sesion = null;
+
+            // Verificar admin
+            if (user === ADMIN_USER && pass === ADMIN_PASS) {
+                sesion = { username: user, role: 'admin' };
+            } else {
+                // Buscar en usuarios registrados
+                const usuarios = getUsuarios();
+                const encontrado = usuarios.find(u => u.username === user && u.password === pass);
+                if (encontrado) sesion = { username: user, role: 'user' };
+            }
+
+            if (sesion) {
+                localStorage.setItem('mnSesion', JSON.stringify(sesion));
+                abrirApp(sesion);
+                showToast(`¡Bienvenido, ${sesion.username}!`, 'success');
             } else {
                 document.getElementById('login-error').style.display = 'block';
             }
         }
 
-        // Restaurar sesión automáticamente si ya se había iniciado sesión previamente
-        window.addEventListener('DOMContentLoaded', () => {
-            const sesionActiva = localStorage.getItem('sesionMetodosNumericos');
-            if (sesionActiva === 'true') {
-                document.getElementById('login-overlay').style.display = 'none';
-                document.getElementById('app-container').style.display = 'flex';
-                document.getElementById('top-nav').style.display = 'flex';
-                showTab('muller');
-                setTimeout(initGeoGebra, 300);
+        // ── Abrir app y aplicar UI según rol ──
+        function abrirApp(sesion) {
+            document.getElementById('login-overlay').style.display = 'none';
+            document.getElementById('app-container').style.display = 'flex';
+            document.getElementById('top-nav').style.display = 'flex';
+            aplicarRolUI(sesion);
+            showTab('muller');
+            setTimeout(initGeoGebra, 300);
+        }
+
+        // ── Aplicar UI según rol (mostrar/ocultar botón admin, badge de usuario) ──
+        function aplicarRolUI(sesion) {
+            const btnAdmin = document.getElementById('btn-admin');
+            const badgeEl  = document.getElementById('navbar-username');
+            const badgeTxt = document.getElementById('navbar-username-text');
+
+            if (sesion.role === 'admin') {
+                btnAdmin.style.display = 'flex';
+            } else {
+                btnAdmin.style.display = 'none';
             }
+
+            if (badgeEl && badgeTxt) {
+                badgeTxt.textContent = sesion.username;
+                badgeEl.style.display = 'flex';
+            }
+        }
+
+        // ── Restaurar sesión al cargar la página ──
+        window.addEventListener('DOMContentLoaded', () => {
+            try {
+                const sesionStr = localStorage.getItem('mnSesion');
+                if (sesionStr) {
+                    const sesion = JSON.parse(sesionStr);
+                    if (sesion && sesion.username && sesion.role) {
+                        abrirApp(sesion);
+                        return;
+                    }
+                }
+                // Compatibilidad con la clave anterior (sesionMetodosNumericos)
+                const legacy = localStorage.getItem('sesionMetodosNumericos');
+                if (legacy === 'true') {
+                    localStorage.removeItem('sesionMetodosNumericos');
+                    const sesion = { username: ADMIN_USER, role: 'admin' };
+                    localStorage.setItem('mnSesion', JSON.stringify(sesion));
+                    abrirApp(sesion);
+                }
+            } catch(e) { /* sesión corrupta, mostrar login */ }
         });
 
-        // Cerrar sesión: limpia localStorage y recarga la página
+        // ── Cerrar sesión ──
         function cerrarSesion() {
-            localStorage.removeItem('sesionMetodosNumericos');
+            localStorage.removeItem('mnSesion');
+            localStorage.removeItem('sesionMetodosNumericos'); // limpiar legacy si existía
             window.location.reload();
+        }
+
+        // ── Panel de administración ──
+        function abrirAdminPanel() {
+            renderUsuarios();
+            document.getElementById('admin-modal-overlay').classList.add('open');
+            document.getElementById('new-user-name').value = '';
+            document.getElementById('new-user-pass').value = '';
+            document.getElementById('admin-form-error').style.display = 'none';
+        }
+
+        function cerrarAdminPanel() {
+            document.getElementById('admin-modal-overlay').classList.remove('open');
+        }
+
+        function cerrarAdminPanelSiEsOverlay(event) {
+            if (event.target === document.getElementById('admin-modal-overlay')) {
+                cerrarAdminPanel();
+            }
+        }
+
+        function renderUsuarios() {
+            const usuarios = getUsuarios();
+            const container = document.getElementById('user-table-container');
+
+            // Siempre mostrar el admin en la tabla (hardcoded, sin botón eliminar)
+            let html = `
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th><i class="fa-solid fa-user" style="margin-right:6px;opacity:0.6;"></i>Usuario</th>
+                        <th>Rol</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>${ADMIN_USER}</strong></td>
+                        <td><span class="role-badge admin"><i class="fa-solid fa-shield-halved"></i> Admin</span></td>
+                        <td><span style="color:var(--text-muted);font-size:12px;">—</span></td>
+                    </tr>`;
+
+            if (usuarios.length === 0) {
+                html += `
+                    <tr>
+                        <td colspan="3">
+                            <div class="user-table-empty">
+                                <i class="fa-solid fa-users-slash"></i>
+                                No hay usuarios registrados aún.
+                            </div>
+                        </td>
+                    </tr>`;
+            } else {
+                usuarios.forEach((u, idx) => {
+                    html += `
+                    <tr>
+                        <td>${u.username}</td>
+                        <td><span class="role-badge user"><i class="fa-solid fa-user"></i> Usuario</span></td>
+                        <td>
+                            <button class="btn-danger-sm" onclick="eliminarUsuario(${idx})">
+                                <i class="fa-solid fa-trash-can"></i> Eliminar
+                            </button>
+                        </td>
+                    </tr>`;
+                });
+            }
+
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+
+        function agregarUsuario() {
+            const nombre = document.getElementById('new-user-name').value.trim();
+            const pass   = document.getElementById('new-user-pass').value.trim();
+            const errEl  = document.getElementById('admin-form-error');
+
+            errEl.style.display = 'none';
+
+            if (!nombre) { errEl.textContent = 'El nombre de usuario no puede estar vacío.'; errEl.style.display = 'block'; return; }
+            if (!pass)   { errEl.textContent = 'La contraseña no puede estar vacía.'; errEl.style.display = 'block'; return; }
+            if (nombre === ADMIN_USER) { errEl.textContent = 'No puedes usar el nombre del administrador.'; errEl.style.display = 'block'; return; }
+
+            const usuarios = getUsuarios();
+            if (usuarios.find(u => u.username === nombre)) {
+                errEl.textContent = 'Ya existe un usuario con ese nombre.';
+                errEl.style.display = 'block';
+                return;
+            }
+
+            usuarios.push({ username: nombre, password: pass });
+            setUsuarios(usuarios);
+
+            document.getElementById('new-user-name').value = '';
+            document.getElementById('new-user-pass').value = '';
+            renderUsuarios();
+            showToast(`Usuario "${nombre}" creado exitosamente.`, 'success');
+        }
+
+        function eliminarUsuario(idx) {
+            const usuarios = getUsuarios();
+            const nombre = usuarios[idx]?.username;
+            if (!nombre) return;
+            if (!confirm(`¿Eliminar al usuario "${nombre}"? Esta acción no se puede deshacer.`)) return;
+            usuarios.splice(idx, 1);
+            setUsuarios(usuarios);
+            renderUsuarios();
+            showToast(`Usuario "${nombre}" eliminado.`, 'warning');
         }
 
         // ==========================================
