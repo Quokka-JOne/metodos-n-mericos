@@ -2140,7 +2140,11 @@
                     <tr>
                         <td><strong>${ADMIN_USER}</strong></td>
                         <td><span class="role-badge admin"><i class="fa-solid fa-shield-halved"></i> Admin</span></td>
-                        <td><span style="color:var(--text-muted);font-size:12px;">—</span></td>
+                        <td>
+                            <button class="btn-danger-sm" onclick="eliminarAdmin()" title="Eliminar cuenta de administrador">
+                                <i class="fa-solid fa-trash-can"></i> Eliminar
+                            </button>
+                        </td>
                     </tr>`;
 
             if (usuarios.length === 0) {
@@ -2211,6 +2215,23 @@
             await setUsuarios(usuarios);
             renderUsuarios();
             showToast(`Usuario "${nombre}" eliminado.`, 'warning');
+        }
+
+        // ── Eliminar cuenta de admin (async) ──
+        async function eliminarAdmin() {
+            if (!confirm(`¿Eliminar la cuenta de administrador "${ADMIN_USER}"? Esta acción no se puede deshacer.`)) return;
+            const usuarios = await getUsuarios();
+            try {
+                // Guardar una lista vacía (eliminar todos los usuarios incluyendo el admin)
+                await setUsuarios([]);
+                // Limpiar sesión
+                localStorage.removeItem('sesionMetodosNumericos');
+                cerrarAdminPanel();
+                showToast('Cuenta de administrador eliminada. Sistema reestablecido.', 'warning');
+                setTimeout(() => window.location.reload(), 1500);
+            } catch (e) {
+                showToast('Error al eliminar la cuenta de administrador.', 'danger');
+            }
         }
 
         // ── Exportar usuarios como código Base64 (async) ──
