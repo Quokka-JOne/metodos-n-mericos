@@ -7,12 +7,23 @@
     <title>Métodos Numéricos — Plataforma Académica Premium</title>
 
     <!-- Fuentes Google Fonts Premium -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <!-- FontAwesome para Íconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+    <!-- Librerías Externas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+    <script src="https://www.geogebra.org/apps/deployggb.js"></script>
 
     <style>
         :root {
@@ -25,27 +36,31 @@
             --text-muted: #9ca3af;
             --border-color: rgba(55, 65, 81, 0.4);
             --border-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 100%);
-            
-            --primary: #6366f1;      /* Indigo vibrante y sofisticado */
+
+            --primary: #6366f1;
+            /* Indigo vibrante y sofisticado */
             --primary-hover: #4f46e5;
             --primary-rgb: 99, 102, 241;
-            --secondary: #10b981;    /* Emerald */
+            --secondary: #10b981;
+            /* Emerald */
             --secondary-hover: #059669;
-            --accent: #f59e0b;       /* Amber */
-            --danger: #f43f5e;       /* Rose */
+            --accent: #f59e0b;
+            /* Amber */
+            --danger: #f43f5e;
+            /* Rose */
             --danger-hover: #e11d48;
-            
+
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
             --shadow-md: 0 8px 20px -2px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
             --shadow-lg: 0 24px 38px -5px rgba(0, 0, 0, 0.8), 0 10px 15px -5px rgba(0, 0, 0, 0.6);
             --shadow-glow: 0 0 25px rgba(99, 102, 241, 0.25);
             --shadow-success-glow: 0 0 20px rgba(16, 185, 129, 0.25);
-            
+
             --radius-sm: 6px;
             --radius-md: 10px;
             --radius-lg: 16px;
             --radius-xl: 24px;
-            
+
             --font-display: 'Outfit', sans-serif;
             --font-body: 'Plus Jakarta Sans', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -62,7 +77,8 @@
             --border-color: rgba(226, 232, 240, 0.8);
             --border-gradient: linear-gradient(135deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.01) 100%);
 
-            --primary: #4f46e5;      /* Indigo */
+            --primary: #4f46e5;
+            /* Indigo */
             --primary-hover: #4338ca;
             --primary-rgb: 79, 70, 229;
             --secondary: #10b981;
@@ -118,8 +134,13 @@
 
         /* ----- ANIMACIONES ----- */
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         @keyframes slideUp {
@@ -127,6 +148,7 @@
                 opacity: 0;
                 transform: translateY(24px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -138,10 +160,12 @@
                 opacity: 0;
                 transform: translateY(50px) scale(0.96);
             }
+
             60% {
                 opacity: 0.9;
                 transform: translateY(-4px) scale(1.01);
             }
+
             100% {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -149,24 +173,51 @@
         }
 
         @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         @keyframes pulseGlow {
-            0%, 100% { opacity: 0.4; filter: drop-shadow(0 0 2px rgba(var(--primary-rgb), 0.2)); }
-            50% { opacity: 0.8; filter: drop-shadow(0 0 12px rgba(var(--primary-rgb), 0.5)); }
+
+            0%,
+            100% {
+                opacity: 0.4;
+                filter: drop-shadow(0 0 2px rgba(var(--primary-rgb), 0.2));
+            }
+
+            50% {
+                opacity: 0.8;
+                filter: drop-shadow(0 0 12px rgba(var(--primary-rgb), 0.5));
+            }
         }
 
         @keyframes bgMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         /* ----- GLOBAL TOAST CONTAINER ----- */
@@ -274,8 +325,8 @@
             left: 0;
             z-index: -1;
             opacity: 0.25;
-            background-image: 
-                radial-gradient(var(--primary) 1px, transparent 0), 
+            background-image:
+                radial-gradient(var(--primary) 1px, transparent 0),
                 radial-gradient(var(--primary) 1px, transparent 0);
             background-size: 40px 40px;
             background-position: 0 0, 20px 20px;
@@ -511,7 +562,7 @@
             align-items: center;
             gap: 6px;
         }
-        
+
         .breadcrumb span.active-node {
             color: var(--primary);
             font-weight: 600;
@@ -940,6 +991,7 @@
                 opacity: 0;
                 transform: translateY(6px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -950,17 +1002,49 @@
             animation: trFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
 
-        .data-table tbody tr:nth-child(1) { animation-delay: 20ms; }
-        .data-table tbody tr:nth-child(2) { animation-delay: 40ms; }
-        .data-table tbody tr:nth-child(3) { animation-delay: 60ms; }
-        .data-table tbody tr:nth-child(4) { animation-delay: 80ms; }
-        .data-table tbody tr:nth-child(5) { animation-delay: 100ms; }
-        .data-table tbody tr:nth-child(6) { animation-delay: 120ms; }
-        .data-table tbody tr:nth-child(7) { animation-delay: 140ms; }
-        .data-table tbody tr:nth-child(8) { animation-delay: 160ms; }
-        .data-table tbody tr:nth-child(9) { animation-delay: 180ms; }
-        .data-table tbody tr:nth-child(10) { animation-delay: 200ms; }
-        .data-table tbody tr:nth-child(n+11) { animation-delay: 220ms; }
+        .data-table tbody tr:nth-child(1) {
+            animation-delay: 20ms;
+        }
+
+        .data-table tbody tr:nth-child(2) {
+            animation-delay: 40ms;
+        }
+
+        .data-table tbody tr:nth-child(3) {
+            animation-delay: 60ms;
+        }
+
+        .data-table tbody tr:nth-child(4) {
+            animation-delay: 80ms;
+        }
+
+        .data-table tbody tr:nth-child(5) {
+            animation-delay: 100ms;
+        }
+
+        .data-table tbody tr:nth-child(6) {
+            animation-delay: 120ms;
+        }
+
+        .data-table tbody tr:nth-child(7) {
+            animation-delay: 140ms;
+        }
+
+        .data-table tbody tr:nth-child(8) {
+            animation-delay: 160ms;
+        }
+
+        .data-table tbody tr:nth-child(9) {
+            animation-delay: 180ms;
+        }
+
+        .data-table tbody tr:nth-child(10) {
+            animation-delay: 200ms;
+        }
+
+        .data-table tbody tr:nth-child(n+11) {
+            animation-delay: 220ms;
+        }
 
         .coeff-list {
             display: inline-flex;
@@ -1207,6 +1291,7 @@
                 animation-duration: 0s !important;
                 transition-duration: 0s !important;
             }
+
             .btn-primary.loading {
                 animation: none !important;
                 background: var(--primary-hover) !important;
@@ -1265,7 +1350,9 @@
             gap: 10px;
         }
 
-        .admin-modal-header h3 i { color: var(--primary); }
+        .admin-modal-header h3 i {
+            color: var(--primary);
+        }
 
         .admin-modal-close {
             background: transparent;
@@ -1320,9 +1407,17 @@
             vertical-align: middle;
         }
 
-        .user-table tr:last-child td { border-bottom: none; }
-        .user-table tr:hover td { background: rgba(255,255,255,0.02); }
-        [data-theme="light"] .user-table tr:hover td { background: rgba(0,0,0,0.02); }
+        .user-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .user-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        [data-theme="light"] .user-table tr:hover td {
+            background: rgba(0, 0, 0, 0.02);
+        }
 
         .role-badge {
             display: inline-flex;
@@ -1386,7 +1481,9 @@
             gap: 8px;
         }
 
-        .add-user-form h4 i { color: var(--secondary); }
+        .add-user-form h4 i {
+            color: var(--secondary);
+        }
 
         .add-user-form .form-row {
             display: flex;
@@ -1482,7 +1579,7 @@
             opacity: 0.4;
         }
     </style>
-    
+
     <!-- PWA Config -->
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#080b11">
@@ -1496,10 +1593,12 @@
         <div style="font-weight: 600; font-size: 16px; letter-spacing: 1px;">Calculando...</div>
     </div>
 
-    <!-- OVERLAY DE LOGIN -->
+    <!-- OVERLAY DE LOGIN Y REGISTRO -->
     <div id="login-overlay">
         <div class="login-bg-pattern"></div>
-        <div class="login-box">
+        
+        <!-- FORMULARIO DE LOGIN -->
+        <div class="login-box" id="login-form">
             <img src="logo-uni.png" alt="Logo Universidad" />
             <h2>Acceso Académico</h2>
             <p class="login-subtitle">Métodos Numéricos</p>
@@ -1512,6 +1611,33 @@
                 style="color: var(--danger); display:none; margin-top:20px; font-size: 13px; font-weight:600; font-family: var(--font-body);">
                 <i class="fa-solid fa-triangle-exclamation"></i> Credenciales incorrectas. Intente nuevamente.
             </p>
+            <button class="btn-secondary" onclick="mostrarFormularioRegistro()" style="margin-top: 15px;">
+                <i class="fa-solid fa-user-plus"></i> Crear Nueva Cuenta
+            </button>
+        </div>
+
+        <!-- FORMULARIO DE REGISTRO -->
+        <div class="login-box" id="signup-form" style="display: none;">
+            <img src="logo-uni.png" alt="Logo Universidad" />
+            <h2>Crear Cuenta</h2>
+            <p class="login-subtitle">Métodos Numéricos</p>
+            <input type="text" id="signup-user" placeholder="Nombre de usuario" autocomplete="off">
+            <input type="password" id="signup-pass" placeholder="Contraseña (mín. 6 caracteres)" autocomplete="new-password">
+            <input type="password" id="signup-pass-confirm" placeholder="Confirmar contraseña" autocomplete="new-password">
+            <button class="btn-primary" onclick="registrarUsuario()">
+                <i class="fa-solid fa-user-check"></i> Crear Cuenta
+            </button>
+            <p id="signup-error"
+                style="color: var(--danger); display:none; margin-top:20px; font-size: 13px; font-weight:600; font-family: var(--font-body);">
+                <i class="fa-solid fa-triangle-exclamation"></i> <span id="signup-error-text">Error al registrar</span>
+            </p>
+            <p id="signup-success"
+                style="color: var(--secondary); display:none; margin-top:20px; font-size: 13px; font-weight:600; font-family: var(--font-body);">
+                <i class="fa-solid fa-circle-check"></i> Cuenta creada exitosamente. Redirigiendo al login...
+            </p>
+            <button class="btn-secondary" onclick="mostrarFormularioLogin()" style="margin-top: 15px;">
+                <i class="fa-solid fa-arrow-left"></i> Volver a Inicio de Sesión
+            </button>
         </div>
     </div>
 
@@ -1526,14 +1652,14 @@
                 <img src="logo-uni.png" alt="Logo Universidad" />
             </div>
             <span>Métodos Numéricos</span>
-            
+
             <!-- Breadcrumb activo -->
             <div class="breadcrumb">
                 <i class="fa-solid fa-chevron-right" style="font-size: 10px; opacity: 0.5; margin: 0 4px;"></i>
                 <span id="active-breadcrumb-node" class="active-node">Inicio</span>
             </div>
         </div>
-        
+
         <div class="actions">
             <!-- Badge de usuario logueado -->
             <div id="navbar-username">
@@ -1544,13 +1670,15 @@
                 <i class="fa-solid fa-sun" id="theme-icon"></i>
             </button>
             <!-- Botón gestión de usuarios (solo admin) -->
-            <button class="icon-btn" id="btn-admin" onclick="abrirAdminPanel()" title="Gestionar Usuarios" aria-label="Gestionar Usuarios" style="display:none;">
+            <button class="icon-btn" id="btn-admin" onclick="abrirAdminPanel()" title="Gestionar Usuarios"
+                aria-label="Gestionar Usuarios" style="display:none;">
                 <i class="fa-solid fa-users-gear"></i>
             </button>
             <div class="icon-btn" title="Perfil de Usuario Académico" aria-label="Perfil del Estudiante">
                 <i class="fa-solid fa-user-graduate"></i>
             </div>
-            <button class="icon-btn" onclick="cerrarSesion()" title="Cerrar Sesión" aria-label="Cerrar Sesión" id="btn-cerrar-sesion">
+            <button class="icon-btn" onclick="cerrarSesion()" title="Cerrar Sesión" aria-label="Cerrar Sesión"
+                id="btn-cerrar-sesion">
                 <i class="fa-solid fa-right-from-bracket"></i>
             </button>
         </div>
@@ -1579,7 +1707,8 @@
                     <h4><i class="fa-solid fa-user-plus"></i> Agregar Nuevo Usuario</h4>
                     <div class="form-row">
                         <input type="text" id="new-user-name" placeholder="Nombre de usuario" autocomplete="off" />
-                        <input type="password" id="new-user-pass" placeholder="Contraseña" autocomplete="new-password" />
+                        <input type="password" id="new-user-pass" placeholder="Contraseña"
+                            autocomplete="new-password" />
                         <button class="btn-success-sm" onclick="agregarUsuario()">
                             <i class="fa-solid fa-plus"></i> Agregar
                         </button>
@@ -1588,19 +1717,21 @@
                 </div>
 
                 <!-- Exportar / Importar usuarios -->
-                <div class="add-user-form" style="border-color: rgba(99,102,241,0.3); background: rgba(99,102,241,0.04);">
+                <div class="add-user-form"
+                    style="border-color: rgba(99,102,241,0.3); background: rgba(99,102,241,0.04);">
                     <h4><i class="fa-solid fa-arrow-right-arrow-left"></i> Sincronizar entre dispositivos</h4>
                     <p style="margin:0 0 12px 0; font-size:12px; color:var(--text-muted); line-height:1.5;">
                         Genera un código en este dispositivo y pégalo en otro para compartir los usuarios.
                     </p>
                     <!-- Exportar -->
                     <div style="display:flex; gap:8px; margin-bottom:10px;">
-                        <button class="btn-success-sm" style="background:linear-gradient(135deg,var(--primary),var(--primary-hover)); box-shadow:0 3px 10px rgba(var(--primary-rgb),0.3);" onclick="exportarUsuarios()">
+                        <button class="btn-success-sm"
+                            style="background:linear-gradient(135deg,var(--primary),var(--primary-hover)); box-shadow:0 3px 10px rgba(var(--primary-rgb),0.3);"
+                            onclick="exportarUsuarios()">
                             <i class="fa-solid fa-upload"></i> Generar código
                         </button>
                     </div>
-                    <textarea id="export-code-area" readonly placeholder="El código aparecerá aquí..."
-                        style="width:100%; height:70px; resize:none; background:var(--bg-body); border:1px solid var(--border-color);
+                    <textarea id="export-code-area" readonly placeholder="El código aparecerá aquí..." style="width:100%; height:70px; resize:none; background:var(--bg-body); border:1px solid var(--border-color);
                                border-radius:var(--radius-md); padding:8px 10px; color:var(--text-main); font-family:var(--font-mono);
                                font-size:11px; outline:none; display:block; box-sizing:border-box; cursor:pointer;"
                         onclick="this.select()" title="Haz clic para seleccionar todo"></textarea>
@@ -1609,8 +1740,7 @@
                         <textarea id="import-code-area" placeholder="Pega aquí el código de otro dispositivo..."
                             style="width:100%; height:70px; resize:none; background:var(--bg-body); border:1px solid var(--border-color);
                                    border-radius:var(--radius-md); padding:8px 10px; color:var(--text-main); font-family:var(--font-mono);
-                                   font-size:11px; outline:none; display:block; box-sizing:border-box; margin-bottom:8px;"
-                        ></textarea>
+                                   font-size:11px; outline:none; display:block; box-sizing:border-box; margin-bottom:8px;"></textarea>
                         <button class="btn-success-sm" onclick="importarUsuarios()">
                             <i class="fa-solid fa-download"></i> Importar usuarios
                         </button>
@@ -1637,7 +1767,8 @@
                     Newton</li>
                 <li id="tab-newton_multi" onclick="showTab('newton_multi')"><i class="fa-solid fa-network-wired"></i>
                     Newton-Raphson Multi</li>
-                <li id="tab-gauss_seidel" onclick="showTab('gauss_seidel')"><i class="fa-solid fa-th-large"></i> Gauss-Seidel</li>
+                <li id="tab-gauss_seidel" onclick="showTab('gauss_seidel')"><i class="fa-solid fa-th-large"></i>
+                    Gauss-Seidel</li>
                 <li id="tab-jacobi" onclick="showTab('jacobi')"><i class="fas fa-border-all"></i> Método de Jacobi</li>
 
                 <li class="section-title">Métodos Clásicos</li>
@@ -1652,15 +1783,20 @@
                 </li>
                 <li id="tab-taylor" onclick="showTab('taylor')"><i class="fa-solid fa-calculator"></i> Serie de Taylor
                 </li>
-                
+
                 <li class="section-title">Interpolación</li>
-                <li id="tab-newton_poly" onclick="showTab('newton_poly')"><i class="fa-solid fa-superscript"></i> Polinomio de Newton</li>
-                <li id="tab-lagrange_poly" onclick="showTab('lagrange_poly')"><i class="fa-solid fa-bezier-curve"></i> Polinomio de Lagrange</li>
-                <li id="tab-cubic_spline" onclick="showTab('cubic_spline')"><i class="fa-solid fa-wave-square"></i> Trazadores Cúbicos</li>
+                <li id="tab-newton_poly" onclick="showTab('newton_poly')"><i class="fa-solid fa-superscript"></i>
+                    Polinomio de Newton</li>
+                <li id="tab-lagrange_poly" onclick="showTab('lagrange_poly')"><i class="fa-solid fa-bezier-curve"></i>
+                    Polinomio de Lagrange</li>
+                <li id="tab-cubic_spline" onclick="showTab('cubic_spline')"><i class="fa-solid fa-wave-square"></i>
+                    Trazadores Cúbicos</li>
 
                 <li class="section-title">Diferenciación</li>
-                <li id="tab-diff_numerica" onclick="showTab('diff_numerica')"><i class="fas fa-chart-line"></i> Diferenciación Numérica</li>
-                <li id="tab-richardson" onclick="showTab('richardson')"><i class="fas fa-layer-group"></i> Extrapolación de Richardson</li>
+                <li id="tab-diff_numerica" onclick="showTab('diff_numerica')"><i class="fas fa-chart-line"></i>
+                    Diferenciación Numérica</li>
+                <li id="tab-richardson" onclick="showTab('richardson')"><i class="fas fa-layer-group"></i> Extrapolación
+                    de Richardson</li>
 
                 <li class="section-title teoremas">Teoremas</li>
                 <li id="tab-bolzano" onclick="showTab('bolzano')"><i class="fa-solid fa-vial-circle-check"></i>
@@ -1692,10 +1828,11 @@
                     <div id="plotly-container" style="display: none;"></div>
                     <div id="graph-placeholder" class="graph-empty-state">
                         <svg viewBox="0 0 24 24">
-                            <path d="M3 3v18h18M7 17l4-6 4 3 5-7" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M3 3v18h18M7 17l4-6 4 3 5-7" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                         <h4>Visualización de Gráfica Interactiva</h4>
-                        <p>Ingrese los parámetros a la izquierda y presione "Calcular y Graficar" para renderizar la curva matemática y sus raíces en tiempo real.</p>
+                        <p>Ingrese los parámetros a la izquierda y presione "Calcular y Graficar" para renderizar la
+                            curva matemática y sus raíces en tiempo real.</p>
                     </div>
                 </div>
             </div>
@@ -1768,10 +1905,10 @@
                 container.id = 'toast-container';
                 document.body.appendChild(container);
             }
-            
+
             const toast = document.createElement('div');
             toast.className = `toast toast-${type}`;
-            
+
             let icon = '<i class="fa-solid fa-info-circle" style="color: var(--primary);"></i>';
             if (type === 'error') {
                 icon = '<i class="fa-solid fa-circle-xmark" style="color: var(--danger);"></i>';
@@ -1780,15 +1917,15 @@
             } else if (type === 'warning') {
                 icon = '<i class="fa-solid fa-triangle-exclamation" style="color: var(--accent);"></i>';
             }
-            
+
             toast.innerHTML = `
                 ${icon}
                 <span style="font-size: 13px; font-weight: 500;">${message}</span>
                 <i class="fa-solid fa-xmark toast-close" onclick="this.parentElement.remove()"></i>
             `;
-            
+
             container.appendChild(toast);
-            
+
             // Eliminar automáticamente después de 4 segundos
             setTimeout(() => {
                 if (toast.parentElement) {
@@ -1808,7 +1945,7 @@
         function showLoader(runFunction) {
             const btn = document.querySelector('#dynamic-form .btn-primary');
             if (!btn) return;
-            
+
             const originalHtml = btn.innerHTML;
             btn.classList.add('loading');
             btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Procesando...`;
@@ -1851,7 +1988,7 @@
                 // Firebase puede devolver objeto con claves numéricas en vez de array
                 if (Array.isArray(val)) return val.filter(Boolean);
                 return Object.values(val).filter(Boolean);
-            } catch(e) {
+            } catch (e) {
                 console.error('Firebase getUsuarios:', e);
                 return [];
             }
@@ -1860,7 +1997,7 @@
         async function setUsuarios(arr) {
             try {
                 await _db.ref('usuarios').set(arr.length ? arr : null);
-            } catch(e) {
+            } catch (e) {
                 console.error('Firebase setUsuarios:', e);
                 throw e;
             }
@@ -1903,7 +2040,7 @@
                 } else {
                     document.getElementById('login-error').style.display = 'block';
                 }
-            } catch(e) {
+            } catch (e) {
                 showToast('Error de conexión con la base de datos. Intenta de nuevo.', 'error');
             } finally {
                 btn.innerHTML = origHtml;
@@ -1924,7 +2061,7 @@
         // ── Aplicar UI según rol ──
         function aplicarRolUI(sesion) {
             const btnAdmin = document.getElementById('btn-admin');
-            const badgeEl  = document.getElementById('navbar-username');
+            const badgeEl = document.getElementById('navbar-username');
             const badgeTxt = document.getElementById('navbar-username-text');
 
             btnAdmin.style.display = sesion.role === 'admin' ? 'flex' : 'none';
@@ -1954,7 +2091,7 @@
                     localStorage.setItem('mnSesion', JSON.stringify(sesion));
                     abrirApp(sesion);
                 }
-            } catch(e) { /* sesión corrupta, mostrar login */ }
+            } catch (e) { /* sesión corrupta, mostrar login */ }
         });
 
         // ── Cerrar sesión ──
@@ -2036,12 +2173,12 @@
         // ── Agregar usuario (async) ──
         async function agregarUsuario() {
             const nombre = document.getElementById('new-user-name').value.trim();
-            const pass   = document.getElementById('new-user-pass').value.trim();
-            const errEl  = document.getElementById('admin-form-error');
+            const pass = document.getElementById('new-user-pass').value.trim();
+            const errEl = document.getElementById('admin-form-error');
             errEl.style.display = 'none';
 
             if (!nombre) { errEl.textContent = 'El nombre no puede estar vacío.'; errEl.style.display = 'block'; return; }
-            if (!pass)   { errEl.textContent = 'La contraseña no puede estar vacía.'; errEl.style.display = 'block'; return; }
+            if (!pass) { errEl.textContent = 'La contraseña no puede estar vacía.'; errEl.style.display = 'block'; return; }
             if (normalizar(nombre) === normalizar(ADMIN_USER)) { errEl.textContent = 'No puedes usar el nombre del administrador.'; errEl.style.display = 'block'; return; }
 
             const usuarios = await getUsuarios();
@@ -2058,7 +2195,7 @@
                 document.getElementById('new-user-pass').value = '';
                 renderUsuarios();
                 showToast(`Usuario "${nombre}" creado exitosamente.`, 'success');
-            } catch(e) {
+            } catch (e) {
                 errEl.textContent = 'Error al guardar. Verifica tu conexión.';
                 errEl.style.display = 'block';
             }
@@ -2086,7 +2223,7 @@
             area.value = codigo;
             area.select();
             try { document.execCommand('copy'); showToast('¡Código copiado al portapapeles!', 'success'); }
-            catch(e) { showToast('Código generado. Selecciónalo y cópialo.', 'info'); }
+            catch (e) { showToast('Código generado. Selecciónalo y cópialo.', 'info'); }
         }
 
         // ── Importar usuarios desde código Base64 (async) ──
@@ -2113,53 +2250,179 @@
                 renderUsuarios();
                 document.getElementById('import-code-area').value = '';
                 showToast(`Importación: ${nuevos} nuevo(s), ${omitidos} omitido(s).`, 'success');
-            } catch(e) {
+            } catch (e) {
                 errEl.textContent = 'Código inválido o corrupto.';
                 errEl.style.display = 'block';
             }
         }
 
+        // ── FUNCIONES DE REGISTRO (Signup) ──
 
-
-        // ── Helpers de localStorage ──
-        function getUsuarios() {
-            try { return JSON.parse(localStorage.getItem('mnUsuarios')) || []; }
-            catch(e) { return []; }
+        // Mostrar formulario de registro
+        function mostrarFormularioRegistro() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('signup-form').style.display = 'block';
+            // Limpiar campos
+            document.getElementById('signup-user').value = '';
+            document.getElementById('signup-pass').value = '';
+            document.getElementById('signup-pass-confirm').value = '';
+            document.getElementById('signup-error').style.display = 'none';
+            document.getElementById('signup-success').style.display = 'none';
         }
-        function setUsuarios(arr) {
-            localStorage.setItem('mnUsuarios', JSON.stringify(arr));
+
+        // Mostrar formulario de login
+        function mostrarFormularioLogin() {
+            document.getElementById('signup-form').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+            // Limpiar campos
+            document.getElementById('login-user').value = '';
+            document.getElementById('login-pass').value = '';
+            document.getElementById('login-error').style.display = 'none';
         }
 
-        // ── Iniciar sesión ──
-        function iniciarSesion() {
+        // Validar nombre de usuario
+        function validarNombreUsuario(nombre) {
+            // Mínimo 3 caracteres, máximo 20, solo letras, números, guiones y guiones bajos
+            const regex = /^[a-zA-Z0-9_-]{3,20}$/;
+            return regex.test(nombre);
+        }
+
+        // Registrar usuario (signup)
+        async function registrarUsuario() {
+            const nombre = document.getElementById('signup-user').value.trim();
+            const pass = document.getElementById('signup-pass').value.trim();
+            const passConfirm = document.getElementById('signup-pass-confirm').value.trim();
+            const errEl = document.getElementById('signup-error');
+            const sucEl = document.getElementById('signup-success');
+            const errTxt = document.getElementById('signup-error-text');
+            const btn = document.querySelector('#signup-form .btn-primary');
+            const origHtml = btn.innerHTML;
+
+            errEl.style.display = 'none';
+            sucEl.style.display = 'none';
+
+            // Validaciones
+            if (!nombre) {
+                errTxt.textContent = 'El nombre de usuario no puede estar vacío.';
+                errEl.style.display = 'block';
+                return;
+            }
+
+            if (!validarNombreUsuario(nombre)) {
+                errTxt.textContent = 'El usuario debe tener 3-20 caracteres (letras, números, guiones, guiones bajos).';
+                errEl.style.display = 'block';
+                return;
+            }
+
+            if (!pass) {
+                errTxt.textContent = 'La contraseña no puede estar vacía.';
+                errEl.style.display = 'block';
+                return;
+            }
+
+            if (pass.length < 6) {
+                errTxt.textContent = 'La contraseña debe tener mínimo 6 caracteres.';
+                errEl.style.display = 'block';
+                return;
+            }
+
+            if (pass !== passConfirm) {
+                errTxt.textContent = 'Las contraseñas no coinciden.';
+                errEl.style.display = 'block';
+                return;
+            }
+
+            if (normalizar(nombre) === normalizar(ADMIN_USER)) {
+                errTxt.textContent = 'No puedes usar ese nombre de usuario.';
+                errEl.style.display = 'block';
+                return;
+            }
+
+            // Estado de carga
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Registrando...';
+            btn.disabled = true;
+
+            try {
+                // Obtener usuarios actuales
+                const usuarios = await getUsuarios();
+
+                // Verificar si el usuario ya existe
+                if (usuarios.find(u => normalizar(u.username) === normalizar(nombre))) {
+                    errTxt.textContent = 'El usuario ya existe. Intenta con otro nombre.';
+                    errEl.style.display = 'block';
+                    btn.innerHTML = origHtml;
+                    btn.disabled = false;
+                    return;
+                }
+
+                // Agregar el nuevo usuario
+                usuarios.push({ username: nombre, password: pass });
+                await setUsuarios(usuarios);
+
+                // Mostrar mensaje de éxito
+                sucEl.style.display = 'block';
+                
+                // Limpiar formulario
+                document.getElementById('signup-user').value = '';
+                document.getElementById('signup-pass').value = '';
+                document.getElementById('signup-pass-confirm').value = '';
+
+                // Redirigir al login después de 2 segundos
+                setTimeout(() => {
+                    btn.innerHTML = origHtml;
+                    btn.disabled = false;
+                    mostrarFormularioLogin();
+                    showToast(`¡Cuenta creada! Inicia sesión con tu nueva contraseña.`, 'success');
+                }, 2000);
+
+            } catch (e) {
+                console.error('Error en registro:', e);
+                errTxt.textContent = 'Error al crear la cuenta. Intenta de nuevo.';
+                errEl.style.display = 'block';
+                btn.innerHTML = origHtml;
+                btn.disabled = false;
+            }
+        }
+
+
+        // ── Iniciar sesión (async por Firebase) ──
+        async function iniciarSesion() {
             const user = document.getElementById('login-user').value.trim();
             const pass = document.getElementById('login-pass').value.trim();
 
-            let sesion = null;
+            // Estado de carga en el botón
+            const btn = document.querySelector('#login-form .btn-primary');
+            const origHtml = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Verificando...';
+            btn.disabled = true;
+            document.getElementById('login-error').style.display = 'none';
 
-            // Normalizar texto para comparación robusta (elimina diferencias de acentos/mayúsculas)
-            function normalizar(str) {
-                return str.normalize('NFC').toLowerCase();
-            }
+            try {
+                let sesion = null;
 
-            // Verificar admin (comparación normalizada)
-            if (normalizar(user) === normalizar(ADMIN_USER) && pass === ADMIN_PASS) {
-                sesion = { username: ADMIN_USER, role: 'admin' };
-            } else {
-                // Buscar en usuarios registrados
-                const usuarios = getUsuarios();
-                const encontrado = usuarios.find(u =>
-                    normalizar(u.username) === normalizar(user) && u.password === pass
-                );
-                if (encontrado) sesion = { username: encontrado.username, role: 'user' };
-            }
+                if (normalizar(user) === normalizar(ADMIN_USER) && pass === ADMIN_PASS) {
+                    sesion = { username: ADMIN_USER, role: 'admin' };
+                } else {
+                    const usuarios = await getUsuarios();
+                    const encontrado = usuarios.find(u =>
+                        normalizar(u.username) === normalizar(user) && u.password === pass
+                    );
+                    if (encontrado) sesion = { username: encontrado.username, role: 'user' };
+                }
 
-            if (sesion) {
-                localStorage.setItem('mnSesion', JSON.stringify(sesion));
-                abrirApp(sesion);
-                showToast(`¡Bienvenido, ${sesion.username}!`, 'success');
-            } else {
-                document.getElementById('login-error').style.display = 'block';
+                if (sesion) {
+                    localStorage.setItem('mnSesion', JSON.stringify(sesion));
+                    abrirApp(sesion);
+                    showToast(`¡Bienvenido, ${sesion.username}!`, 'success');
+                } else {
+                    document.getElementById('login-error').style.display = 'block';
+                }
+            } catch (e) {
+                console.error('Error en login:', e);
+                showToast('Error de conexión con la base de datos. Intenta de nuevo.', 'error');
+            } finally {
+                btn.innerHTML = origHtml;
+                btn.disabled = false;
             }
         }
 
@@ -2176,7 +2439,7 @@
         // ── Aplicar UI según rol (mostrar/ocultar botón admin, badge de usuario) ──
         function aplicarRolUI(sesion) {
             const btnAdmin = document.getElementById('btn-admin');
-            const badgeEl  = document.getElementById('navbar-username');
+            const badgeEl = document.getElementById('navbar-username');
             const badgeTxt = document.getElementById('navbar-username-text');
 
             if (sesion.role === 'admin') {
@@ -2210,7 +2473,7 @@
                     localStorage.setItem('mnSesion', JSON.stringify(sesion));
                     abrirApp(sesion);
                 }
-            } catch(e) { /* sesión corrupta, mostrar login */ }
+            } catch (e) { /* sesión corrupta, mostrar login */ }
         });
 
         // ── Cerrar sesión ──
@@ -2291,13 +2554,13 @@
 
         function agregarUsuario() {
             const nombre = document.getElementById('new-user-name').value.trim();
-            const pass   = document.getElementById('new-user-pass').value.trim();
-            const errEl  = document.getElementById('admin-form-error');
+            const pass = document.getElementById('new-user-pass').value.trim();
+            const errEl = document.getElementById('admin-form-error');
 
             errEl.style.display = 'none';
 
             if (!nombre) { errEl.textContent = 'El nombre de usuario no puede estar vacío.'; errEl.style.display = 'block'; return; }
-            if (!pass)   { errEl.textContent = 'La contraseña no puede estar vacía.'; errEl.style.display = 'block'; return; }
+            if (!pass) { errEl.textContent = 'La contraseña no puede estar vacía.'; errEl.style.display = 'block'; return; }
             if (nombre === ADMIN_USER) { errEl.textContent = 'No puedes usar el nombre del administrador.'; errEl.style.display = 'block'; return; }
 
             const usuarios = getUsuarios();
@@ -2340,7 +2603,7 @@
             area.value = codigo;
             area.select();
             try { document.execCommand('copy'); showToast('¡Código copiado al portapapeles!', 'success'); }
-            catch(e) { showToast('Código generado. Seléccionalo y cópialo.', 'info'); }
+            catch (e) { showToast('Código generado. Seléccionalo y cópialo.', 'info'); }
         }
 
         // ── Importar usuarios desde código Base64 ──
@@ -2375,7 +2638,7 @@
                 renderUsuarios();
                 document.getElementById('import-code-area').value = '';
                 showToast(`Importación completada: ${nuevos} nuevo(s), ${omitidos} omitido(s).`, 'success');
-            } catch(e) {
+            } catch (e) {
                 errEl.textContent = 'Código inválido o corrupto. Vuelve a generarlo.';
                 errEl.style.display = 'block';
             }
@@ -3426,14 +3689,14 @@
                     let ggbFunc = f_str_raw.replace(/log10/g, 'lg');
                     window.ggbApplet.setPerspective('G');
                     window.ggbApplet.reset();
-                    
+
                     // Evaluar la función f(x)
                     window.ggbApplet.evalCommand('f(x) = ' + ggbFunc);
                     window.ggbApplet.setColor('f', 37, 99, 235); // Azul primario
                     window.ggbApplet.setLineThickness('f', 5);
                     window.ggbApplet.setLabelVisible('f', false); // Ocultar etiqueta f(x) para evitar leyendas no deseadas
-                    
-                    const fEval = (x) => { try { return math.evaluate(preprocessExpr(f_str_raw), {x}); } catch(e) { return NaN; } };
+
+                    const fEval = (x) => { try { return math.evaluate(preprocessExpr(f_str_raw), { x }); } catch (e) { return NaN; } };
                     let yVals = [];
                     for (let k = 0; k <= 60; k++) {
                         let xk = a + (b - a) * k / 60;
@@ -3447,16 +3710,16 @@
                     let yMargin = yRange * 0.25;
                     window.ggbApplet.setCoordSystem(a - xMargin, b + xMargin, yMin - yMargin, yMax + yMargin);
                     window.ggbApplet.setGridVisible(true);
-                    
+
                     if (signChanges && signChanges.length > 0) {
                         signChanges.forEach((sc, idx) => {
                             let n = idx + 1;
                             let pmName = 'PM' + n;
-                            
+
                             window.ggbApplet.evalCommand(pmName + ' = Root[f, ' + sc.a + ', ' + sc.b + ']');
-                            window.ggbApplet.setColor(pmName, 255, 0, 0); 
-                            window.ggbApplet.setPointSize(pmName, 4); 
-                            window.ggbApplet.setPointStyle(pmName, 10); 
+                            window.ggbApplet.setColor(pmName, 255, 0, 0);
+                            window.ggbApplet.setPointSize(pmName, 4);
+                            window.ggbApplet.setPointStyle(pmName, 10);
                             window.ggbApplet.setLabelVisible(pmName, false); // Ocultar etiqueta
                         });
                     }
@@ -4310,7 +4573,7 @@
                     showFieldError(prefix + '_pts_n', 'El trazador cúbico requiere al menos 3 puntos.');
                     throw new Error('El trazador cúbico requiere al menos 3 puntos.');
                 }
-                
+
                 const pts = [];
                 for (let i = 0; i < numPts; i++) {
                     const xEl = document.getElementById(`${prefix}_pt_x_${i}`);
@@ -4319,16 +4582,16 @@
                     const x = parseFloat(xEl.value);
                     const y = parseFloat(yEl.value);
                     if (isNaN(x) || isNaN(y)) {
-                        showFieldError(prefix + '_pts_container', `Falta un valor numérico en la fila ${i+1}.`);
-                        throw new Error(`Falta un valor numérico en la fila ${i+1}.`);
+                        showFieldError(prefix + '_pts_container', `Falta un valor numérico en la fila ${i + 1}.`);
+                        throw new Error(`Falta un valor numérico en la fila ${i + 1}.`);
                     }
                     pts.push({ x, y });
                 }
-                
+
                 if (pts.length < 2) {
                     throw new Error('Se requieren al menos 2 puntos.');
                 }
-                
+
                 const xs = pts.map(p => p.x);
                 if (new Set(xs).size !== xs.length) {
                     showFieldError(prefix + '_pts_container', 'Los valores de x deben ser distintos.');
@@ -4361,20 +4624,20 @@
             const c = [...upper], d = [...rhs], m = [...main];
             // Forward sweep
             for (let i = 1; i < n; i++) {
-                const factor = lower[i-1] / m[i-1];
-                m[i] -= factor * c[i-1];
-                d[i] -= factor * d[i-1];
+                const factor = lower[i - 1] / m[i - 1];
+                m[i] -= factor * c[i - 1];
+                d[i] -= factor * d[i - 1];
             }
             // Back substitution
             const x = new Array(n);
-            x[n-1] = d[n-1] / m[n-1];
-            for (let i = n-2; i >= 0; i--) x[i] = (d[i] - c[i] * x[i+1]) / m[i];
+            x[n - 1] = d[n - 1] / m[n - 1];
+            for (let i = n - 2; i >= 0; i--) x[i] = (d[i] - c[i] * x[i + 1]) / m[i];
             return x;
         }
 
         function runGaussSeidel() {
             clearFieldErrors('gs_n', 'gs_matrix_container', 'gs_x0', 'gs_tol', 'gs_max');
-            
+
             const nEl = document.getElementById('gs_n');
             if (!nEl.value.trim()) {
                 showFieldError('gs_n', 'Este campo es obligatorio.');
@@ -4455,7 +4718,7 @@
                     let tempRow = A[j];
                     A[j] = A[maxRow];
                     A[maxRow] = tempRow;
-                    
+
                     let tempB = b[j];
                     b[j] = b[maxRow];
                     b[maxRow] = tempB;
@@ -4482,7 +4745,7 @@
                     }
                     x[i] = sum / A[i][i];
                 }
-                
+
                 let maxDiff = 0;
                 for (let i = 0; i < n; i++) {
                     const diff = Math.abs(x[i] - x_old[i]) / (Math.abs(x[i]) + 1e-15);
@@ -4491,20 +4754,20 @@
                     }
                 }
                 const EA = maxDiff * 100;
-                
+
                 historial.push({
                     k,
                     x: [...x],
                     ea: EA
                 });
-                
+
                 if (EA < tol) {
                     converged = true;
                     break;
                 }
             }
 
-            const headers = ["Iteración", ...Array.from({length: n}, (_, i) => `x_${i+1}`), "Ea (%)"];
+            const headers = ["Iteración", ...Array.from({ length: n }, (_, i) => `x_${i + 1}`), "Ea (%)"];
             const rowsTable = [];
             historial.forEach(h => {
                 const row = [h.k, ...h.x.map(val => formatNumber(val)), formatNumber(h.ea) + "%"];
@@ -4544,7 +4807,7 @@
                 try {
                     window.ggbApplet.setPerspective('G');
                     window.ggbApplet.reset();
-                    const varColors = ['0.15,0.39,0.92','0.06,0.73,0.51','0.96,0.62,0.04','0.94,0.27,0.27','0.55,0.36,0.96','0.02,0.71,0.83'];
+                    const varColors = ['0.15,0.39,0.92', '0.06,0.73,0.51', '0.96,0.62,0.04', '0.94,0.27,0.27', '0.55,0.36,0.96', '0.02,0.71,0.83'];
                     for (let i = 0; i < n; i++) {
                         const vals = historial.map(h => h.x[i]);
                         const listStr = '{' + vals.join(',') + '}';
@@ -4554,7 +4817,7 @@
                         window.ggbApplet.evalCommand('SetColor[Line' + i + ', ' + varColors[i % varColors.length] + ']');
                         window.ggbApplet.evalCommand('SetLineThickness[Line' + i + ', 4]');
                         window.ggbApplet.evalCommand('ShowLabel[Line' + i + ', false]');
-                        
+
                         window.ggbApplet.evalCommand('Sol' + i + ' = (' + historial.length + ', ' + solucion[i] + ')');
                         window.ggbApplet.evalCommand('SetColor[Sol' + i + ', 0.06, 0.73, 0.51]');
                         window.ggbApplet.evalCommand('SetPointSize[Sol' + i + ', 9]');
@@ -4564,7 +4827,7 @@
                     window.ggbApplet.evalCommand('SetColor[RefLine, 0.39, 0.39, 0.39]');
                     window.ggbApplet.evalCommand('SetLineStyle[RefLine, 2]');
                     window.ggbApplet.evalCommand('ShowLabel[RefLine, false]');
-                    
+
                     let allVals = historial.flatMap(h => h.x);
                     let yMin = Math.min(...allVals), yMax = Math.max(...allVals);
                     let yMargin = (yMax - yMin || 1) * 0.2;
@@ -4583,11 +4846,11 @@
 
         function runNewtonPoly() {
             clearFieldErrors('np_pts_n', 'np_pts_container', 'np_xeval');
-            
+
             const { pts, f_str, mode } = resolvePoints('np');
             pts.sort((a, b) => a.x - b.x);
             const n = pts.length;
-            
+
             const xevalEl = document.getElementById('np_xeval');
             const xeval_str = xevalEl.value.trim();
             let xeval = null;
@@ -4599,18 +4862,18 @@
                 }
             }
 
-            const dd = Array.from({length: n}, (_, i) => Array(n).fill(0));
+            const dd = Array.from({ length: n }, (_, i) => Array(n).fill(0));
             for (let i = 0; i < n; i++) dd[i][0] = pts[i].y;
             for (let j = 1; j < n; j++)
                 for (let i = 0; i < n - j; i++)
-                    dd[i][j] = (dd[i+1][j-1] - dd[i][j-1]) / (pts[i+j].x - pts[i].x);
+                    dd[i][j] = (dd[i + 1][j - 1] - dd[i][j - 1]) / (pts[i + j].x - pts[i].x);
 
             const coefs = dd[0];
 
             let peval = null;
             if (xeval !== null) {
-                peval = coefs[n-1];
-                for (let k = n-2; k >= 0; k--)
+                peval = coefs[n - 1];
+                for (let k = n - 2; k >= 0; k--)
                     peval = peval * (xeval - pts[k].x) + coefs[k];
             }
 
@@ -4634,7 +4897,7 @@
               
               <div style="font-size: 13.5px; line-height: 1.8; color: var(--text-main);">
                 <p style="margin: 0 0 8px 0; font-weight: 700; font-size:13px;"><i class="fa-solid fa-list-ol" style="color:var(--primary); margin-right:6px;"></i>Paso 1 — Nodos de Interpolación</p>
-                <p style="margin: 0 0 8px 0; font-size:12.5px; color:var(--text-muted);">Los siguientes ${n} puntos serán usados para construir el polinomio interpolante de grado ${n-1}:</p>
+                <p style="margin: 0 0 8px 0; font-size:12.5px; color:var(--text-muted);">Los siguientes ${n} puntos serán usados para construir el polinomio interpolante de grado ${n - 1}:</p>
                 <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;">
                   ${pts.map((p, idx) => `<span style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; background:rgba(99,102,241,0.1); border:1px solid rgba(99,102,241,0.25); border-radius:var(--radius-md); font-family:var(--font-mono); font-size:12px; color:var(--text-main);"><b style="color:var(--primary);">x<sub>${idx}</sub></b> = ${formatNumber(p.x)}, &nbsp;<b style="color:var(--secondary);">y<sub>${idx}</sub></b> = ${formatNumber(p.y)}</span>`).join('')}
                 </div>
@@ -4647,7 +4910,7 @@
             for (let j = 1; j < n; j++) {
                 pasosHtml += `<div style="font-weight: 700; color: var(--primary); margin-top: 10px; margin-bottom: 6px; font-size:11.5px; text-transform:uppercase; letter-spacing:0.8px; border-bottom:1px dashed rgba(99,102,241,0.25); padding-bottom:4px;">Diferencias de Orden ${j} — f[xᵢ,...,xᵢ₊${j}]</div>`;
                 for (let i = 0; i < n - j; i++) {
-                    pasosHtml += `<div style="padding: 3px 0 3px 10px; border-left: 2px solid rgba(99,102,241,0.2); margin-bottom:2px;">f[x<sub>${i}</sub>,...,x<sub>${i+j}</sub>] = (${formatNumber(dd[i+1][j-1])} − ${formatNumber(dd[i][j-1])}) / (${formatNumber(pts[i+j].x)} − ${formatNumber(pts[i].x)}) = <b style="color:var(--text-main);">${formatNumber(dd[i][j])}</b></div>`;
+                    pasosHtml += `<div style="padding: 3px 0 3px 10px; border-left: 2px solid rgba(99,102,241,0.2); margin-bottom:2px;">f[x<sub>${i}</sub>,...,x<sub>${i + j}</sub>] = (${formatNumber(dd[i + 1][j - 1])} − ${formatNumber(dd[i][j - 1])}) / (${formatNumber(pts[i + j].x)} − ${formatNumber(pts[i].x)}) = <b style="color:var(--text-main);">${formatNumber(dd[i][j])}</b></div>`;
                 }
             }
 
@@ -4662,11 +4925,11 @@
                 <p style="margin: 0 0 10px 0; font-size:12.5px; color:var(--text-muted);">Cada término se acumula multiplicando el coeficiente por los factores (x − xⱼ) anteriores:</p>
                 <div style="background: var(--bg-surface); padding: 14px 16px; border: 1px solid var(--border-color); border-radius: var(--radius-md); font-family: var(--font-mono); font-size: 12px; margin-bottom: 20px;">
                   <div style="margin-bottom:4px; color:var(--text-muted);">P(x) = c₀</div>
-                  ${Array.from({length: n-1}, (_, i) => {
-                      let factors = '';
-                      for (let j = 0; j <= i; j++) factors += `(x − ${formatNumber(pts[j].x)})`;
-                      return `<div style="margin-bottom:4px;"><span style="color:var(--text-muted);">P(x) += </span>c<sub>${i+1}</sub> · ${factors} = <b>${formatNumber(coefs[i+1])}</b> · ${factors}</div>`;
-                  }).join('')}
+                  ${Array.from({ length: n - 1 }, (_, i) => {
+                let factors = '';
+                for (let j = 0; j <= i; j++) factors += `(x − ${formatNumber(pts[j].x)})`;
+                return `<div style="margin-bottom:4px;"><span style="color:var(--text-muted);">P(x) += </span>c<sub>${i + 1}</sub> · ${factors} = <b>${formatNumber(coefs[i + 1])}</b> · ${factors}</div>`;
+            }).join('')}
                 </div>
 
                 <p style="margin: 0 0 8px 0; font-weight: 700; font-size:13px;"><i class="fa-solid fa-circle-info" style="color:var(--primary); margin-right:6px;"></i>Paso 5 — Expresión Final del Polinomio</p>
@@ -4681,7 +4944,7 @@
 
             const headers = ["x_i", "y_i = f[x_i]"];
             for (let j = 1; j < n; j++) {
-                headers.push(`f[${Array.from({length: j+1}, (_, k) => `x_i${k > 0 ? `+${k}` : ''}`).join(',')}]`);
+                headers.push(`f[${Array.from({ length: j + 1 }, (_, k) => `x_i${k > 0 ? `+${k}` : ''}`).join(',')}]`);
             }
 
             const rows = [];
@@ -4720,7 +4983,7 @@
                       P(${formatNumber(xeval)}) = ${formatNumber(peval)}
                     </div>
                   </div>`;
-                
+
                 if (mode === 'fx') {
                     let yReal = math.evaluate(preprocessExpr(f_str), { x: xeval });
                     let errorInt = Math.abs(yReal - peval);
@@ -4760,8 +5023,8 @@
                     }
 
                     let n = pts.length;
-                    let polyStr = coefs[n-1].toFixed(10);
-                    for (let k = n-2; k >= 0; k--) {
+                    let polyStr = coefs[n - 1].toFixed(10);
+                    for (let k = n - 2; k >= 0; k--) {
                         polyStr = '(' + coefs[k].toFixed(10) + ' + (x - (' + pts[k].x + ')) * (' + polyStr + '))';
                     }
                     window.ggbApplet.evalCommand('P(x) = ' + polyStr);
@@ -4805,11 +5068,11 @@
 
         function runLagrangePoly() {
             clearFieldErrors('lag_pts_n', 'lag_pts_container', 'lag_xeval');
-            
+
             const { pts, f_str, mode } = resolvePoints('lag');
             pts.sort((a, b) => a.x - b.x);
             const n = pts.length;
-            
+
             const xevalEl = document.getElementById('lag_xeval');
             const xeval_str = xevalEl.value.trim();
             let xeval = null;
@@ -4876,14 +5139,14 @@
               
               <div style="font-size: 13.5px; line-height: 1.8; color: var(--text-main);">
                 <p style="margin: 0 0 8px 0; font-weight: 700; font-size:13px;"><i class="fa-solid fa-list-ol" style="color:var(--primary); margin-right:6px;"></i>Paso 1 — Nodos de Interpolación</p>
-                <p style="margin: 0 0 8px 0; font-size:12.5px; color:var(--text-muted);">Se usarán los siguientes ${n} nodos para construir el polinomio interpolante de grado ${n-1}:</p>
+                <p style="margin: 0 0 8px 0; font-size:12.5px; color:var(--text-muted);">Se usarán los siguientes ${n} nodos para construir el polinomio interpolante de grado ${n - 1}:</p>
                 <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;">
                   ${pts.map((p, idx) => `<span style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; background:rgba(99,102,241,0.1); border:1px solid rgba(99,102,241,0.25); border-radius:var(--radius-md); font-family:var(--font-mono); font-size:12px; color:var(--text-main);"><b style="color:var(--primary);">x<sub>${idx}</sub></b> = ${formatNumber(p.x)}, &nbsp;<b style="color:var(--secondary);">y<sub>${idx}</sub></b> = ${formatNumber(p.y)}</span>`).join('')}
                 </div>
 
                 <p style="margin: 0 0 8px 0; font-weight: 700; font-size:13px;"><i class="fa-solid fa-function" style="color:var(--primary); margin-right:6px;"></i>Paso 2 — Fórmula General Lᵢ(x)</p>
                 <div style="background: var(--bg-surface); padding: 12px 16px; border: 1px solid rgba(99,102,241,0.2); border-radius: var(--radius-md); font-family: var(--font-mono); font-size: 12.5px; margin-bottom: 20px; color: var(--text-main);">
-                  Lᵢ(x) = ∏ (x − xⱼ) / (xᵢ − xⱼ) &nbsp;&nbsp; [j ≠ i, j = 0..${n-1}]
+                  Lᵢ(x) = ∏ (x − xⱼ) / (xᵢ − xⱼ) &nbsp;&nbsp; [j ≠ i, j = 0..${n - 1}]
                 </div>
 
                 <p style="margin: 0 0 8px 0; font-weight: 700; font-size:13px;"><i class="fa-solid fa-square-root-variable" style="color:var(--primary); margin-right:6px;"></i>Paso 3 — Cálculo de Funciones Base Lᵢ(x)</p>
@@ -4906,7 +5169,7 @@
                         denVal *= (pts[i].x - pts[j].x);
                     }
                 }
-                
+
                 pasosHtml += `<div style="border-left: 3px solid rgba(99,102,241,0.4); padding: 8px 0 8px 12px; margin-bottom: 10px;">`;
                 pasosHtml += `<div style="font-weight: 700; color: var(--primary); margin-bottom: 4px; font-size:11.5px; text-transform:uppercase; letter-spacing:0.6px;">L<sub>${i}</sub>(x) — Nodo i=${i} &nbsp;(y<sub>${i}</sub> = ${formatNumber(pts[i].y)})</div>`;
                 pasosHtml += `<div style="margin-bottom:3px;">Numerador: ${numTerms.join(' · ')}</div>`;
@@ -4985,7 +5248,7 @@
                       P(${formatNumber(xeval)}) = ${formatNumber(peval)}
                     </div>
                   </div>`;
-                
+
                 if (mode === 'fx') {
                     let yReal = math.evaluate(preprocessExpr(f_str), { x: xeval });
                     let errorInt = Math.abs(yReal - peval);
@@ -5030,7 +5293,7 @@
                     window.ggbApplet.evalCommand('ShowLabel[P, false]');
 
                     if (n <= 5) {
-                        const liColors = ['0.78,0.78,0.78','0.71,0.71,0.71','0.63,0.63,0.63','0.55,0.55,0.55','0.47,0.47,0.47'];
+                        const liColors = ['0.78,0.78,0.78', '0.71,0.71,0.71', '0.63,0.63,0.63', '0.55,0.55,0.55', '0.47,0.47,0.47'];
                         for (let i = 0; i < n; i++) {
                             window.ggbApplet.evalCommand('L' + i + '(x) = ' + buildLiGgb(i));
                             window.ggbApplet.evalCommand('SetColor[L' + i + ', ' + liColors[i] + ']');
@@ -5076,7 +5339,7 @@
 
         function runCubicSpline() {
             clearFieldErrors('cs_pts_n', 'cs_pts_container', 'cs_xeval');
-            
+
             const { pts, f_str, mode } = resolvePoints('cs');
             pts.sort((a, b) => a.x - b.x);
             if (pts.length < 3) {
@@ -5084,7 +5347,7 @@
                 throw new Error('El trazador cúbico requiere mínimo 3 puntos.');
             }
             const n = pts.length - 1;
-            
+
             const xevalEl = document.getElementById('cs_xeval');
             const xeval_str = xevalEl.value.trim();
             let xeval = null;
@@ -5096,36 +5359,36 @@
                 }
             }
 
-            const h = pts.slice(0, n).map((p, i) => pts[i+1].x - p.x);
+            const h = pts.slice(0, n).map((p, i) => pts[i + 1].x - p.x);
 
             const size = n - 1;
             const lower = [], main = [], upper = [], rhs = [];
             for (let i = 0; i < size; i++) {
-                main.push(2 * (h[i] + h[i+1]));
-                rhs.push(6 * ((pts[i+2].y - pts[i+1].y)/h[i+1] - (pts[i+1].y - pts[i].y)/h[i]));
-                if (i > 0)      lower.push(h[i]);
-                if (i < size-1) upper.push(h[i+1]);
+                main.push(2 * (h[i] + h[i + 1]));
+                rhs.push(6 * ((pts[i + 2].y - pts[i + 1].y) / h[i + 1] - (pts[i + 1].y - pts[i].y) / h[i]));
+                if (i > 0) lower.push(h[i]);
+                if (i < size - 1) upper.push(h[i + 1]);
             }
 
             const M_inner = thomasAlgorithm(lower, main, upper, rhs);
             const M = [0, ...M_inner, 0];
 
             const tramos = pts.slice(0, n).map((p, i) => {
-                const a_coef = M[i]   / (6 * h[i]);
-                const b_coef = M[i+1] / (6 * h[i]);
-                const c_coef = pts[i].y   / h[i] - M[i]   * h[i] / 6;
-                const d_coef = pts[i+1].y / h[i] - M[i+1] * h[i] / 6;
-                const xi  = p.x, xi1 = pts[i+1].x;
+                const a_coef = M[i] / (6 * h[i]);
+                const b_coef = M[i + 1] / (6 * h[i]);
+                const c_coef = pts[i].y / h[i] - M[i] * h[i] / 6;
+                const d_coef = pts[i + 1].y / h[i] - M[i + 1] * h[i] / 6;
+                const xi = p.x, xi1 = pts[i + 1].x;
                 const ggbExpr = `${a_coef.toFixed(12)}*(${xi1} - x)^3 + ${b_coef.toFixed(12)}*(x - ${xi})^3 + ${c_coef.toFixed(12)}*(${xi1} - x) + ${d_coef.toFixed(12)}*(x - ${xi})`;
-                return { a: xi, b: xi1, Mi: M[i], Mi1: M[i+1], hi: h[i], ggbExpr, a_coef, b_coef, c_coef, d_coef };
+                return { a: xi, b: xi1, Mi: M[i], Mi1: M[i + 1], hi: h[i], ggbExpr, a_coef, b_coef, c_coef, d_coef };
             });
 
             let seval = null;
             if (xeval !== null) {
                 const tramo = tramos.find(t => xeval >= t.a && xeval <= t.b)
-                         || (xeval < tramos[0].a ? tramos[0] : tramos[tramos.length-1]);
+                    || (xeval < tramos[0].a ? tramos[0] : tramos[tramos.length - 1]);
                 const { a_coef, b_coef, c_coef, d_coef, a: xi, b: xi1 } = tramo;
-                seval = a_coef*(xi1-xeval)**3 + b_coef*(xeval-xi)**3 + c_coef*(xi1-xeval) + d_coef*(xeval-xi);
+                seval = a_coef * (xi1 - xeval) ** 3 + b_coef * (xeval - xi) ** 3 + c_coef * (xi1 - xeval) + d_coef * (xeval - xi);
             }
 
             const sExprText = tramos.map((t, idx) => {
@@ -5144,7 +5407,7 @@
               
               <div style="font-size: 13.5px; line-height: 1.8; color: var(--text-main);">
                 <p style="margin: 0 0 8px 0; font-weight: 700; font-size:13px;"><i class="fa-solid fa-list-ol" style="color:var(--primary); margin-right:6px;"></i>Paso 1 — Nodos de Interpolación</p>
-                <p style="margin: 0 0 8px 0; font-size:12.5px; color:var(--text-muted);">${pts.length} nodos definidos, generando ${n} subintervalos y un sistema tridiagonal de ${n-1} ecuaciones:</p>
+                <p style="margin: 0 0 8px 0; font-size:12.5px; color:var(--text-muted);">${pts.length} nodos definidos, generando ${n} subintervalos y un sistema tridiagonal de ${n - 1} ecuaciones:</p>
                 <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;">
                   ${pts.map((p, idx) => `<span style="display:inline-flex; align-items:center; gap:6px; padding:6px 14px; background:rgba(99,102,241,0.1); border:1px solid rgba(99,102,241,0.25); border-radius:var(--radius-md); font-family:var(--font-mono); font-size:12px; color:var(--text-main);"><b style="color:var(--primary);">x<sub>${idx}</sub></b> = ${formatNumber(p.x)}, &nbsp;<b style="color:var(--secondary);">y<sub>${idx}</sub></b> = ${formatNumber(p.y)}</span>`).join('')}
                 </div>
@@ -5152,7 +5415,7 @@
                 <p style="margin: 0 0 8px 0; font-weight: 700; font-size:13px;"><i class="fa-solid fa-ruler-horizontal" style="color:var(--primary); margin-right:6px;"></i>Paso 2 — Anchos de Subintervalo hᵢ = xᵢ₊₁ − xᵢ</p>
                 <p style="margin: 0 0 8px 0; font-size:12.5px; color:var(--text-muted);">Estos valores definen los coeficientes de la matriz tridiagonal:</p>
                 <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;">
-                  ${h.map((val, idx) => `<span style="padding: 7px 14px; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--text-main);">h<sub>${idx}</sub> = x<sub>${idx+1}</sub> − x<sub>${idx}</sub> = ${formatNumber(pts[idx+1].x)} − ${formatNumber(pts[idx].x)} = ${formatNumber(val)}</span>`).join('')}
+                  ${h.map((val, idx) => `<span style="padding: 7px 14px; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--text-main);">h<sub>${idx}</sub> = x<sub>${idx + 1}</sub> − x<sub>${idx}</sub> = ${formatNumber(pts[idx + 1].x)} − ${formatNumber(pts[idx].x)} = ${formatNumber(val)}</span>`).join('')}
                 </div>
 
                 <p style="margin: 0 0 8px 0; font-weight: 700; font-size:13px;"><i class="fa-solid fa-circle-nodes" style="color:var(--primary); margin-right:6px;"></i>Paso 3 — Sistema Tridiagonal (Método de Thomas)</p>
@@ -5164,8 +5427,8 @@
 
             for (let i = 0; i < size; i++) {
                 const idx = i + 1;
-                const eqLeft = `${formatNumber(h[i])}·M<sub>${idx-1}</sub> + ${formatNumber(2*(h[i]+h[i+1]))}·M<sub>${idx}</sub> + ${formatNumber(h[i+1])}·M<sub>${idx+1}</sub>`;
-                const eqRight = `6·[(${formatNumber(pts[idx+1].y)}−${formatNumber(pts[idx].y)})/${formatNumber(h[i+1])} − (${formatNumber(pts[idx].y)}−${formatNumber(pts[idx-1].y)})/${formatNumber(h[i])}]`;
+                const eqLeft = `${formatNumber(h[i])}·M<sub>${idx - 1}</sub> + ${formatNumber(2 * (h[i] + h[i + 1]))}·M<sub>${idx}</sub> + ${formatNumber(h[i + 1])}·M<sub>${idx + 1}</sub>`;
+                const eqRight = `6·[(${formatNumber(pts[idx + 1].y)}−${formatNumber(pts[idx].y)})/${formatNumber(h[i + 1])} − (${formatNumber(pts[idx].y)}−${formatNumber(pts[idx - 1].y)})/${formatNumber(h[i])}]`;
                 pasosHtml += `<div style="padding: 5px 0 5px 10px; border-left: 2px solid rgba(99,102,241,0.3); margin-bottom:4px;">Ec. [M<sub>${idx}</sub>]:&nbsp; ${eqLeft} = ${eqRight} = <b>${formatNumber(rhs[i])}</b></div>`;
             }
 
@@ -5173,7 +5436,7 @@
                 <p style="margin: 0 0 8px 0; font-weight: 700; font-size:13px;"><i class="fa-solid fa-square-root-variable" style="color:var(--primary); margin-right:6px;"></i>Paso 4 — Momentos Mᵢ = S''(xᵢ) Resultantes</p>
                 <p style="margin: 0 0 8px 0; font-size:12.5px; color:var(--text-muted);">Resolviendo el sistema tridiagonal con el Algoritmo de Thomas (eliminación hacia adelante + sustitución hacia atrás):</p>
                 <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;">
-                  ${M.map((mVal, idx) => `<span style="padding: 7px 14px; background: var(--bg-surface); border: 1px solid ${idx === 0 || idx === M.length-1 ? 'var(--accent)' : 'var(--border-color)'}; border-radius: var(--radius-md); font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: ${idx === 0 || idx === M.length-1 ? 'var(--accent)' : 'var(--text-main)'};">M<sub>${idx}</sub> = ${formatNumber(mVal)}</span>`).join('')}
+                  ${M.map((mVal, idx) => `<span style="padding: 7px 14px; background: var(--bg-surface); border: 1px solid ${idx === 0 || idx === M.length - 1 ? 'var(--accent)' : 'var(--border-color)'}; border-radius: var(--radius-md); font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: ${idx === 0 || idx === M.length - 1 ? 'var(--accent)' : 'var(--text-main)'};">M<sub>${idx}</sub> = ${formatNumber(mVal)}</span>`).join('')}
                 </div>
 
                 <p style="margin: 0 0 8px 0; font-weight: 700; font-size:13px;"><i class="fa-solid fa-chart-line" style="color:var(--primary); margin-right:6px;"></i>Paso 5 — Coeficientes y Expresión de Cada Tramo Sᵢ(x)</p>
@@ -5187,7 +5450,7 @@
                 pasosHtml += `<div style="margin-bottom:2px; color:var(--text-muted);">aᵢ = Mᵢ/(6hᵢ) = ${formatNumber(t.Mi)}/(6·${formatNumber(t.hi)}) = <b style="color:var(--text-main);">${formatNumber(t.a_coef)}</b></div>`;
                 pasosHtml += `<div style="margin-bottom:2px; color:var(--text-muted);">bᵢ = Mᵢ₊₁/(6hᵢ) = ${formatNumber(t.Mi1)}/(6·${formatNumber(t.hi)}) = <b style="color:var(--text-main);">${formatNumber(t.b_coef)}</b></div>`;
                 pasosHtml += `<div style="margin-bottom:2px; color:var(--text-muted);">cᵢ = yᵢ/hᵢ − Mᵢ·hᵢ/6 = ${formatNumber(pts[idx].y)}/${formatNumber(t.hi)} − ${formatNumber(t.Mi)}·${formatNumber(t.hi)}/6 = <b style="color:var(--text-main);">${formatNumber(t.c_coef)}</b></div>`;
-                pasosHtml += `<div style="margin-bottom:6px; color:var(--text-muted);">dᵢ = yᵢ₊₁/hᵢ − Mᵢ₊₁·hᵢ/6 = ${formatNumber(pts[idx+1].y)}/${formatNumber(t.hi)} − ${formatNumber(t.Mi1)}·${formatNumber(t.hi)}/6 = <b style="color:var(--text-main);">${formatNumber(t.d_coef)}</b></div>`;
+                pasosHtml += `<div style="margin-bottom:6px; color:var(--text-muted);">dᵢ = yᵢ₊₁/hᵢ − Mᵢ₊₁·hᵢ/6 = ${formatNumber(pts[idx + 1].y)}/${formatNumber(t.hi)} − ${formatNumber(t.Mi1)}·${formatNumber(t.hi)}/6 = <b style="color:var(--text-main);">${formatNumber(t.d_coef)}</b></div>`;
                 pasosHtml += `<div style="color:var(--secondary); font-weight:600;">S<sub>${idx}</sub>(x) = ${formatNumber(t.a_coef)}·(${formatNumber(t.b)}−x)³ + ${formatNumber(t.b_coef)}·(x−${formatNumber(t.a)})³ + ${formatNumber(t.c_coef)}·(${formatNumber(t.b)}−x) + ${formatNumber(t.d_coef)}·(x−${formatNumber(t.a)})</div>`;
                 pasosHtml += `</div>`;
             });
@@ -5244,7 +5507,7 @@
                       S(${formatNumber(xeval)}) = ${formatNumber(seval)}
                     </div>
                   </div>`;
-                
+
                 if (mode === 'fx') {
                     let yReal = math.evaluate(preprocessExpr(f_str), { x: xeval });
                     let errorInt = Math.abs(yReal - seval);
@@ -5544,16 +5807,16 @@
         function generateGaussMatrix(n) {
             const container = document.getElementById('gs_matrix_container');
             if (!container) return;
-            
+
             n = Math.min(Math.max(n, 2), 10); // Limitar a un max de 10x10 para UI
             let html = `<div style="display: grid; grid-template-columns: repeat(${n + 1}, 1fr); gap: 4px; background: var(--border-color); padding: 4px; border-radius: var(--radius-md); overflow-x: auto; margin-bottom: 8px;">`;
-            
+
             const defaultVals = [
                 [4, -1, 0, 3],
                 [-1, 4, -1, 4],
                 [0, -1, 4, 5]
             ];
-            
+
             for (let r = 0; r < n; r++) {
                 for (let c = 0; c < n + 1; c++) {
                     let val = '';
@@ -5589,14 +5852,14 @@
         }
 
         function showFieldError(id, msg) {
-          let el = document.getElementById(id); if (!el) return;
-          let errDiv = document.getElementById(id + '_err');
-          if (!errDiv) {
-            errDiv = document.createElement('div'); errDiv.id = id + '_err';
-            errDiv.style.cssText = 'color:var(--danger);font-size:12px;margin-top:4px;';
-            el.parentNode.insertBefore(errDiv, el.nextSibling);
-          }
-          errDiv.textContent = msg; errDiv.style.display = msg ? 'block' : 'none';
+            let el = document.getElementById(id); if (!el) return;
+            let errDiv = document.getElementById(id + '_err');
+            if (!errDiv) {
+                errDiv = document.createElement('div'); errDiv.id = id + '_err';
+                errDiv.style.cssText = 'color:var(--danger);font-size:12px;margin-top:4px;';
+                el.parentNode.insertBefore(errDiv, el.nextSibling);
+            }
+            errDiv.textContent = msg; errDiv.style.display = msg ? 'block' : 'none';
         }
         function clearFieldErrors(...ids) { ids.forEach(id => showFieldError(id, '')); }
 
@@ -5611,7 +5874,7 @@
                 const n_str = document.getElementById(prefix + '_pts_n').value;
                 const n = parseInt(n_str);
                 if (isNaN(n) || n < 3) throw new Error('Se requieren al menos 3 puntos.');
-                
+
                 const pts = [];
                 for (let i = 0; i < n; i++) {
                     const xEl = document.getElementById(`${prefix}_pt_x_${i}`);
@@ -5619,7 +5882,7 @@
                     if (!xEl || !yEl) continue;
                     const x = parseFloat(xEl.value);
                     const y = parseFloat(yEl.value);
-                    if (isNaN(x) || isNaN(y)) throw new Error(`Falta un valor numérico en la fila ${i+1}.`);
+                    if (isNaN(x) || isNaN(y)) throw new Error(`Falta un valor numérico en la fila ${i + 1}.`);
                     pts.push({ x, y });
                 }
                 if (pts.length < 3) throw new Error('Se requieren al menos 3 puntos para interpolar adecuadamente.');
@@ -5638,88 +5901,88 @@
         }
 
         function runDiffNumerica() {
-          const x0    = parseFloat(document.getElementById('dn_x').value);
-          const h     = parseFloat(document.getElementById('dn_h').value);
-          const order = document.getElementById('dn_order').value;
-          const formula = document.getElementById('dn_formula').value;
+            const x0 = parseFloat(document.getElementById('dn_x').value);
+            const h = parseFloat(document.getElementById('dn_h').value);
+            const order = document.getElementById('dn_order').value;
+            const formula = document.getElementById('dn_formula').value;
 
-          if (isNaN(x0)) { showFieldError('dn_x', 'Ingrese un valor numérico.'); return; }
-          if (isNaN(h) || h <= 0) { showFieldError('dn_h', 'El paso h debe ser un número positivo.'); return; }
-          clearFieldErrors('dn_fx','dn_points','dn_x','dn_h');
+            if (isNaN(x0)) { showFieldError('dn_x', 'Ingrese un valor numérico.'); return; }
+            if (isNaN(h) || h <= 0) { showFieldError('dn_h', 'El paso h debe ser un número positivo.'); return; }
+            clearFieldErrors('dn_fx', 'dn_points', 'dn_x', 'dn_h');
 
-          let result, formulaStr, errorOrder;
-          let fEval, f_str, isPts, ptsData;
+            let result, formulaStr, errorOrder;
+            let fEval, f_str, isPts, ptsData;
 
-          try {
-            const evalObj = getEvalFunction('dn');
-            fEval = evalObj.fEval; f_str = evalObj.f_str; isPts = evalObj.isPts; ptsData = evalObj.pts;
-            const valTest = fEval(x0);
-            if (!isFinite(valTest) || isNaN(valTest)) throw new Error('f(x) no definida en x = ' + formatNumber(x0));
-            
-            if (order === '1') {
-              if (formula === 'adelante') {
-                result = (fEval(x0+h) - fEval(x0)) / h;
-                formulaStr = '[f(x+h) − f(x)] / h';
-                errorOrder = 'O(h)';
-              } else if (formula === 'atras') {
-                result = (fEval(x0) - fEval(x0-h)) / h;
-                formulaStr = '[f(x) − f(x−h)] / h';
-                errorOrder = 'O(h)';
-              } else if (formula === 'central') {
-                result = (fEval(x0+h) - fEval(x0-h)) / (2*h);
-                formulaStr = '[f(x+h) − f(x−h)] / (2h)';
-                errorOrder = 'O(h²)';
-              } else if (formula === 'orden4') {
-                result = (-fEval(x0+2*h) + 8*fEval(x0+h) - 8*fEval(x0-h) + fEval(x0-2*h)) / (12*h);
-                formulaStr = '[−f(x+2h) + 8f(x+h) − 8f(x−h) + f(x−2h)] / (12h)';
-                errorOrder = 'O(h⁴)';
-              }
-            } else {
-              if (formula === 'central') {
-                result = (fEval(x0+h) - 2*fEval(x0) + fEval(x0-h)) / (h*h);
-                formulaStr = '[f(x+h) − 2f(x) + f(x−h)] / h²';
-                errorOrder = 'O(h²)';
-              } else if (formula === 'orden4') {
-                result = (-fEval(x0+2*h) + 16*fEval(x0+h) - 30*fEval(x0) + 16*fEval(x0-h) - fEval(x0-2*h)) / (12*h*h);
-                formulaStr = '[−f(x+2h) + 16f(x+h) − 30f(x) + 16f(x−h) − f(x−2h)] / (12h²)';
-                errorOrder = 'O(h⁴)';
-              } else if (formula === 'adelante') {
-                result = (fEval(x0+2*h) - 2*fEval(x0+h) + fEval(x0)) / (h*h);
-                formulaStr = '[f(x+2h) − 2f(x+h) + f(x)] / h²';
-                errorOrder = 'O(h)';
-              } else if (formula === 'atras') {
-                result = (fEval(x0) - 2*fEval(x0-h) + fEval(x0-2*h)) / (h*h);
-                formulaStr = '[f(x) − 2f(x−h) + f(x−2h)] / h²';
-                errorOrder = 'O(h)';
-              }
-            }
-          } catch(e) { showFieldError('dn_f', e.message); return; }
-
-          const hValues = [h, h/2, h/4, h/8, h/16];
-          const headers = ['h', "f'(x₀) aprox.", 'Diferencia con h anterior'];
-          const rows = [];
-          let prevVal = null;
-          for (const hi of hValues) {
-            let vi;
             try {
-              if (order === '1') {
-                if (formula === 'adelante') vi = (fEval(x0+hi) - fEval(x0)) / hi;
-                else if (formula === 'atras')  vi = (fEval(x0) - fEval(x0-hi)) / hi;
-                else if (formula === 'central') vi = (fEval(x0+hi) - fEval(x0-hi)) / (2*hi);
-                else vi = (-fEval(x0+2*hi)+8*fEval(x0+hi)-8*fEval(x0-hi)+fEval(x0-2*hi)) / (12*hi);
-              } else {
-                if (formula === 'central') vi = (fEval(x0+hi) - 2*fEval(x0) + fEval(x0-hi)) / (hi*hi);
-                else if (formula === 'orden4') vi = (-fEval(x0+2*hi)+16*fEval(x0+hi)-30*fEval(x0)+16*fEval(x0-hi)-fEval(x0-2*hi))/(12*hi*hi);
-                else if (formula === 'adelante') vi = (fEval(x0+2*hi)-2*fEval(x0+hi)+fEval(x0))/(hi*hi);
-                else vi = (fEval(x0)-2*fEval(x0-hi)+fEval(x0-2*hi))/(hi*hi);
-              }
-            } catch(e) { vi = NaN; }
-            const diff = prevVal !== null ? Math.abs(vi - prevVal) : '—';
-            rows.push([formatNumber(hi), formatNumber(vi), diff === '—' ? diff : formatNumber(diff)]);
-            prevVal = vi;
-          }
+                const evalObj = getEvalFunction('dn');
+                fEval = evalObj.fEval; f_str = evalObj.f_str; isPts = evalObj.isPts; ptsData = evalObj.pts;
+                const valTest = fEval(x0);
+                if (!isFinite(valTest) || isNaN(valTest)) throw new Error('f(x) no definida en x = ' + formatNumber(x0));
 
-          const summaryHtml = `
+                if (order === '1') {
+                    if (formula === 'adelante') {
+                        result = (fEval(x0 + h) - fEval(x0)) / h;
+                        formulaStr = '[f(x+h) − f(x)] / h';
+                        errorOrder = 'O(h)';
+                    } else if (formula === 'atras') {
+                        result = (fEval(x0) - fEval(x0 - h)) / h;
+                        formulaStr = '[f(x) − f(x−h)] / h';
+                        errorOrder = 'O(h)';
+                    } else if (formula === 'central') {
+                        result = (fEval(x0 + h) - fEval(x0 - h)) / (2 * h);
+                        formulaStr = '[f(x+h) − f(x−h)] / (2h)';
+                        errorOrder = 'O(h²)';
+                    } else if (formula === 'orden4') {
+                        result = (-fEval(x0 + 2 * h) + 8 * fEval(x0 + h) - 8 * fEval(x0 - h) + fEval(x0 - 2 * h)) / (12 * h);
+                        formulaStr = '[−f(x+2h) + 8f(x+h) − 8f(x−h) + f(x−2h)] / (12h)';
+                        errorOrder = 'O(h⁴)';
+                    }
+                } else {
+                    if (formula === 'central') {
+                        result = (fEval(x0 + h) - 2 * fEval(x0) + fEval(x0 - h)) / (h * h);
+                        formulaStr = '[f(x+h) − 2f(x) + f(x−h)] / h²';
+                        errorOrder = 'O(h²)';
+                    } else if (formula === 'orden4') {
+                        result = (-fEval(x0 + 2 * h) + 16 * fEval(x0 + h) - 30 * fEval(x0) + 16 * fEval(x0 - h) - fEval(x0 - 2 * h)) / (12 * h * h);
+                        formulaStr = '[−f(x+2h) + 16f(x+h) − 30f(x) + 16f(x−h) − f(x−2h)] / (12h²)';
+                        errorOrder = 'O(h⁴)';
+                    } else if (formula === 'adelante') {
+                        result = (fEval(x0 + 2 * h) - 2 * fEval(x0 + h) + fEval(x0)) / (h * h);
+                        formulaStr = '[f(x+2h) − 2f(x+h) + f(x)] / h²';
+                        errorOrder = 'O(h)';
+                    } else if (formula === 'atras') {
+                        result = (fEval(x0) - 2 * fEval(x0 - h) + fEval(x0 - 2 * h)) / (h * h);
+                        formulaStr = '[f(x) − 2f(x−h) + f(x−2h)] / h²';
+                        errorOrder = 'O(h)';
+                    }
+                }
+            } catch (e) { showFieldError('dn_f', e.message); return; }
+
+            const hValues = [h, h / 2, h / 4, h / 8, h / 16];
+            const headers = ['h', "f'(x₀) aprox.", 'Diferencia con h anterior'];
+            const rows = [];
+            let prevVal = null;
+            for (const hi of hValues) {
+                let vi;
+                try {
+                    if (order === '1') {
+                        if (formula === 'adelante') vi = (fEval(x0 + hi) - fEval(x0)) / hi;
+                        else if (formula === 'atras') vi = (fEval(x0) - fEval(x0 - hi)) / hi;
+                        else if (formula === 'central') vi = (fEval(x0 + hi) - fEval(x0 - hi)) / (2 * hi);
+                        else vi = (-fEval(x0 + 2 * hi) + 8 * fEval(x0 + hi) - 8 * fEval(x0 - hi) + fEval(x0 - 2 * hi)) / (12 * hi);
+                    } else {
+                        if (formula === 'central') vi = (fEval(x0 + hi) - 2 * fEval(x0) + fEval(x0 - hi)) / (hi * hi);
+                        else if (formula === 'orden4') vi = (-fEval(x0 + 2 * hi) + 16 * fEval(x0 + hi) - 30 * fEval(x0) + 16 * fEval(x0 - hi) - fEval(x0 - 2 * hi)) / (12 * hi * hi);
+                        else if (formula === 'adelante') vi = (fEval(x0 + 2 * hi) - 2 * fEval(x0 + hi) + fEval(x0)) / (hi * hi);
+                        else vi = (fEval(x0) - 2 * fEval(x0 - hi) + fEval(x0 - 2 * hi)) / (hi * hi);
+                    }
+                } catch (e) { vi = NaN; }
+                const diff = prevVal !== null ? Math.abs(vi - prevVal) : '—';
+                rows.push([formatNumber(hi), formatNumber(vi), diff === '—' ? diff : formatNumber(diff)]);
+                prevVal = vi;
+            }
+
+            const summaryHtml = `
           <div style="display:flex; flex-direction:column; gap:16px;">
             <div style="display:flex; gap:14px; flex-wrap:wrap;">
               <div style="flex:1; min-width:160px; padding:16px; background:var(--bg-panel);
@@ -5755,110 +6018,110 @@
             </div>
           </div>`;
 
-          let pasosHtml = `<div style="margin-top: 22px; padding: 22px; background: rgba(99,102,241,0.05); border-left: 4px solid var(--primary); border-radius: var(--radius-lg); border-top: 1px solid rgba(99,102,241,0.15); border-right: 1px solid rgba(99,102,241,0.15); border-bottom: 1px solid rgba(99,102,241,0.15);">
+            let pasosHtml = `<div style="margin-top: 22px; padding: 22px; background: rgba(99,102,241,0.05); border-left: 4px solid var(--primary); border-radius: var(--radius-lg); border-top: 1px solid rgba(99,102,241,0.15); border-right: 1px solid rgba(99,102,241,0.15); border-bottom: 1px solid rgba(99,102,241,0.15);">
             <h4 style="margin: 0 0 12px 0; color: var(--primary); font-family: var(--font-display); font-size: 16px; font-weight: 700;"><i class="fa-solid fa-diagram-project" style="margin-right:8px;"></i>Desarrollo Paso a Paso</h4>
             <p style="margin: 0 0 10px 0; font-size: 13px; color: var(--text-muted);"><strong>Fórmula:</strong> ${formulaStr}</p>
             <p style="margin: 0 0 10px 0; font-size: 13px; color: var(--text-muted);"><strong>Evaluación de puntos:</strong></p>
             <ul style="margin: 0 0 15px 0; padding-left: 20px; font-family: monospace; font-size: 14px;">`;
-          
-          if (formula === 'adelante') {
-            pasosHtml += `<li>f(x0) = f(${x0}) = ${formatNumber(fEval(x0))}</li>`;
-            pasosHtml += `<li>f(x0+h) = f(${x0+h}) = ${formatNumber(fEval(x0+h))}</li>`;
-            if (order === '2' || formula === 'orden4') {
-              pasosHtml += `<li>f(x0+2h) = f(${x0+2*h}) = ${formatNumber(fEval(x0+2*h))}</li>`;
+
+            if (formula === 'adelante') {
+                pasosHtml += `<li>f(x0) = f(${x0}) = ${formatNumber(fEval(x0))}</li>`;
+                pasosHtml += `<li>f(x0+h) = f(${x0 + h}) = ${formatNumber(fEval(x0 + h))}</li>`;
+                if (order === '2' || formula === 'orden4') {
+                    pasosHtml += `<li>f(x0+2h) = f(${x0 + 2 * h}) = ${formatNumber(fEval(x0 + 2 * h))}</li>`;
+                }
+            } else if (formula === 'atras') {
+                pasosHtml += `<li>f(x0) = f(${x0}) = ${formatNumber(fEval(x0))}</li>`;
+                pasosHtml += `<li>f(x0-h) = f(${x0 - h}) = ${formatNumber(fEval(x0 - h))}</li>`;
+                if (order === '2' || formula === 'orden4') {
+                    pasosHtml += `<li>f(x0-2h) = f(${x0 - 2 * h}) = ${formatNumber(fEval(x0 - 2 * h))}</li>`;
+                }
+            } else if (formula === 'central' || formula === 'orden4') {
+                pasosHtml += `<li>f(x0) = f(${x0}) = ${formatNumber(fEval(x0))}</li>`;
+                pasosHtml += `<li>f(x0+h) = f(${x0 + h}) = ${formatNumber(fEval(x0 + h))}</li>`;
+                pasosHtml += `<li>f(x0-h) = f(${x0 - h}) = ${formatNumber(fEval(x0 - h))}</li>`;
+                if (formula === 'orden4') {
+                    pasosHtml += `<li>f(x0+2h) = f(${x0 + 2 * h}) = ${formatNumber(fEval(x0 + 2 * h))}</li>`;
+                    pasosHtml += `<li>f(x0-2h) = f(${x0 - 2 * h}) = ${formatNumber(fEval(x0 - 2 * h))}</li>`;
+                }
             }
-          } else if (formula === 'atras') {
-            pasosHtml += `<li>f(x0) = f(${x0}) = ${formatNumber(fEval(x0))}</li>`;
-            pasosHtml += `<li>f(x0-h) = f(${x0-h}) = ${formatNumber(fEval(x0-h))}</li>`;
-            if (order === '2' || formula === 'orden4') {
-              pasosHtml += `<li>f(x0-2h) = f(${x0-2*h}) = ${formatNumber(fEval(x0-2*h))}</li>`;
-            }
-          } else if (formula === 'central' || formula === 'orden4') {
-            pasosHtml += `<li>f(x0) = f(${x0}) = ${formatNumber(fEval(x0))}</li>`;
-            pasosHtml += `<li>f(x0+h) = f(${x0+h}) = ${formatNumber(fEval(x0+h))}</li>`;
-            pasosHtml += `<li>f(x0-h) = f(${x0-h}) = ${formatNumber(fEval(x0-h))}</li>`;
-            if (formula === 'orden4') {
-              pasosHtml += `<li>f(x0+2h) = f(${x0+2*h}) = ${formatNumber(fEval(x0+2*h))}</li>`;
-              pasosHtml += `<li>f(x0-2h) = f(${x0-2*h}) = ${formatNumber(fEval(x0-2*h))}</li>`;
-            }
-          }
-          pasosHtml += `</ul>
+            pasosHtml += `</ul>
             <p style="margin: 0 0 5px 0; font-size: 13px; color: var(--text-muted);"><strong>Sustitución y Resultado:</strong></p>
             <div style="font-family: monospace; font-size: 15px; padding-left: 12px; border-left: 2px solid var(--primary);">
               D = <strong>${formatNumber(result)}</strong>
             </div>
           </div>`;
 
-          renderResults(headers, rows, summaryHtml + pasosHtml);
-          updateGeoGebraDiffNumerica(f_str, x0, h, result, order, formula, isPts, ptsData, fEval);
+            renderResults(headers, rows, summaryHtml + pasosHtml);
+            updateGeoGebraDiffNumerica(f_str, x0, h, result, order, formula, isPts, ptsData, fEval);
         }
 
         function updateGeoGebraDiffNumerica(f_str, x0, h, result, order, formula, isPts, ptsData, fEval) {
-          resetPanels();
-          document.getElementById('geogebra-container').style.display = 'block';
-          const doPlot = () => {
-            if (!window.ggbApplet) return;
-            try {
-              window.ggbApplet.setPerspective('G');
-              window.ggbApplet.reset();
+            resetPanels();
+            document.getElementById('geogebra-container').style.display = 'block';
+            const doPlot = () => {
+                if (!window.ggbApplet) return;
+                try {
+                    window.ggbApplet.setPerspective('G');
+                    window.ggbApplet.reset();
 
-              if (!isPts) {
-                let ggbFunc = f_str.replace(/log10\(/g, 'lg(').replace(/\bln\(/g, 'log(');
-                window.ggbApplet.evalCommand('f(x) = ' + ggbFunc);
-                window.ggbApplet.evalCommand('SetColor[f, "Blue"]');
-                window.ggbApplet.evalCommand('SetLineThickness[f, 5]');
-                window.ggbApplet.evalCommand('ShowLabel[f, false]');
-              } else {
-                ptsData.forEach((pt, i) => {
-                  window.ggbApplet.evalCommand('TblPt' + i + ' = (' + pt.x + ', ' + pt.y + ')');
-                  window.ggbApplet.evalCommand('SetColor[TblPt' + i + ', "Black"]');
-                  window.ggbApplet.evalCommand('SetPointSize[TblPt' + i + ', 4]');
-                });
-              }
+                    if (!isPts) {
+                        let ggbFunc = f_str.replace(/log10\(/g, 'lg(').replace(/\bln\(/g, 'log(');
+                        window.ggbApplet.evalCommand('f(x) = ' + ggbFunc);
+                        window.ggbApplet.evalCommand('SetColor[f, "Blue"]');
+                        window.ggbApplet.evalCommand('SetLineThickness[f, 5]');
+                        window.ggbApplet.evalCommand('ShowLabel[f, false]');
+                    } else {
+                        ptsData.forEach((pt, i) => {
+                            window.ggbApplet.evalCommand('TblPt' + i + ' = (' + pt.x + ', ' + pt.y + ')');
+                            window.ggbApplet.evalCommand('SetColor[TblPt' + i + ', "Black"]');
+                            window.ggbApplet.evalCommand('SetPointSize[TblPt' + i + ', 4]');
+                        });
+                    }
 
-              const y0 = fEval(x0);
-              window.ggbApplet.evalCommand('P0 = (' + x0 + ', ' + y0 + ')');
-              window.ggbApplet.evalCommand('SetColor[P0, "Red"]');
-              window.ggbApplet.evalCommand('SetPointSize[P0, 9]');
-              window.ggbApplet.evalCommand('ShowLabel[P0, true]');
+                    const y0 = fEval(x0);
+                    window.ggbApplet.evalCommand('P0 = (' + x0 + ', ' + y0 + ')');
+                    window.ggbApplet.evalCommand('SetColor[P0, "Red"]');
+                    window.ggbApplet.evalCommand('SetPointSize[P0, 9]');
+                    window.ggbApplet.evalCommand('ShowLabel[P0, true]');
 
-              if (order === '1') {
-                const b_line = y0 - result * x0;
-                window.ggbApplet.evalCommand('tang(x) = ' + result.toFixed(10) + ' * x + ' + b_line.toFixed(10));
-                window.ggbApplet.evalCommand('SetColor[tang, "Blue"]');
-                window.ggbApplet.evalCommand('SetLineThickness[tang, 3]');
-                window.ggbApplet.evalCommand('SetLineStyle[tang, 2]');
-                window.ggbApplet.evalCommand('ShowLabel[tang, false]');
-              }
+                    if (order === '1') {
+                        const b_line = y0 - result * x0;
+                        window.ggbApplet.evalCommand('tang(x) = ' + result.toFixed(10) + ' * x + ' + b_line.toFixed(10));
+                        window.ggbApplet.evalCommand('SetColor[tang, "Blue"]');
+                        window.ggbApplet.evalCommand('SetLineThickness[tang, 3]');
+                        window.ggbApplet.evalCommand('SetLineStyle[tang, 2]');
+                        window.ggbApplet.evalCommand('ShowLabel[tang, false]');
+                    }
 
-              window.ggbApplet.evalCommand('VLx0: x = ' + x0);
-              window.ggbApplet.evalCommand('SetColor[VLx0, "Red"]');
-              window.ggbApplet.evalCommand('SetLineStyle[VLx0, 2]');
-              window.ggbApplet.evalCommand('SetLineThickness[VLx0, 2]');
-              window.ggbApplet.evalCommand('ShowLabel[VLx0, false]');
+                    window.ggbApplet.evalCommand('VLx0: x = ' + x0);
+                    window.ggbApplet.evalCommand('SetColor[VLx0, "Red"]');
+                    window.ggbApplet.evalCommand('SetLineStyle[VLx0, 2]');
+                    window.ggbApplet.evalCommand('SetLineThickness[VLx0, 2]');
+                    window.ggbApplet.evalCommand('ShowLabel[VLx0, false]');
 
-              const xRange = Math.max(Math.abs(h) * 6, 2);
-              const yVals = [];
-              for (let k = -20; k <= 20; k++) {
-                try { yVals.push(fEval(x0 + k * h * 0.3)); } catch(e) {}
-              }
-              const yMin = Math.min(...yVals.filter(isFinite));
-              const yMax = Math.max(...yVals.filter(isFinite));
-              const yMargin = (yMax - yMin || 2) * 0.25;
-              window.ggbApplet.setCoordSystem(x0 - xRange, x0 + xRange, yMin - yMargin, yMax + yMargin);
-              window.ggbApplet.setGridVisible(true);
-            } catch(e) { console.warn('GeoGebra DiffNumerica error:', e); }
-          };
-          if (typeof ggbReady !== 'undefined' && ggbReady && window.ggbApplet) doPlot(); else initGeoGebra(doPlot);
+                    const xRange = Math.max(Math.abs(h) * 6, 2);
+                    const yVals = [];
+                    for (let k = -20; k <= 20; k++) {
+                        try { yVals.push(fEval(x0 + k * h * 0.3)); } catch (e) { }
+                    }
+                    const yMin = Math.min(...yVals.filter(isFinite));
+                    const yMax = Math.max(...yVals.filter(isFinite));
+                    const yMargin = (yMax - yMin || 2) * 0.25;
+                    window.ggbApplet.setCoordSystem(x0 - xRange, x0 + xRange, yMin - yMargin, yMax + yMargin);
+                    window.ggbApplet.setGridVisible(true);
+                } catch (e) { console.warn('GeoGebra DiffNumerica error:', e); }
+            };
+            if (typeof ggbReady !== 'undefined' && ggbReady && window.ggbApplet) doPlot(); else initGeoGebra(doPlot);
         }
 
         function generatePointsMatrix(prefix, n) {
             const container = document.getElementById(prefix + '_pts_container');
             if (!container) return;
-            
+
             n = Math.min(Math.max(n, 2), 20); // Min 2 points for interpolation, max 20
             let html = `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: var(--border-color); padding: 4px; border-radius: var(--radius-md); margin-bottom: 8px;">`;
-            
+
             // Header
             html += `<div style="text-align:center; font-weight:bold; font-size:12px; color:var(--text-main);">x</div>`;
             html += `<div style="text-align:center; font-weight:bold; font-size:12px; color:var(--text-main);">y</div>`;
@@ -5876,7 +6139,7 @@
                 defaultX = [0, 1, 2, 3, 4];
                 defaultY = [1, 3, 2, 5, 4];
             }
-            
+
             for (let r = 0; r < n; r++) {
                 let xVal = r < defaultX.length ? defaultX[r] : '';
                 let yVal = r < defaultY.length ? defaultY[r] : '';
@@ -5890,16 +6153,16 @@
         function generateJacobiMatrix(n) {
             const container = document.getElementById('jac_matrix_container');
             if (!container) return;
-            
+
             n = Math.min(Math.max(n, 2), 10);
             let html = `<div style="display: grid; grid-template-columns: repeat(${n + 1}, 1fr); gap: 4px; background: var(--border-color); padding: 4px; border-radius: var(--radius-md); overflow-x: auto; margin-bottom: 8px;">`;
-            
+
             const defaultVals = [
                 [4, -1, 0, 3],
                 [-1, 4, -1, 4],
                 [0, -1, 4, 5]
             ];
-            
+
             for (let r = 0; r < n; r++) {
                 for (let c = 0; c < n + 1; c++) {
                     let val = '';
@@ -5915,74 +6178,74 @@
         }
 
         function runJacobi() {
-          const n_val  = parseInt(document.getElementById('jac_n').value);
-          const x0_str = document.getElementById('jac_x0').value.trim();
-          const tol    = parseFloat(document.getElementById('jac_tol').value);
-          const maxIter = parseInt(document.getElementById('jac_max').value);
+            const n_val = parseInt(document.getElementById('jac_n').value);
+            const x0_str = document.getElementById('jac_x0').value.trim();
+            const tol = parseFloat(document.getElementById('jac_tol').value);
+            const maxIter = parseInt(document.getElementById('jac_max').value);
 
-          let A = [], b = [];
-          try {
-            for (let r = 0; r < n_val; r++) {
-              let rowA = [];
-              for (let c = 0; c < n_val + 1; c++) {
-                let input = document.getElementById(`jac_m_${r}_${c}`);
-                let val = parseFloat(input.value);
-                if (isNaN(val)) throw new Error(`Falta el valor en la fila ${r + 1}, columna ${c + 1}`);
-                if (c < n_val) rowA.push(val);
-                else b.push(val);
-              }
-              A.push(rowA);
+            let A = [], b = [];
+            try {
+                for (let r = 0; r < n_val; r++) {
+                    let rowA = [];
+                    for (let c = 0; c < n_val + 1; c++) {
+                        let input = document.getElementById(`jac_m_${r}_${c}`);
+                        let val = parseFloat(input.value);
+                        if (isNaN(val)) throw new Error(`Falta el valor en la fila ${r + 1}, columna ${c + 1}`);
+                        if (c < n_val) rowA.push(val);
+                        else b.push(val);
+                    }
+                    A.push(rowA);
+                }
+            } catch (e) { showFieldError('jac_matrix_container', e.message); return; }
+
+            let x = x0_str.split(',').map(s => parseFloat(s.trim()));
+            if (x.length !== n_val) x = Array(n_val).fill(0);
+
+            for (let col = 0; col < n_val; col++) {
+                let maxRow = col;
+                for (let row = col + 1; row < n_val; row++)
+                    if (Math.abs(A[row][col]) > Math.abs(A[maxRow][col])) maxRow = row;
+                [A[col], A[maxRow]] = [A[maxRow], A[col]];
+                [b[col], b[maxRow]] = [b[maxRow], b[col]];
+                [x[col], x[maxRow]] = [x[maxRow], x[col]];
             }
-          } catch(e) { showFieldError('jac_matrix_container', e.message); return; }
-
-          let x = x0_str.split(',').map(s => parseFloat(s.trim()));
-          if (x.length !== n_val) x = Array(n_val).fill(0);
-
-          for (let col = 0; col < n_val; col++) {
-            let maxRow = col;
-            for (let row = col+1; row < n_val; row++)
-              if (Math.abs(A[row][col]) > Math.abs(A[maxRow][col])) maxRow = row;
-            [A[col], A[maxRow]] = [A[maxRow], A[col]];
-            [b[col], b[maxRow]] = [b[maxRow], b[col]];
-            [x[col], x[maxRow]] = [x[maxRow], x[col]];
-          }
-
-          for (let i = 0; i < n_val; i++) {
-            if (Math.abs(A[i][i]) < 1e-12) { showFieldError('jac_matrix_container', 'Diagonal A[' + (i+1) + '][' + (i+1) + '] = 0. Reorganice el sistema.'); return; }
-          }
-          clearFieldErrors('jac_matrix_container');
-
-          const headers = ['Iter', ...Array.from({length: n_val}, (_, i) => 'x' + (i+1)), 'Ea (%)'];
-          const tableRows = [];
-          const historial = [];
-          let converged = false;
-
-          for (let k = 1; k <= maxIter; k++) {
-            const x_old = [...x];
-            const x_new = Array(n_val);
 
             for (let i = 0; i < n_val; i++) {
-              let sum = 0;
-              for (let j = 0; j < n_val; j++)
-                if (j !== i) sum += A[i][j] * x_old[j];
-              x_new[i] = (b[i] - sum) / A[i][i];
+                if (Math.abs(A[i][i]) < 1e-12) { showFieldError('jac_matrix_container', 'Diagonal A[' + (i + 1) + '][' + (i + 1) + '] = 0. Reorganice el sistema.'); return; }
             }
-            x = x_new;
+            clearFieldErrors('jac_matrix_container');
 
-            const ea = Math.max(...x.map((xi, i) => Math.abs((xi - x_old[i]) / (Math.abs(xi) + 1e-15)) * 100));
-            historial.push({ x: [...x], ea });
-            tableRows.push([k, ...x.map(xi => formatNumber(xi)), formatNumber(ea)]);
+            const headers = ['Iter', ...Array.from({ length: n_val }, (_, i) => 'x' + (i + 1)), 'Ea (%)'];
+            const tableRows = [];
+            const historial = [];
+            let converged = false;
 
-            if (ea < tol) { converged = true; break; }
-          }
+            for (let k = 1; k <= maxIter; k++) {
+                const x_old = [...x];
+                const x_new = Array(n_val);
 
-          const solutionCards = x.map((xi, i) =>
-            `<div style='font-family:monospace; font-size:14px; padding:8px 14px; background:var(--bg-body);
+                for (let i = 0; i < n_val; i++) {
+                    let sum = 0;
+                    for (let j = 0; j < n_val; j++)
+                        if (j !== i) sum += A[i][j] * x_old[j];
+                    x_new[i] = (b[i] - sum) / A[i][i];
+                }
+                x = x_new;
+
+                const ea = Math.max(...x.map((xi, i) => Math.abs((xi - x_old[i]) / (Math.abs(xi) + 1e-15)) * 100));
+                historial.push({ x: [...x], ea });
+                tableRows.push([k, ...x.map(xi => formatNumber(xi)), formatNumber(ea)]);
+
+                if (ea < tol) { converged = true; break; }
+            }
+
+            const solutionCards = x.map((xi, i) =>
+                `<div style='font-family:monospace; font-size:14px; padding:8px 14px; background:var(--bg-body);
                        border-radius:var(--radius-md); border-left:3px solid var(--primary);'>
-               x<sub>${i+1}</sub> = <strong>${formatNumber(xi)}</strong></div>`
-          ).join('');
+               x<sub>${i + 1}</sub> = <strong>${formatNumber(xi)}</strong></div>`
+            ).join('');
 
-          const summaryHtml = `
+            const summaryHtml = `
           <div style="display:flex; flex-direction:column; gap:16px;">
             <div style="display:flex; gap:14px; flex-wrap:wrap;">
               ${solutionCards}
@@ -5991,142 +6254,142 @@
                         border:1px solid ${converged ? 'var(--secondary)' : 'var(--accent)'};
                         border-radius:var(--radius-md); font-size:13px;">
               ${converged
-                ? `✅ <strong>Convergió</strong> en <strong>${historial.length}</strong> iteraciones (Ea &lt; ${tol})`
-                : `⚠️ <strong>No convergió</strong> en ${maxIter} iteraciones. Resultado aproximado.`}
+                    ? `✅ <strong>Convergió</strong> en <strong>${historial.length}</strong> iteraciones (Ea &lt; ${tol})`
+                    : `⚠️ <strong>No convergió</strong> en ${maxIter} iteraciones. Resultado aproximado.`}
             </div>
           </div>`;
 
-          let pasosHtml = `<div style="margin-top: 22px; padding: 22px; background: rgba(99,102,241,0.05); border-left: 4px solid var(--primary); border-radius: var(--radius-lg); border-top: 1px solid rgba(99,102,241,0.15); border-right: 1px solid rgba(99,102,241,0.15); border-bottom: 1px solid rgba(99,102,241,0.15);">
+            let pasosHtml = `<div style="margin-top: 22px; padding: 22px; background: rgba(99,102,241,0.05); border-left: 4px solid var(--primary); border-radius: var(--radius-lg); border-top: 1px solid rgba(99,102,241,0.15); border-right: 1px solid rgba(99,102,241,0.15); border-bottom: 1px solid rgba(99,102,241,0.15);">
             <h4 style="margin: 0 0 12px 0; color: var(--primary); font-family: var(--font-display); font-size: 16px; font-weight: 700;"><i class="fa-solid fa-diagram-project" style="margin-right:8px;"></i>Desarrollo Paso a Paso</h4>
             <p style="margin: 0 0 10px 0; font-size: 13px; color: var(--text-muted);"><strong>1. Fórmulas de Despeje:</strong></p>`;
-          for (let i = 0; i < n_val; i++) {
-              let termStr = [];
-              for (let j = 0; j < n_val; j++) {
-                  if (i !== j) {
-                      let sign = A[i][j] > 0 ? '-' : '+';
-                      let val = Math.abs(A[i][j]);
-                      if (val !== 0) termStr.push(`${sign} ${val}x_{${j+1}}`);
-                  }
-              }
-              pasosHtml += `<div style="font-family: monospace; font-size: 14px; margin-bottom: 6px; padding-left: 12px; border-left: 2px solid var(--primary);">x_{${i+1}} = (${b[i]} ${termStr.join(' ')}) / ${A[i][i]}</div>`;
-          }
-          if (historial.length > 0) {
-              pasosHtml += `<p style="margin: 15px 0 10px 0; font-size: 13px; color: var(--text-muted);"><strong>2. Primera Iteración (k=1):</strong></p>`;
-              for (let i = 0; i < n_val; i++) {
-                  let termStr = [];
-                  for (let j = 0; j < n_val; j++) {
-                      if (i !== j) {
-                          let sign = A[i][j] > 0 ? '-' : '+';
-                          let val = Math.abs(A[i][j]);
-                          let x_val = x0_str.split(',').map(s=>parseFloat(s.trim()))[j] || 0;
-                          if (val !== 0) termStr.push(`${sign} ${val}(${x_val})`);
-                      }
-                  }
-                  pasosHtml += `<div style="font-family: monospace; font-size: 14px; margin-bottom: 6px; padding-left: 12px; border-left: 2px solid var(--primary);">x_{${i+1}} = (${b[i]} ${termStr.join(' ')}) / ${A[i][i]} = <strong>${formatNumber(historial[0].x[i])}</strong></div>`;
-              }
-          }
-          pasosHtml += `</div>`;
+            for (let i = 0; i < n_val; i++) {
+                let termStr = [];
+                for (let j = 0; j < n_val; j++) {
+                    if (i !== j) {
+                        let sign = A[i][j] > 0 ? '-' : '+';
+                        let val = Math.abs(A[i][j]);
+                        if (val !== 0) termStr.push(`${sign} ${val}x_{${j + 1}}`);
+                    }
+                }
+                pasosHtml += `<div style="font-family: monospace; font-size: 14px; margin-bottom: 6px; padding-left: 12px; border-left: 2px solid var(--primary);">x_{${i + 1}} = (${b[i]} ${termStr.join(' ')}) / ${A[i][i]}</div>`;
+            }
+            if (historial.length > 0) {
+                pasosHtml += `<p style="margin: 15px 0 10px 0; font-size: 13px; color: var(--text-muted);"><strong>2. Primera Iteración (k=1):</strong></p>`;
+                for (let i = 0; i < n_val; i++) {
+                    let termStr = [];
+                    for (let j = 0; j < n_val; j++) {
+                        if (i !== j) {
+                            let sign = A[i][j] > 0 ? '-' : '+';
+                            let val = Math.abs(A[i][j]);
+                            let x_val = x0_str.split(',').map(s => parseFloat(s.trim()))[j] || 0;
+                            if (val !== 0) termStr.push(`${sign} ${val}(${x_val})`);
+                        }
+                    }
+                    pasosHtml += `<div style="font-family: monospace; font-size: 14px; margin-bottom: 6px; padding-left: 12px; border-left: 2px solid var(--primary);">x_{${i + 1}} = (${b[i]} ${termStr.join(' ')}) / ${A[i][i]} = <strong>${formatNumber(historial[0].x[i])}</strong></div>`;
+                }
+            }
+            pasosHtml += `</div>`;
 
-          renderResults(headers, tableRows, summaryHtml + pasosHtml);
-          updateGeoGebraJacobi(historial, x, n_val);
+            renderResults(headers, tableRows, summaryHtml + pasosHtml);
+            updateGeoGebraJacobi(historial, x, n_val);
         }
 
         function updateGeoGebraJacobi(historial, solucion, n) {
-          resetPanels();
-          document.getElementById('geogebra-container').style.display = 'block';
-          const doPlot = () => {
-            if (!window.ggbApplet) return;
-            try {
-              window.ggbApplet.setPerspective('G');
-              window.ggbApplet.reset();
-              const varColors = ['0.15,0.39,0.92','0.06,0.73,0.51','0.96,0.62,0.04','0.94,0.27,0.27','0.55,0.36,0.96','0.02,0.71,0.83'];
-              for (let i = 0; i < n; i++) {
-                const vals = historial.map(h => h.x[i]);
-                window.ggbApplet.evalCommand('JVals' + i + ' = {' + vals.join(',') + '}');
-                window.ggbApplet.evalCommand('JPts' + i + ' = Sequence((' + 'k, JVals' + i + '(k)), k, 1, ' + vals.length + ')');
-                window.ggbApplet.evalCommand('JLine' + i + ' = Polyline[JPts' + i + ']');
-                window.ggbApplet.evalCommand('SetColor[JLine' + i + ', ' + varColors[i % varColors.length] + ']');
-                window.ggbApplet.evalCommand('SetLineThickness[JLine' + i + ', 4]');
-                window.ggbApplet.evalCommand('ShowLabel[JLine' + i + ', false]');
-                window.ggbApplet.evalCommand('JSol' + i + ' = (' + historial.length + ', ' + solucion[i] + ')');
-                window.ggbApplet.evalCommand('SetColor[JSol' + i + ', ' + varColors[i % varColors.length] + ']');
-                window.ggbApplet.evalCommand('SetPointSize[JSol' + i + ', 5]');
-                window.ggbApplet.evalCommand('ShowLabel[JSol' + i + ', true]');
-              }
-              window.ggbApplet.setCoordSystem(0, historial.length + 1, Math.min(...solucion) - 2, Math.max(...solucion) + 2);
-              window.ggbApplet.setGridVisible(true);
-            } catch(e) { console.warn('GeoGebra Jacobi error:', e); }
-          };
-          if (typeof ggbReady !== 'undefined' && ggbReady && window.ggbApplet) doPlot(); else initGeoGebra(doPlot);
+            resetPanels();
+            document.getElementById('geogebra-container').style.display = 'block';
+            const doPlot = () => {
+                if (!window.ggbApplet) return;
+                try {
+                    window.ggbApplet.setPerspective('G');
+                    window.ggbApplet.reset();
+                    const varColors = ['0.15,0.39,0.92', '0.06,0.73,0.51', '0.96,0.62,0.04', '0.94,0.27,0.27', '0.55,0.36,0.96', '0.02,0.71,0.83'];
+                    for (let i = 0; i < n; i++) {
+                        const vals = historial.map(h => h.x[i]);
+                        window.ggbApplet.evalCommand('JVals' + i + ' = {' + vals.join(',') + '}');
+                        window.ggbApplet.evalCommand('JPts' + i + ' = Sequence((' + 'k, JVals' + i + '(k)), k, 1, ' + vals.length + ')');
+                        window.ggbApplet.evalCommand('JLine' + i + ' = Polyline[JPts' + i + ']');
+                        window.ggbApplet.evalCommand('SetColor[JLine' + i + ', ' + varColors[i % varColors.length] + ']');
+                        window.ggbApplet.evalCommand('SetLineThickness[JLine' + i + ', 4]');
+                        window.ggbApplet.evalCommand('ShowLabel[JLine' + i + ', false]');
+                        window.ggbApplet.evalCommand('JSol' + i + ' = (' + historial.length + ', ' + solucion[i] + ')');
+                        window.ggbApplet.evalCommand('SetColor[JSol' + i + ', ' + varColors[i % varColors.length] + ']');
+                        window.ggbApplet.evalCommand('SetPointSize[JSol' + i + ', 5]');
+                        window.ggbApplet.evalCommand('ShowLabel[JSol' + i + ', true]');
+                    }
+                    window.ggbApplet.setCoordSystem(0, historial.length + 1, Math.min(...solucion) - 2, Math.max(...solucion) + 2);
+                    window.ggbApplet.setGridVisible(true);
+                } catch (e) { console.warn('GeoGebra Jacobi error:', e); }
+            };
+            if (typeof ggbReady !== 'undefined' && ggbReady && window.ggbApplet) doPlot(); else initGeoGebra(doPlot);
         }
 
         function runRichardson() {
-          const x0      = parseFloat(document.getElementById('rich_x').value);
-          const h0      = parseFloat(document.getElementById('rich_h').value);
-          const levels  = Math.min(parseInt(document.getElementById('rich_levels').value), 5);
-          const deriv   = document.getElementById('rich_order').value;
-          const baseFormula = document.getElementById('rich_base_formula').value;
+            const x0 = parseFloat(document.getElementById('rich_x').value);
+            const h0 = parseFloat(document.getElementById('rich_h').value);
+            const levels = Math.min(parseInt(document.getElementById('rich_levels').value), 5);
+            const deriv = document.getElementById('rich_order').value;
+            const baseFormula = document.getElementById('rich_base_formula').value;
 
-          if (isNaN(x0) || isNaN(h0) || h0 <= 0) { showFieldError('rich_h', 'Paso h debe ser positivo.'); return; }
-          clearFieldErrors('rich_fx','rich_points','rich_x','rich_h','rich_levels');
+            if (isNaN(x0) || isNaN(h0) || h0 <= 0) { showFieldError('rich_h', 'Paso h debe ser positivo.'); return; }
+            clearFieldErrors('rich_fx', 'rich_points', 'rich_x', 'rich_h', 'rich_levels');
 
-          let fEval, f_str, isPts, ptsData;
+            let fEval, f_str, isPts, ptsData;
 
-          try {
-            const evalObj = getEvalFunction('rich');
-            fEval = evalObj.fEval; f_str = evalObj.f_str; isPts = evalObj.isPts; ptsData = evalObj.pts;
-            const valTest = fEval(x0);
-            if (!isFinite(valTest) || isNaN(valTest)) throw new Error('f(x) indefinida en x = ' + formatNumber(x0));
-          } catch(e) { showFieldError('rich_fx', e.message); return; }
+            try {
+                const evalObj = getEvalFunction('rich');
+                fEval = evalObj.fEval; f_str = evalObj.f_str; isPts = evalObj.isPts; ptsData = evalObj.pts;
+                const valTest = fEval(x0);
+                if (!isFinite(valTest) || isNaN(valTest)) throw new Error('f(x) indefinida en x = ' + formatNumber(x0));
+            } catch (e) { showFieldError('rich_fx', e.message); return; }
 
-          const baseApprox = (h) => {
-            if (deriv === '1') {
-              if (baseFormula === 'central')  return (fEval(x0+h) - fEval(x0-h)) / (2*h);
-              if (baseFormula === 'adelante') return (fEval(x0+h) - fEval(x0)) / h;
-              if (baseFormula === 'atras')    return (fEval(x0) - fEval(x0-h)) / h;
-            } else {
-              return (fEval(x0+h) - 2*fEval(x0) + fEval(x0-h)) / (h*h);
-            }
-          };
+            const baseApprox = (h) => {
+                if (deriv === '1') {
+                    if (baseFormula === 'central') return (fEval(x0 + h) - fEval(x0 - h)) / (2 * h);
+                    if (baseFormula === 'adelante') return (fEval(x0 + h) - fEval(x0)) / h;
+                    if (baseFormula === 'atras') return (fEval(x0) - fEval(x0 - h)) / h;
+                } else {
+                    return (fEval(x0 + h) - 2 * fEval(x0) + fEval(x0 - h)) / (h * h);
+                }
+            };
 
-          const p = (baseFormula === 'central') ? 2 : 1;
-          const n = levels;
-          const R = Array.from({length: n}, () => Array(n).fill(null));
+            const p = (baseFormula === 'central') ? 2 : 1;
+            const n = levels;
+            const R = Array.from({ length: n }, () => Array(n).fill(null));
 
-          try {
-            for (let i = 0; i < n; i++) {
-              const hi = h0 / Math.pow(2, i);
-              R[i][0] = baseApprox(hi);
-            }
-            for (let j = 1; j < n; j++) {
-              const factor = Math.pow(2, p * j);
-              for (let i = j; i < n; i++) {
-                R[i][j] = (factor * R[i][j-1] - R[i-1][j-1]) / (factor - 1);
-              }
-            }
-          } catch(e) { showFieldError('rich_f', e.message); return; }
+            try {
+                for (let i = 0; i < n; i++) {
+                    const hi = h0 / Math.pow(2, i);
+                    R[i][0] = baseApprox(hi);
+                }
+                for (let j = 1; j < n; j++) {
+                    const factor = Math.pow(2, p * j);
+                    for (let i = j; i < n; i++) {
+                        R[i][j] = (factor * R[i][j - 1] - R[i - 1][j - 1]) / (factor - 1);
+                    }
+                }
+            } catch (e) { showFieldError('rich_f', e.message); return; }
 
-          const orderLabels = [];
-          for (let j = 0; j < n; j++) {
-            const ord = p * Math.pow(2, j);
-            orderLabels.push(j === 0 ? `D(h) — O(h${p > 1 ? p : ''})` : `Nivel ${j} — O(h${ord})`);
-          }
-          const headers = ['i', 'h utilizado', ...orderLabels];
-          const tableRows = [];
-          for (let i = 0; i < n; i++) {
-            const hi = h0 / Math.pow(2, i);
-            const row = [i, formatNumber(hi)];
+            const orderLabels = [];
             for (let j = 0; j < n; j++) {
-              row.push(R[i][j] !== null ? formatNumber(R[i][j]) : '—');
+                const ord = p * Math.pow(2, j);
+                orderLabels.push(j === 0 ? `D(h) — O(h${p > 1 ? p : ''})` : `Nivel ${j} — O(h${ord})`);
             }
-            tableRows.push(row);
-          }
+            const headers = ['i', 'h utilizado', ...orderLabels];
+            const tableRows = [];
+            for (let i = 0; i < n; i++) {
+                const hi = h0 / Math.pow(2, i);
+                const row = [i, formatNumber(hi)];
+                for (let j = 0; j < n; j++) {
+                    row.push(R[i][j] !== null ? formatNumber(R[i][j]) : '—');
+                }
+                tableRows.push(row);
+            }
 
-          const bestEstimate = R[n-1][n-1];
-          const firstEstimate = R[0][0];
-          const improvement = Math.abs(firstEstimate - bestEstimate);
+            const bestEstimate = R[n - 1][n - 1];
+            const firstEstimate = R[0][0];
+            const improvement = Math.abs(firstEstimate - bestEstimate);
 
-          const summaryHtml = `
+            const summaryHtml = `
           <div style="display:flex; flex-direction:column; gap:16px;">
             <div style="display:flex; gap:14px; flex-wrap:wrap;">
               <div style="flex:1; min-width:180px; padding:16px; background:var(--bg-panel);
@@ -6143,13 +6406,13 @@
               <div style="flex:1; min-width:180px; padding:16px; background:var(--bg-panel);
                           border:2px solid var(--secondary); border-radius:var(--radius-md); text-align:center;">
                 <div style="font-size:11px; text-transform:uppercase; letter-spacing:1px;
-                            color:var(--text-muted); margin-bottom:6px;">Mejor estimación (nivel ${n-1})</div>
+                            color:var(--text-muted); margin-bottom:6px;">Mejor estimación (nivel ${n - 1})</div>
                 <div style="font-size:30px; font-weight:700; font-family:monospace; color:var(--secondary);">
                   ${formatNumber(bestEstimate)}
                 </div>
                 <span style="font-size:11px; background:rgba(16,185,129,0.15); color:var(--secondary);
                              padding:2px 8px; border-radius:12px; font-weight:700;">
-                  O(h${p * Math.pow(2, n-1)})
+                  O(h${p * Math.pow(2, n - 1)})
                 </span>
               </div>
               <div style="flex:1; min-width:180px; padding:16px; background:var(--bg-panel);
@@ -6169,7 +6432,7 @@
             </div>
           </div>`;
 
-          let pasosHtml = `<div style="margin-top: 22px; padding: 22px; background: rgba(99,102,241,0.05); border-left: 4px solid var(--primary); border-radius: var(--radius-lg); border-top: 1px solid rgba(99,102,241,0.15); border-right: 1px solid rgba(99,102,241,0.15); border-bottom: 1px solid rgba(99,102,241,0.15);">
+            let pasosHtml = `<div style="margin-top: 22px; padding: 22px; background: rgba(99,102,241,0.05); border-left: 4px solid var(--primary); border-radius: var(--radius-lg); border-top: 1px solid rgba(99,102,241,0.15); border-right: 1px solid rgba(99,102,241,0.15); border-bottom: 1px solid rgba(99,102,241,0.15);">
             <h4 style="margin: 0 0 12px 0; color: var(--primary); font-family: var(--font-display); font-size: 16px; font-weight: 700;"><i class="fa-solid fa-diagram-project" style="margin-right:8px;"></i>Desarrollo Paso a Paso</h4>
             <p style="margin: 0 0 10px 0; font-size: 13px; color: var(--text-muted);"><strong>1. Fórmula Recursiva de Richardson:</strong></p>
             <div style="font-family: monospace; font-size: 14px; margin-bottom: 15px; padding-left: 12px; border-left: 2px solid var(--primary);">
@@ -6177,108 +6440,107 @@
             </div>
             <p style="margin: 0 0 10px 0; font-size: 13px; color: var(--text-muted);"><strong>2. Estimaciones Base (Nivel 0):</strong></p>
             <ul style="margin: 0 0 15px 0; padding-left: 20px; font-family: monospace; font-size: 14px;">`;
-          for (let i = 0; i < n; i++) {
-              pasosHtml += `<li>D(h/${Math.pow(2,i)}) = R<sub>${i},0</sub> = ${formatNumber(R[i][0])}</li>`;
-          }
-          pasosHtml += `</ul>`;
-          if (n > 1) {
-              pasosHtml += `<p style="margin: 0 0 10px 0; font-size: 13px; color: var(--text-muted);"><strong>3. Extrapolación Nivel 1 (Demostración):</strong></p>
+            for (let i = 0; i < n; i++) {
+                pasosHtml += `<li>D(h/${Math.pow(2, i)}) = R<sub>${i},0</sub> = ${formatNumber(R[i][0])}</li>`;
+            }
+            pasosHtml += `</ul>`;
+            if (n > 1) {
+                pasosHtml += `<p style="margin: 0 0 10px 0; font-size: 13px; color: var(--text-muted);"><strong>3. Extrapolación Nivel 1 (Demostración):</strong></p>
               <div style="font-family: monospace; font-size: 14px; padding-left: 12px; border-left: 2px solid var(--primary);">
                 R<sub>1,1</sub> = R<sub>1,0</sub> + (R<sub>1,0</sub> - R<sub>0,0</sub>) / (2<sup>${p}</sup> - 1)<br>
-                R<sub>1,1</sub> = ${formatNumber(R[1][0])} + (${formatNumber(R[1][0])} - ${formatNumber(R[0][0])}) / ${Math.pow(2,p) - 1}<br>
+                R<sub>1,1</sub> = ${formatNumber(R[1][0])} + (${formatNumber(R[1][0])} - ${formatNumber(R[0][0])}) / ${Math.pow(2, p) - 1}<br>
                 R<sub>1,1</sub> = <strong>${formatNumber(R[1][1])}</strong>
               </div>`;
-          }
-          pasosHtml += `</div>`;
+            }
+            pasosHtml += `</div>`;
 
-          renderResults(headers, tableRows, summaryHtml + pasosHtml);
-          updateGeoGebraRichardson(f_str, x0, h0, n, R, p, deriv, isPts, ptsData, fEval);
+            renderResults(headers, tableRows, summaryHtml + pasosHtml);
+            updateGeoGebraRichardson(f_str, x0, h0, n, R, p, deriv, isPts, ptsData, fEval);
         }
 
         function updateGeoGebraRichardson(f_str, x0, h0, n, R, p, deriv, isPts, ptsData, fEval) {
-          resetPanels();
-          document.getElementById('geogebra-container').style.display = 'block';
-          const doPlot = () => {
-            if (!window.ggbApplet) return;
-            try {
-              window.ggbApplet.setPerspective('G');
-              window.ggbApplet.reset();
-
-              if (!isPts) {
-                let ggbFunc = f_str.replace(/log10\(/g, 'lg(').replace(/\bln\(/g, 'log(');
-                window.ggbApplet.evalCommand('f(x) = ' + ggbFunc);
-                window.ggbApplet.evalCommand('SetColor[f, "Blue"]');
-                window.ggbApplet.evalCommand('SetLineThickness[f, 5]');
-                window.ggbApplet.evalCommand('ShowLabel[f, false]');
-              } else {
-                ptsData.forEach((pt, i) => {
-                  window.ggbApplet.evalCommand('TblPt' + i + ' = (' + pt.x + ', ' + pt.y + ')');
-                  window.ggbApplet.evalCommand('SetColor[TblPt' + i + ', "Black"]');
-                  window.ggbApplet.evalCommand('SetPointSize[TblPt' + i + ', 4]');
-                });
-              }
-
-              const y0 = fEval(x0);
-              window.ggbApplet.evalCommand('P0 = (' + x0 + ', ' + y0 + ')');
-              window.ggbApplet.evalCommand('SetColor[P0, "Red"]');
-              window.ggbApplet.evalCommand('SetPointSize[P0, 9]');
-              window.ggbApplet.evalCommand('ShowLabel[P0, true]');
-
-              const levelColors = ['245,158,11','239,68,68','139,92,246','16,185,129','37,99,235'];
-              if (deriv === '1') {
-                for (let j = 0; j < Math.min(n, 5); j++) {
-                  const slope = R[n-1 > j ? j : n-1][j];
-                  if (slope === null || !isFinite(slope)) continue;
-                  const intercept = y0 - slope * x0;
-                  window.ggbApplet.evalCommand('Tangente' + j + '(x) = ' + slope.toFixed(10) + '*x + ' + intercept.toFixed(10));
-                  window.ggbApplet.evalCommand('SetColor[Tangente' + j + ', "Blue"]');
-                  window.ggbApplet.evalCommand('SetLineThickness[Tangente' + j + ', ' + (j === n-1 ? 4 : 2) + ']');
-                  window.ggbApplet.evalCommand('SetLineStyle[Tangente' + j + ', ' + (j === n-1 ? 0 : 2) + ']');
-                  window.ggbApplet.evalCommand('ShowLabel[Tangente' + j + ', false]');
-                }
-              }
-
-              const auxHs = Array.from({length: Math.min(n, 3)}, (_, i) => h0 / Math.pow(2, i));
-              auxHs.forEach((hi, idx) => {
+            resetPanels();
+            document.getElementById('geogebra-container').style.display = 'block';
+            const doPlot = () => {
+                if (!window.ggbApplet) return;
                 try {
-                  const yph = fEval(x0 + hi);
-                  const ymh = fEval(x0 - hi);
-                  window.ggbApplet.evalCommand('Pph' + idx + ' = (' + (x0+hi) + ', ' + yph + ')');
-                  window.ggbApplet.evalCommand('SetColor[Pph' + idx + ', "Red"]');
-                  window.ggbApplet.evalCommand('SetPointSize[Pph' + idx + ', 7]');
-                  window.ggbApplet.evalCommand('ShowLabel[Pph' + idx + ', true]');
-                  window.ggbApplet.evalCommand('Pmh' + idx + ' = (' + (x0-hi) + ', ' + ymh + ')');
-                  window.ggbApplet.evalCommand('SetColor[Pmh' + idx + ', "Red"]');
-                  window.ggbApplet.evalCommand('SetPointSize[Pmh' + idx + ', 7]');
-                  window.ggbApplet.evalCommand('ShowLabel[Pmh' + idx + ', true]');
-                } catch(e) {}
-              });
+                    window.ggbApplet.setPerspective('G');
+                    window.ggbApplet.reset();
 
-              const xRange = h0 * 3;
-              const yVals = [];
-              for (let k = -30; k <= 30; k++) {
-                try { yVals.push(fEval(x0 + k * h0 * 0.1)); } catch(e) {}
-              }
-              const yMin = Math.min(...yVals.filter(isFinite));
-              const yMax = Math.max(...yVals.filter(isFinite));
-              const yMargin = (yMax - yMin || 2) * 0.3;
-              window.ggbApplet.setCoordSystem(x0 - xRange, x0 + xRange, yMin - yMargin, yMax + yMargin);
-              window.ggbApplet.setGridVisible(true);
-            } catch(e) { console.warn('GeoGebra Richardson error:', e); }
-          };
-          if (typeof ggbReady !== 'undefined' && ggbReady && window.ggbApplet) doPlot(); else initGeoGebra(doPlot);
+                    if (!isPts) {
+                        let ggbFunc = f_str.replace(/log10\(/g, 'lg(').replace(/\bln\(/g, 'log(');
+                        window.ggbApplet.evalCommand('f(x) = ' + ggbFunc);
+                        window.ggbApplet.evalCommand('SetColor[f, "Blue"]');
+                        window.ggbApplet.evalCommand('SetLineThickness[f, 5]');
+                        window.ggbApplet.evalCommand('ShowLabel[f, false]');
+                    } else {
+                        ptsData.forEach((pt, i) => {
+                            window.ggbApplet.evalCommand('TblPt' + i + ' = (' + pt.x + ', ' + pt.y + ')');
+                            window.ggbApplet.evalCommand('SetColor[TblPt' + i + ', "Black"]');
+                            window.ggbApplet.evalCommand('SetPointSize[TblPt' + i + ', 4]');
+                        });
+                    }
+
+                    const y0 = fEval(x0);
+                    window.ggbApplet.evalCommand('P0 = (' + x0 + ', ' + y0 + ')');
+                    window.ggbApplet.evalCommand('SetColor[P0, "Red"]');
+                    window.ggbApplet.evalCommand('SetPointSize[P0, 9]');
+                    window.ggbApplet.evalCommand('ShowLabel[P0, true]');
+
+                    const levelColors = ['245,158,11', '239,68,68', '139,92,246', '16,185,129', '37,99,235'];
+                    if (deriv === '1') {
+                        for (let j = 0; j < Math.min(n, 5); j++) {
+                            const slope = R[n - 1 > j ? j : n - 1][j];
+                            if (slope === null || !isFinite(slope)) continue;
+                            const intercept = y0 - slope * x0;
+                            window.ggbApplet.evalCommand('Tangente' + j + '(x) = ' + slope.toFixed(10) + '*x + ' + intercept.toFixed(10));
+                            window.ggbApplet.evalCommand('SetColor[Tangente' + j + ', "Blue"]');
+                            window.ggbApplet.evalCommand('SetLineThickness[Tangente' + j + ', ' + (j === n - 1 ? 4 : 2) + ']');
+                            window.ggbApplet.evalCommand('SetLineStyle[Tangente' + j + ', ' + (j === n - 1 ? 0 : 2) + ']');
+                            window.ggbApplet.evalCommand('ShowLabel[Tangente' + j + ', false]');
+                        }
+                    }
+
+                    const auxHs = Array.from({ length: Math.min(n, 3) }, (_, i) => h0 / Math.pow(2, i));
+                    auxHs.forEach((hi, idx) => {
+                        try {
+                            const yph = fEval(x0 + hi);
+                            const ymh = fEval(x0 - hi);
+                            window.ggbApplet.evalCommand('Pph' + idx + ' = (' + (x0 + hi) + ', ' + yph + ')');
+                            window.ggbApplet.evalCommand('SetColor[Pph' + idx + ', "Red"]');
+                            window.ggbApplet.evalCommand('SetPointSize[Pph' + idx + ', 7]');
+                            window.ggbApplet.evalCommand('ShowLabel[Pph' + idx + ', true]');
+                            window.ggbApplet.evalCommand('Pmh' + idx + ' = (' + (x0 - hi) + ', ' + ymh + ')');
+                            window.ggbApplet.evalCommand('SetColor[Pmh' + idx + ', "Red"]');
+                            window.ggbApplet.evalCommand('SetPointSize[Pmh' + idx + ', 7]');
+                            window.ggbApplet.evalCommand('ShowLabel[Pmh' + idx + ', true]');
+                        } catch (e) { }
+                    });
+
+                    const xRange = h0 * 3;
+                    const yVals = [];
+                    for (let k = -30; k <= 30; k++) {
+                        try { yVals.push(fEval(x0 + k * h0 * 0.1)); } catch (e) { }
+                    }
+                    const yMin = Math.min(...yVals.filter(isFinite));
+                    const yMax = Math.max(...yVals.filter(isFinite));
+                    const yMargin = (yMax - yMin || 2) * 0.3;
+                    window.ggbApplet.setCoordSystem(x0 - xRange, x0 + xRange, yMin - yMargin, yMax + yMargin);
+                    window.ggbApplet.setGridVisible(true);
+                } catch (e) { console.warn('GeoGebra Richardson error:', e); }
+            };
+            if (typeof ggbReady !== 'undefined' && ggbReady && window.ggbApplet) doPlot(); else initGeoGebra(doPlot);
         }
 
-       // PWA: Registro del Service Worker
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js')
-            .then(reg => console.log('Service Worker registrado con éxito', reg))
-            .catch(err => console.error('Error al registrar el Service Worker', err));
-    });
-}
+        // PWA: Registro del Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registrado con éxito', reg))
+                    .catch(err => console.error('Error al registrar el Service Worker', err));
+            });
+        }
     </script>
 </body>
 
-</html>            
-
+</html>
