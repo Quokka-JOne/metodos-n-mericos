@@ -1,4 +1,4 @@
-const CACHE_NAME = 'numericos-pwa-v4';
+const CACHE_NAME = 'numericos-pwa-v5';
 const urlsToCache = [
   './index.html',
   './manifest.json',
@@ -7,6 +7,7 @@ const urlsToCache = [
 
 // Instalación del Service Worker y almacenamiento en caché
 self.addEventListener('install', event => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
@@ -29,14 +30,17 @@ self.addEventListener('fetch', event => {
 self.addEventListener('activate', event => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
+    Promise.all([
+      self.clients.claim(),
+      caches.keys().then(cacheNames => {
+        return Promise.all(
+          cacheNames.map(cacheName => {
+            if (cacheWhitelist.indexOf(cacheName) === -1) {
+              return caches.delete(cacheName);
+            }
+          })
+        );
+      })
+    ])
   );
 });
