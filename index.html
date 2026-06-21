@@ -24,6 +24,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+    <!-- Tesseract.js: OCR en cliente para lectura de imágenes de enunciados -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
     <style>
         :root {
@@ -301,13 +303,18 @@
         }
 
         .login-box img {
-            height: 56px;
+            height: 80px;
             margin-bottom: 20px;
             transition: transform 0.3s;
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 6px 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+            object-fit: contain;
         }
 
         .login-box img:hover {
-            transform: scale(1.02);
+            transform: scale(1.03);
         }
 
         .login-box h2 {
@@ -444,10 +451,186 @@
             object-fit: contain;
         }
 
-        [data-theme="dark"] #university-logo-container img {
-            background-color: #f7f4eb;
-            padding: 1px;
+        #university-logo-container img {
+            background-color: #ffffff;
+            padding: 2px 5px;
             border-radius: var(--radius-sm);
+            object-fit: contain;
+        }
+
+        /* ============================
+           ESTILOS: Panel Importar Enunciado EDO
+           ============================ */
+        .edo-import-panel {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            margin-bottom: 18px;
+            overflow: hidden;
+            transition: border-color 0.4s ease;
+        }
+        .edo-import-toggle {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background: var(--bg-secondary);
+            border: none;
+            cursor: pointer;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-align: left;
+            transition: background 0.2s;
+        }
+        .edo-import-toggle:hover { background: var(--bg-hover); }
+        .edo-import-toggle i:first-child { color: var(--accent); }
+        .edo-import-body {
+            padding: 16px;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-primary);
+        }
+        .edo-import-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin: 0 0 12px;
+            line-height: 1.5;
+        }
+        .edo-import-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        @media (max-width: 640px) { .edo-import-row { grid-template-columns: 1fr; } }
+        .edo-import-col { display: flex; flex-direction: column; gap: 8px; }
+        .edo-import-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .edo-textarea {
+            width: 100%;
+            min-height: 90px;
+            padding: 10px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            font-size: 12px;
+            resize: vertical;
+            box-sizing: border-box;
+            line-height: 1.5;
+            transition: border-color 0.2s;
+        }
+        .edo-textarea:focus { outline: none; border-color: var(--accent); }
+        .btn-import-action {
+            padding: 7px 14px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: opacity 0.2s;
+            width: fit-content;
+        }
+        .btn-import-action:hover { opacity: 0.85; }
+        .edo-upload-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 20px 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 13px;
+            text-align: center;
+            transition: border-color 0.2s, background 0.2s;
+            background: var(--bg-secondary);
+            min-height: 90px;
+        }
+        .edo-upload-zone:hover { border-color: var(--accent); background: var(--bg-hover); }
+        .edo-ocr-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text-muted);
+            padding: 6px 0;
+        }
+        /* Vista previa */
+        .edo-preview {
+            margin-top: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+        .edo-preview-header {
+            padding: 9px 14px;
+            background: var(--bg-secondary);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .edo-preview-fields { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+        .preview-field {
+            display: grid;
+            grid-template-columns: 140px 1fr auto;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+        }
+        @media (max-width: 600px) { .preview-field { grid-template-columns: 1fr; } }
+        .preview-field label { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+        .preview-field input {
+            padding: 5px 8px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            font-size: 12px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .preview-field input:focus { outline: none; border-color: var(--accent); }
+        .field-badge {
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            padding: 3px 7px;
+            border-radius: 20px;
+        }
+        .field-ok { background: color-mix(in srgb, var(--secondary) 8%, transparent); }
+        .field-ok .field-badge { color: var(--secondary); background: color-mix(in srgb, var(--secondary) 15%, transparent); }
+        .field-missing { background: color-mix(in srgb, var(--danger) 8%, transparent); }
+        .field-missing .field-badge { color: var(--danger); background: color-mix(in srgb, var(--danger) 15%, transparent); }
+        .field-missing input { border-color: color-mix(in srgb, var(--danger) 40%, transparent); }
+        .edo-preview-actions {
+            display: flex;
+            gap: 10px;
+            padding: 10px 12px;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-secondary);
         }
 
         /* Breadcrumb de navegación */
@@ -2512,6 +2695,50 @@
                     </div>`;
                 }
             });
+            // Componente de importación de enunciado SOLO para los 4 métodos EDO
+            const EDO_METHODS = ['euler', 'euler_mejorado', 'rk4', 'sistemas_edo'];
+            if (EDO_METHODS.includes(methodKey)) {
+                const isSistemas = methodKey === 'sistemas_edo';
+                html = `
+<div class="edo-import-panel" id="edo-import-panel">
+  <button class="edo-import-toggle" onclick="toggleImportPanel()" id="edo-import-toggle-btn">
+    <i class="fa-solid fa-wand-magic-sparkles"></i> Importar desde Enunciado
+    <i class="fa-solid fa-chevron-down" id="edo-import-chevron" style="margin-left:auto;font-size:11px;transition:transform 0.3s;"></i>
+  </button>
+  <div class="edo-import-body" id="edo-import-body" style="display:none;">
+    <p class="edo-import-hint"><i class="fa-solid fa-circle-info"></i> Pega el texto del ejercicio o sube una foto del enunciado. Los campos se autocompletarán y podrás corregirlos antes de calcular.</p>
+    <div class="edo-import-row">
+      <div class="edo-import-col">
+        <label class="edo-import-label"><i class="fa-solid fa-clipboard"></i> Pegar texto del enunciado</label>
+        <textarea id="edo-enunciado-text" class="edo-textarea" placeholder="Ej: dy/dt = -0.5*y, y(0) = 100, h = 1, primeras 4 horas..."></textarea>
+        <button class="btn-import-action" onclick="parsearEnunciadoTexto('${methodKey}')"><i class="fa-solid fa-magnifying-glass"></i> Extraer datos</button>
+      </div>
+      <div class="edo-import-col">
+        <label class="edo-import-label"><i class="fa-solid fa-camera"></i> Subir foto del enunciado (OCR)</label>
+        <div class="edo-upload-zone" id="edo-upload-zone" onclick="document.getElementById('edo-img-input').click()" ondragover="event.preventDefault()" ondrop="handleImgDrop(event,'${methodKey}')">
+          <i class="fa-solid fa-image" style="font-size:28px;opacity:0.4;"></i>
+          <span>Haz clic o arrastra una imagen</span>
+          <span style="font-size:11px;opacity:0.5;">(JPG, PNG, WEBP — escrita a mano o impresa)</span>
+        </div>
+        <input type="file" id="edo-img-input" accept="image/*" style="display:none" onchange="procesarOCR(event,'${methodKey}')">
+        <div id="edo-ocr-status" style="display:none;" class="edo-ocr-status">
+          <div class="spinner" style="width:18px;height:18px;border-width:2px;"></div>
+          <span id="edo-ocr-status-text">Procesando OCR...</span>
+        </div>
+      </div>
+    </div>
+    <div class="edo-preview" id="edo-preview" style="display:none;">
+      <div class="edo-preview-header"><i class="fa-solid fa-eye"></i> Vista previa de datos detectados — <em>Edita si es necesario antes de aplicar</em></div>
+      <div id="edo-preview-fields" class="edo-preview-fields"></div>
+      <div class="edo-preview-actions">
+        <button class="btn-primary" onclick="aplicarExtraccion('${methodKey}')"><i class="fa-solid fa-check"></i> Aplicar al formulario</button>
+        <button class="btn-secondary" onclick="cerrarPreview()"><i class="fa-solid fa-xmark"></i> Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>` + html;
+            }
+
             html += `<button class="btn-primary" onclick="showLoader(methodsConfig['${methodKey}'].run)"><i class="fa-solid fa-play"></i> Calcular y Graficar</button>`;
             html += `<button class="btn-secondary" onclick="exportExcel()"><i class="fa-solid fa-file-excel"></i> Exportar Tabla a Excel</button>`;
 
@@ -6769,6 +6996,321 @@
             } else {
                 initGeoGebra(doPlot);
             }
+        }
+
+        // ==========================================
+        // EXTRACCIÓN AUTOMÁTICA DE ENUNCIADOS EDO
+        // ==========================================
+
+        // Estado global del extractor
+        let _edoExtracted = {};
+
+        function toggleImportPanel() {
+            const body = document.getElementById('edo-import-body');
+            const chevron = document.getElementById('edo-import-chevron');
+            if (!body) return;
+            const open = body.style.display === 'none';
+            body.style.display = open ? 'block' : 'none';
+            if (chevron) chevron.style.transform = open ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        function cerrarPreview() {
+            const p = document.getElementById('edo-preview');
+            if (p) p.style.display = 'none';
+            _edoExtracted = {};
+        }
+
+        // ── Parseo de enunciado en texto plano ──
+        function parsearEnunciadoTexto(methodKey) {
+            const txt = (document.getElementById('edo-enunciado-text') || {}).value || '';
+            if (!txt.trim()) { alert('Pega el texto del enunciado primero.'); return; }
+            const datos = _parseEnunciadoEDO(txt, methodKey);
+            _mostrarPreview(datos, methodKey);
+        }
+
+        // ── OCR con Tesseract.js ──
+        async function procesarOCR(evt, methodKey) {
+            const file = evt.target.files[0];
+            if (!file) return;
+            const statusEl = document.getElementById('edo-ocr-status');
+            const statusTxt = document.getElementById('edo-ocr-status-text');
+            if (statusEl) statusEl.style.display = 'flex';
+            if (statusTxt) statusTxt.textContent = 'Iniciando OCR...';
+            try {
+                if (typeof Tesseract === 'undefined') throw new Error('Tesseract.js no cargado');
+                const url = URL.createObjectURL(file);
+                const worker = await Tesseract.createWorker('spa', 1, {
+                    logger: m => {
+                        if (statusTxt && m.status === 'recognizing text') {
+                            statusTxt.textContent = `Reconociendo... ${Math.round((m.progress||0)*100)}%`;
+                        }
+                    }
+                });
+                const { data: { text } } = await worker.recognize(url);
+                await worker.terminate();
+                URL.revokeObjectURL(url);
+                if (statusEl) statusEl.style.display = 'none';
+                // Mostrar texto detectado en el textarea para revisión
+                const ta = document.getElementById('edo-enunciado-text');
+                if (ta) ta.value = text;
+                const datos = _parseEnunciadoEDO(text, methodKey);
+                _mostrarPreview(datos, methodKey);
+            } catch(e) {
+                if (statusEl) statusEl.style.display = 'none';
+                console.error('OCR error:', e);
+                alert('Error en OCR: ' + e.message + '\nVerifica conexión a internet (Tesseract.js necesita descargar el modelo de idioma la primera vez).');
+            }
+        }
+
+        function handleImgDrop(evt, methodKey) {
+            evt.preventDefault();
+            const file = evt.dataTransfer.files[0];
+            if (!file || !file.type.startsWith('image/')) return;
+            // Simulate change event
+            const fakeEvt = { target: { files: [file] } };
+            procesarOCR(fakeEvt, methodKey);
+        }
+
+        // ── Parser principal ──
+        function _parseEnunciadoEDO(txt, methodKey) {
+            const isSistemas = methodKey === 'sistemas_edo';
+            const result = {
+                ode_f: { value: '', detected: false, label: isSistemas ? 'Ecuaciones (separadas por coma)' : 'Función f(x,y) = dy/dx' },
+                ode_x0: { value: '', detected: false, label: 'Condición inicial x₀ / t₀' },
+                ode_y0: { value: '', detected: false, label: 'Condición inicial y₀' },
+                ode_h:  { value: '', detected: false, label: 'Paso h' },
+                ode_xn: { value: '', detected: false, label: 'Valor final xn / tn' },
+                sys_vars: { value: '', detected: false, label: 'Variables de estado' },
+                sys_indep: { value: '', detected: false, label: 'Variable independiente' },
+                sys_init: { value: '', detected: false, label: 'Valores iniciales' },
+                sys_t0:  { value: '', detected: false, label: 'Valor inicial t₀' },
+                sys_h:   { value: '', detected: false, label: 'Paso h' },
+                sys_tn:  { value: '', detected: false, label: 'Valor final tn' },
+            };
+
+            // Normalizar: quitar saltos, reducir espacios
+            let t = txt.replace(/\r\n/g, '\n').replace(/[\u2019\u2018]/g, "'");
+
+            // ── Ecuación diferencial ──
+            // Patrones: dy/dt = ..., dy/dx = ..., y' = ..., f(x,y) = ...
+            const eqPatterns = [
+                /d[yx]\s*\/\s*d[txs]\s*=\s*([^\n,;]+)/i,
+                /y'\s*=\s*([^\n,;]+)/i,
+                /f\([^)]*\)\s*=\s*([^\n,;]+)/i,
+                /y'\([^)]*\)\s*=\s*([^\n,;]+)/i,
+            ];
+            if (!isSistemas) {
+                for (const pat of eqPatterns) {
+                    const m = t.match(pat);
+                    if (m) {
+                        let rhs = m[1].trim()
+                            .replace(/\bsen\b/g,'sin').replace(/\btg\b/g,'tan').replace(/\bln\b/g,'log');
+                        result.ode_f.value = rhs;
+                        result.ode_f.detected = true;
+                        break;
+                    }
+                }
+            } else {
+                // Para sistemas: buscar múltiples ecuaciones
+                const sysEqs = [];
+                const sysVars = [];
+                const sysInits = [];
+                // d__/dt = ... o __' = ...
+                const sysEqPat = /d([a-zA-Z_]\w*)\s*\/\s*dt\s*=\s*([^\n,;]+)/gi;
+                let sm;
+                while ((sm = sysEqPat.exec(t)) !== null) {
+                    sysVars.push(sm[1].trim());
+                    sysEqs.push(sm[2].trim().replace(/\bsen\b/g,'sin').replace(/\btg\b/g,'tan').replace(/\bln\b/g,'log'));
+                }
+                if (sysEqs.length >= 2) {
+                    result.ode_f.value = sysEqs.join(', ');
+                    result.ode_f.detected = true;
+                    result.sys_vars.value = sysVars.join(', ');
+                    result.sys_vars.detected = true;
+                    result.sys_indep.value = 't';
+                    result.sys_indep.detected = true;
+                }
+            }
+
+            // ── Condición inicial x₀/t₀ ──
+            const x0pats = [
+                /[yx]\s*\(\s*0\s*\)\s*=\s*([\d.\-eE]+)/i,
+                /\bx0\s*=\s*([\d.\-eE]+)/i,
+                /\bt0\s*=\s*([\d.\-eE]+)/i,
+                /\bx_0\s*=\s*([\d.\-eE]+)/i,
+                /condici[oó]n inicial\s*[x|t]\s*=\s*([\d.\-eE]+)/i,
+                /en\s*t\s*=\s*([\d.\-eE]+)/i,
+            ];
+            for (const p of x0pats) {
+                const m = t.match(p);
+                if (m) {
+                    const key = isSistemas ? 'sys_t0' : 'ode_x0';
+                    result[key].value = m[1].trim();
+                    result[key].detected = true;
+                    break;
+                }
+            }
+
+            // ── Condición inicial y₀ ──
+            const y0pats = [
+                /y\s*\(\s*0\s*\)\s*=\s*([\d.\-eE]+)/i,
+                /\by0\s*=\s*([\d.\-eE]+)/i,
+                /\by_0\s*=\s*([\d.\-eE]+)/i,
+                /valor inicial.*?=\s*([\d.\-eE]+)/i,
+            ];
+            if (!isSistemas) {
+                for (const p of y0pats) {
+                    const m = t.match(p);
+                    if (m) { result.ode_y0.value = m[1].trim(); result.ode_y0.detected = true; break; }
+                }
+            } else {
+                // Buscar valores iniciales múltiples: y1(0)=val, y2(0)=val o forma 1, 0
+                const initVals = [];
+                const initPat = /[a-zA-Z_]\w*\s*\(\s*0\s*\)\s*=\s*([\d.\-eE]+)/gi;
+                let im;
+                while ((im = initPat.exec(t)) !== null) initVals.push(im[1].trim());
+                if (initVals.length >= 2) {
+                    result.sys_init.value = initVals.join(', ');
+                    result.sys_init.detected = true;
+                }
+            }
+
+            // ── Paso h ──
+            const hPats = [
+                /\bh\s*=\s*([\d.]+)/i,
+                /paso\s*(?:de\s*)?(?:h\s*=\s*)?([\d.]+)/i,
+                /con\s+un\s+paso\s+de\s+([\d.]+)/i,
+                /incremento\s*=\s*([\d.]+)/i,
+                /step\s*=\s*([\d.]+)/i,
+            ];
+            const hKey = isSistemas ? 'sys_h' : 'ode_h';
+            for (const p of hPats) {
+                const m = t.match(p);
+                if (m) { result[hKey].value = m[1].trim(); result[hKey].detected = true; break; }
+            }
+
+            // ── Valor final xn / tn ──
+            const xnPats = [
+                /primeras?\s+([\d.]+)\s*(?:horas?|minutos?|segundos?|unidades?)?/i,
+                /hasta\s+[xt]\s*=\s*([\d.]+)/i,
+                /t(?:n|f(?:inal)?)?\s*=\s*([\d.]+)/i,
+                /xn\s*=\s*([\d.]+)/i,
+                /x\s*final\s*=\s*([\d.]+)/i,
+                /durante\s+([\d.]+)\s*(?:horas?|minutos?)?/i,
+                /en\s+el\s+intervalo.*?([\d.]+)\s*\]/i,
+                /de\s+0\s+a\s+([\d.]+)/i,
+            ];
+            const xnKey = isSistemas ? 'sys_tn' : 'ode_xn';
+            for (const p of xnPats) {
+                const m = t.match(p);
+                if (m) { result[xnKey].value = m[1].trim(); result[xnKey].detected = true; break; }
+            }
+
+            return result;
+        }
+
+        // ── Mostrar vista previa editable ──
+        function _mostrarPreview(datos, methodKey) {
+            _edoExtracted = { datos, methodKey };
+            const isSistemas = methodKey === 'sistemas_edo';
+
+            // Campos relevantes para el método
+            const fields = isSistemas
+                ? ['ode_f','sys_vars','sys_indep','sys_init','sys_t0','sys_h','sys_tn']
+                : ['ode_f','ode_x0','ode_y0','ode_h','ode_xn'];
+
+            const labels = {
+                ode_f: isSistemas ? 'Ecuaciones del sistema (coma)' : 'Función f(x,y)',
+                ode_x0: 'x₀ (condición inicial x)',
+                ode_y0: 'y₀ (condición inicial y)',
+                ode_h:  'Paso h',
+                ode_xn: 'Valor final xn',
+                sys_vars: 'Variables de estado',
+                sys_indep: 'Variable independiente',
+                sys_init: 'Valores iniciales (coma)',
+                sys_t0:  't₀',
+                sys_h:   'Paso h',
+                sys_tn:  'Valor final tn',
+            };
+
+            let html = '';
+            for (const key of fields) {
+                const d = datos[key];
+                const detected = d && d.detected;
+                html += `
+<div class="preview-field ${detected ? 'field-ok' : 'field-missing'}">
+  <label>${labels[key]}</label>
+  <input type="text" id="preview_${key}" value="${detected ? d.value : ''}" placeholder="${detected ? '' : 'No detectado — escribe manualmente'}" />
+  <span class="field-badge">${detected ? '<i class="fa-solid fa-check"></i> detectado' : '<i class="fa-solid fa-triangle-exclamation"></i> no detectado'}</span>
+</div>`;
+            }
+            const previewEl = document.getElementById('edo-preview');
+            const fieldsEl = document.getElementById('edo-preview-fields');
+            if (fieldsEl) fieldsEl.innerHTML = html;
+            if (previewEl) previewEl.style.display = 'block';
+        }
+
+        // ── Aplicar extracción al formulario ──
+        function aplicarExtraccion(methodKey) {
+            if (!_edoExtracted.datos) return;
+            const { datos } = _edoExtracted;
+            const isSistemas = methodKey === 'sistemas_edo';
+            const fields = isSistemas
+                ? ['sys_vars','sys_indep','sys_init','sys_t0','sys_h','sys_tn']
+                : ['ode_f','ode_x0','ode_y0','ode_h','ode_xn'];
+            const eqKey = 'ode_f'; // ecuacion(s)
+
+            // Leer valores del preview
+            const previewVals = {};
+            const allFields = [...fields, eqKey];
+            for (const key of allFields) {
+                const el = document.getElementById('preview_' + key);
+                if (el) previewVals[key] = el.value.trim();
+            }
+
+            // Mapeo de IDs de preview -> IDs del formulario real
+            const idMap = isSistemas ? {
+                ode_f:    'sys_eqs',
+                sys_vars: 'sys_vars',
+                sys_indep:'sys_indep',
+                sys_init: 'sys_init',
+                sys_t0:   'sys_t0',
+                sys_h:    'sys_h',
+                sys_tn:   'sys_tn',
+            } : {
+                ode_f:  'ode_f',
+                ode_x0: 'ode_x0',
+                ode_y0: 'ode_y0',
+                ode_h:  'ode_h',
+                ode_xn: 'ode_xn',
+            };
+
+            let applied = 0;
+            for (const [previewKey, formId] of Object.entries(idMap)) {
+                const val = previewVals[previewKey];
+                const el = document.getElementById(formId);
+                if (el && val) { el.value = val; applied++; }
+            }
+
+            // Cerrar preview y panel
+            const previewEl = document.getElementById('edo-preview');
+            if (previewEl) previewEl.style.display = 'none';
+            const importBody = document.getElementById('edo-import-body');
+            if (importBody) importBody.style.display = 'none';
+            const chevron = document.getElementById('edo-import-chevron');
+            if (chevron) chevron.style.transform = 'rotate(0deg)';
+
+            if (applied === 0) {
+                alert('No se aplicaron valores — asegúrate de rellenar al menos un campo en la vista previa.');
+            } else {
+                // Feedback visual
+                const panel = document.getElementById('edo-import-panel');
+                if (panel) {
+                    panel.style.borderColor = 'var(--secondary)';
+                    setTimeout(() => { if(panel) panel.style.borderColor = ''; }, 2000);
+                }
+            }
+            _edoExtracted = {};
         }
 
         // PWA: Registro del Service Worker

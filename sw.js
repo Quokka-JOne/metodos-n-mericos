@@ -1,4 +1,4 @@
-const CACHE_NAME = 'numericos-pwa-v5';
+const CACHE_NAME = 'numericos-pwa-v6';
 const urlsToCache = [
   './index.html',
   './manifest.json',
