@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Métodos Numéricos — Plataforma Académica Premium</title>
+    <title>NICANUMTECH — Plataforma Académica Premium</title>
 
     <!-- Fuentes Google Fonts Premium -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
         rel="stylesheet">
 
     <!-- FontAwesome para Íconos -->
@@ -27,77 +27,77 @@
 
     <style>
         :root {
-            /* Tema Oscuro por Defecto - Premium Slate/Indigo */
-            --bg-body: #080b11;
-            --bg-panel: rgba(15, 22, 36, 0.7);
-            --bg-sidebar: rgba(10, 14, 23, 0.85);
-            --bg-surface: #0e1320;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --border-color: rgba(55, 65, 81, 0.4);
-            --border-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 100%);
+            /* Tema Oscuro por Defecto - Minimalista Vintage Profesional */
+            --bg-body: #161412;
+            --bg-panel: #1f1c18;
+            --bg-sidebar: #1b1916;
+            --bg-surface: #27231e;
+            --text-main: #ebdcb9;
+            --text-muted: #a29475;
+            --border-color: #3d372e;
+            --border-gradient: none;
 
-            --primary: #6366f1;
-            /* Indigo vibrante y sofisticado */
-            --primary-hover: #4f46e5;
-            --primary-rgb: 99, 102, 241;
-            --secondary: #10b981;
-            /* Emerald */
-            --secondary-hover: #059669;
-            --accent: #f59e0b;
-            /* Amber */
-            --danger: #f43f5e;
-            /* Rose */
-            --danger-hover: #e11d48;
+            --primary: #2a4d38; /* Verde botella oscuro */
+            --primary-hover: #1f3b2a;
+            --primary-rgb: 42, 77, 56;
+            --secondary: #8c3b3b; /* Burdeos/Guinda apagado */
+            --secondary-hover: #702d2d;
+            --accent: #c99b50; /* Oro viejo / Latón */
+            --danger: #b03a2e; /* Rojo teja */
+            --danger-hover: #962f25;
 
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
-            --shadow-md: 0 8px 20px -2px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
-            --shadow-lg: 0 24px 38px -5px rgba(0, 0, 0, 0.8), 0 10px 15px -5px rgba(0, 0, 0, 0.6);
-            --shadow-glow: 0 0 25px rgba(99, 102, 241, 0.25);
-            --shadow-success-glow: 0 0 20px rgba(16, 185, 129, 0.25);
+            --shadow-sm: 1px 1px 0px 0px var(--border-color);
+            --shadow-md: 2px 2px 0px 0px var(--border-color);
+            --shadow-lg: 4px 4px 0px 0px var(--border-color);
+            --shadow-glow: 0 0 0 1.5px var(--primary);
+            --shadow-success-glow: 0 0 0 1.5px var(--secondary);
 
-            --radius-sm: 6px;
-            --radius-md: 10px;
-            --radius-lg: 16px;
-            --radius-xl: 24px;
+            --radius-sm: 2px;
+            --radius-md: 4px;
+            --radius-lg: 6px;
+            --radius-xl: 8px;
 
-            --font-display: 'Outfit', sans-serif;
-            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-display: 'EB Garamond', Lora, Georgia, serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
         }
 
         [data-theme="light"] {
-            /* Tema Claro Premium (Estilo Vercel/Linear) */
-            --bg-body: #f8fafc;
-            --bg-panel: rgba(255, 255, 255, 0.75);
-            --bg-sidebar: rgba(255, 255, 255, 0.9);
-            --bg-surface: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border-color: rgba(226, 232, 240, 0.8);
-            --border-gradient: linear-gradient(135deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.01) 100%);
+            /* Tema Claro - Minimalista Vintage Profesional (Papel sepia) */
+            --bg-body: #fdfbf7;
+            --bg-panel: #f7f4eb;
+            --bg-sidebar: #f3eedf;
+            --bg-surface: #faf8f2;
+            --text-main: #2b261f;
+            --text-muted: #7a6e5d;
+            --border-color: #dcd5c5;
+            --border-gradient: none;
 
-            --primary: #4f46e5;
-            /* Indigo */
-            --primary-hover: #4338ca;
-            --primary-rgb: 79, 70, 229;
-            --secondary: #10b981;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 10px 20px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
-            --shadow-lg: 0 25px 30px -5px rgba(0, 0, 0, 0.08), 0 10px 15px -5px rgba(0, 0, 0, 0.04);
-            --shadow-glow: 0 0 25px rgba(79, 70, 229, 0.15);
-            --shadow-success-glow: 0 0 20px rgba(16, 185, 129, 0.15);
+            --primary: #2a4d38; /* Verde botella oscuro */
+            --primary-hover: #1f3b2a;
+            --primary-rgb: 42, 77, 56;
+            --secondary: #8c3b3b; /* Burdeos apagado */
+            --secondary-hover: #702d2d;
+            --accent: #b68a35; /* Latón / oro viejo claro */
+            --danger: #a63e3b;
+            --danger-hover: #8f3431;
+
+            --shadow-sm: 1px 1px 0px 0px var(--border-color);
+            --shadow-md: 2px 2px 0px 0px var(--border-color);
+            --shadow-lg: 4px 4px 0px 0px var(--border-color);
+            --shadow-glow: 0 0 0 1.5px var(--primary);
+            --shadow-success-glow: 0 0 0 1.5px var(--secondary);
         }
 
         * {
             box-sizing: border-box;
-            transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         /* ----- SCROLLBAR PERSONALIZADO ----- */
         ::-webkit-scrollbar {
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
         }
 
         ::-webkit-scrollbar-track {
@@ -106,7 +106,7 @@
 
         ::-webkit-scrollbar-thumb {
             background: var(--border-color);
-            border-radius: 10px;
+            border-radius: var(--radius-sm);
         }
 
         ::-webkit-scrollbar-thumb:hover {
@@ -115,7 +115,7 @@
 
         /* ----- SELECCIÓN PERSONALIZADA ----- */
         ::selection {
-            background: rgba(var(--primary-rgb), 0.3);
+            background: rgba(var(--primary-rgb), 0.2);
             color: var(--text-main);
         }
 
@@ -137,7 +137,6 @@
             from {
                 opacity: 0;
             }
-
             to {
                 opacity: 1;
             }
@@ -146,9 +145,8 @@
         @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(24px);
+                transform: translateY(12px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -158,27 +156,11 @@
         @keyframes springUp {
             0% {
                 opacity: 0;
-                transform: translateY(50px) scale(0.96);
+                transform: translateY(20px) scale(0.98);
             }
-
-            60% {
-                opacity: 0.9;
-                transform: translateY(-4px) scale(1.01);
-            }
-
             100% {
                 opacity: 1;
                 transform: translateY(0) scale(1);
-            }
-        }
-
-        @keyframes shimmer {
-            0% {
-                background-position: -200% 0;
-            }
-
-            100% {
-                background-position: 200% 0;
             }
         }
 
@@ -186,37 +168,8 @@
             0% {
                 transform: rotate(0deg);
             }
-
             100% {
                 transform: rotate(360deg);
-            }
-        }
-
-        @keyframes pulseGlow {
-
-            0%,
-            100% {
-                opacity: 0.4;
-                filter: drop-shadow(0 0 2px rgba(var(--primary-rgb), 0.2));
-            }
-
-            50% {
-                opacity: 0.8;
-                filter: drop-shadow(0 0 12px rgba(var(--primary-rgb), 0.5));
-            }
-        }
-
-        @keyframes bgMove {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
             }
         }
 
@@ -234,20 +187,19 @@
 
         .toast {
             background: var(--bg-panel);
-            backdrop-filter: blur(16px);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            padding: 14px 20px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-lg);
+            padding: 12px 18px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-md);
             pointer-events: auto;
             display: flex;
             align-items: center;
             gap: 12px;
             min-width: 280px;
             max-width: 400px;
-            animation: springUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
-            border-left: 4px solid var(--primary);
+            animation: springUp 0.3s ease-out both;
+            border-left: 3px solid var(--primary);
         }
 
         .toast.toast-error {
@@ -255,7 +207,7 @@
         }
 
         .toast.toast-success {
-            border-left-color: var(--secondary);
+            border-left-color: var(--primary);
         }
 
         .toast.toast-warning {
@@ -280,22 +232,25 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(8, 11, 17, 0.8);
-            backdrop-filter: blur(8px);
+            background: rgba(22, 20, 18, 0.85);
             z-index: 9999;
             display: none;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            color: white;
-            animation: fadeIn 0.25s ease;
+            color: var(--text-main);
+            animation: fadeIn 0.2s ease;
+        }
+
+        [data-theme="light"] #global-loader {
+            background: rgba(253, 251, 247, 0.85);
         }
 
         .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            border-top: 3px solid var(--primary);
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--border-color);
+            border-top: 2px solid var(--primary);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
             margin-bottom: 15px;
@@ -308,7 +263,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 10% 20%, rgba(10, 14, 23, 0.95) 0%, rgba(5, 7, 12, 0.99) 100%);
+            background: var(--bg-body);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -316,7 +271,7 @@
             overflow: hidden;
         }
 
-        /* Patrón geométrico animado de fondo */
+        /* Patrón geométrico de fondo estilo papel cuadriculado */
         .login-bg-pattern {
             position: absolute;
             width: 100%;
@@ -324,52 +279,35 @@
             top: 0;
             left: 0;
             z-index: -1;
-            opacity: 0.25;
-            background-image:
-                radial-gradient(var(--primary) 1px, transparent 0),
-                radial-gradient(var(--primary) 1px, transparent 0);
-            background-size: 40px 40px;
-            background-position: 0 0, 20px 20px;
-            animation: shimmer 60s infinite linear;
+            opacity: 0.08;
+            background-size: 20px 20px;
+            background-image: 
+                linear-gradient(to right, var(--text-muted) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--text-muted) 1px, transparent 1px);
         }
 
         .login-box {
             background: var(--bg-panel);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            padding: 45px 40px;
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-lg), var(--shadow-glow);
+            padding: 40px 35px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
             width: 100%;
             max-width: 400px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
-            animation: springUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .login-box::before {
-            content: '';
-            position: absolute;
-            top: -75px;
-            right: -75px;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(var(--primary-rgb), 0.2) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
+            animation: springUp 0.5s ease-out;
         }
 
         .login-box img {
-            height: 64px;
+            height: 56px;
             margin-bottom: 20px;
-            filter: drop-shadow(0 0 10px rgba(var(--primary-rgb), 0.15));
             transition: transform 0.3s;
         }
 
         .login-box img:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
         .login-box h2 {
@@ -377,33 +315,32 @@
             color: var(--text-main);
             font-family: var(--font-display);
             font-weight: 700;
-            font-size: 26px;
+            font-size: 24px;
             letter-spacing: -0.5px;
         }
 
         .login-box p.login-subtitle {
             color: var(--text-muted);
-            font-size: 14px;
-            margin-top: -12px;
+            font-size: 12px;
+            margin-top: -8px;
             margin-bottom: 30px;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             font-weight: 600;
         }
 
-        /* Inputs Underline refinados */
         .login-box input {
             width: 100%;
-            padding: 12px 4px;
-            margin: 16px 0;
+            padding: 10px 4px;
+            margin: 12px 0;
             background: transparent;
             border: none;
             border-bottom: 1.5px solid var(--border-color);
             color: var(--text-main);
             font-family: var(--font-body);
-            font-size: 15px;
+            font-size: 14px;
             outline: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: border-bottom-color 0.2s;
         }
 
         .login-box input::placeholder {
@@ -413,50 +350,34 @@
 
         .login-box input:focus {
             border-bottom-color: var(--primary);
-            box-shadow: 0 4px 10px -4px rgba(var(--primary-rgb), 0.15);
         }
 
         /* ----- BOTONES ----- */
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
-            color: white;
+            background: var(--primary);
+            color: #ffffff;
             border: none;
             padding: 12px 24px;
             border-radius: var(--radius-md);
             cursor: pointer;
-            font-family: var(--font-display);
-            font-size: 14px;
+            font-family: var(--font-body);
+            font-size: 13.5px;
             width: 100%;
             font-weight: 600;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.35);
+            transition: all 0.2s;
+            margin-top: 15px;
+            box-shadow: var(--shadow-sm);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-            transition: 0.5s;
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(var(--primary-rgb), 0.5), var(--shadow-glow);
-        }
-
-        .btn-primary:hover::after {
-            left: 100%;
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
         }
 
         .btn-primary:active {
@@ -470,11 +391,11 @@
             padding: 10px 15px;
             border-radius: var(--radius-md);
             cursor: pointer;
-            font-family: var(--font-display);
+            font-family: var(--font-body);
             font-size: 13px;
             font-weight: 500;
             margin-top: 10px;
-            transition: all 0.25s;
+            transition: all 0.2s;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -483,12 +404,7 @@
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: var(--text-main);
-        }
-
-        [data-theme="light"] .btn-secondary:hover {
-            background: rgba(0, 0, 0, 0.03);
+            background: var(--bg-surface);
             border-color: var(--text-main);
         }
 
@@ -496,8 +412,6 @@
         .top-navbar {
             height: 52px;
             background: var(--bg-panel);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
@@ -505,19 +419,6 @@
             padding: 0 20px;
             z-index: 20;
             position: relative;
-        }
-
-        /* Línea inferior del header con gradiente primario de 1px */
-        .top-navbar::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent 0%, var(--primary) 50%, transparent 100%);
-            opacity: 0.6;
-            pointer-events: none;
         }
 
         .top-navbar .brand {
@@ -528,29 +429,25 @@
             font-weight: 700;
             font-size: 16px;
             color: var(--text-main);
-            letter-spacing: -0.3px;
         }
 
         #university-logo-container {
-            height: 30px;
+            height: 28px;
             display: flex;
             align-items: center;
-            border-right: 1.5px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
             padding-right: 12px;
         }
 
         #university-logo-container img {
             max-height: 100%;
             object-fit: contain;
-            transition: filter 0.3s;
         }
 
-        /* Filtrar logotipo de universidad en tema oscuro */
         [data-theme="dark"] #university-logo-container img {
-            /* Se removió el filtro para evitar el cuadro blanco con imágenes sin transparencia */
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 2px;
-            border-radius: 4px;
+            background-color: #f7f4eb;
+            padding: 1px;
+            border-radius: var(--radius-sm);
         }
 
         /* Breadcrumb de navegación */
@@ -580,7 +477,7 @@
             color: var(--text-muted);
             width: 32px;
             height: 32px;
-            border-radius: 50%;
+            border-radius: var(--radius-sm);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -591,18 +488,17 @@
 
         .icon-btn:hover {
             color: var(--text-main);
-            border-color: var(--primary);
-            background: rgba(var(--primary-rgb), 0.08);
-            box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.15);
+            border-color: var(--text-main);
+            background: var(--bg-surface);
         }
 
-        /* Tooltip Nativo Mejorado por CSS */
+        /* Tooltip Nativo por CSS */
         .icon-btn[title]::after {
             content: attr(title);
             position: absolute;
             top: 130%;
             left: 50%;
-            transform: translateX(-50%) translateY(5px);
+            transform: translateX(-50%) translateY(3px);
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
             color: var(--text-main);
@@ -613,8 +509,8 @@
             white-space: nowrap;
             opacity: 0;
             pointer-events: none;
-            box-shadow: var(--shadow-md);
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s;
             z-index: 100;
         }
 
@@ -629,21 +525,19 @@
             flex: 1;
             overflow: hidden;
             opacity: 0;
-            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: fadeIn 0.4s ease-out forwards;
         }
 
-        /* Sidebar Glassmorphism */
+        /* Sidebar Flat Vintage */
         .sidebar {
             width: 260px;
             background: var(--bg-sidebar);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             border-right: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
             overflow-y: auto;
             z-index: 10;
-            transition: transform 0.3s ease;
+            transition: transform 0.2s ease;
         }
 
         .sidebar ul {
@@ -656,8 +550,8 @@
             padding: 9px 12px;
             margin-bottom: 2px;
             cursor: pointer;
-            border-radius: var(--radius-md);
-            transition: all 0.25s ease;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s;
             font-size: 13px;
             font-weight: 500;
             color: var(--text-muted);
@@ -670,60 +564,34 @@
         .sidebar li i {
             width: 18px;
             text-align: center;
-            font-size: 14px;
-            opacity: 0.85;
-            transition: transform 0.2s;
+            font-size: 13px;
+            opacity: 0.8;
         }
 
         .sidebar li:hover:not(.section-title) {
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--bg-surface);
             color: var(--text-main);
-            transform: translateX(4px);
+            transform: translateX(2px);
         }
 
-        [data-theme="light"] .sidebar li:hover:not(.section-title) {
-            background: rgba(0, 0, 0, 0.02);
-        }
-
-        .sidebar li:hover i {
-            transform: scale(1.1);
-        }
-
-        /* Indicador de método activo barra izquierda animada */
+        /* Indicador de método activo */
         .sidebar li.active {
-            background: rgba(var(--primary-rgb), 0.08);
-            color: var(--primary);
+            background: var(--bg-surface);
+            color: var(--text-main);
             font-weight: 600;
-        }
-
-        .sidebar li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 25%;
-            height: 50%;
-            width: 0;
-            background: var(--primary);
-            border-radius: 0 4px 4px 0;
-            transition: width 0.25s ease, height 0.25s ease;
-        }
-
-        .sidebar li.active::before {
-            width: 3px;
-            height: 60%;
-            top: 20%;
+            border-left: 2.5px solid var(--primary);
         }
 
         .sidebar li.section-title {
             color: var(--text-muted);
             font-family: var(--font-display);
-            font-size: 10px;
+            font-size: 11px;
             text-transform: uppercase;
             font-weight: 700;
-            padding: 16px 12px 4px 12px;
+            padding: 16px 12px 6px 12px;
             cursor: default;
-            letter-spacing: 1.5px;
-            opacity: 0.6;
+            letter-spacing: 1px;
+            opacity: 0.7;
         }
 
         .sidebar li.section-title.teoremas {
@@ -736,7 +604,7 @@
             background: transparent;
             border: none;
             color: var(--text-muted);
-            font-size: 20px;
+            font-size: 18px;
             cursor: pointer;
             padding: 0 10px;
             align-items: center;
@@ -755,14 +623,14 @@
         }
 
         .header {
-            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+            animation: slideUp 0.3s ease-out both;
         }
 
         .header h2 {
             margin: 0 0 4px 0;
             color: var(--text-main);
             font-family: var(--font-display);
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 700;
             letter-spacing: -0.5px;
         }
@@ -778,33 +646,20 @@
             display: flex;
             gap: 20px;
             flex-shrink: 0;
-            animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+            animation: slideUp 0.4s ease-out both;
         }
 
         .panel {
             background: var(--bg-panel);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
+            border-radius: var(--radius-md);
             padding: 20px;
             box-shadow: var(--shadow-sm);
             position: relative;
         }
 
-        /* Bordes sutiles de gradiente en paneles para profundidad */
         .panel::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: var(--radius-lg);
-            padding: 1px;
-            background: var(--border-gradient);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            pointer-events: none;
+            display: none; /* Quitar decoración de gradiente */
         }
 
         .controls-panel {
@@ -824,12 +679,9 @@
             align-items: center;
             padding: 15px;
             background: var(--bg-surface);
-            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+            box-shadow: none;
+            border: 1px solid var(--border-color);
             overflow: hidden;
-        }
-
-        [data-theme="light"] .graph-panel {
-            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
         }
 
         .bottom-panel {
@@ -837,7 +689,7 @@
             height: auto;
             display: flex;
             flex-direction: column;
-            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+            animation: slideUp 0.5s ease-out both;
         }
 
         /* Formularios */
@@ -855,46 +707,38 @@
             text-transform: uppercase;
             letter-spacing: 0.8px;
             opacity: 0.85;
-            transition: color 0.2s;
         }
 
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 10px 12px;
+            padding: 9px 11px;
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-sm);
             color: var(--text-main);
             font-family: var(--font-mono);
             font-size: 13px;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s;
             outline: none;
         }
 
-        /* Tooltip contextual nativo en hover de label */
         .form-group:hover label {
             color: var(--primary);
-        }
-
-        /* Validación visual en tiempo real */
-        .form-group input:not(:placeholder-shown):invalid {
-            border-color: var(--danger);
-            box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.15);
         }
 
         .form-group input:focus,
         .form-group select:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 2.5px rgba(99, 102, 241, 0.2);
             background: var(--bg-body);
+            box-shadow: 0 0 0 1.5px var(--primary);
         }
 
         /* Tablas de Resultados */
         .table-wrapper {
             overflow-x: auto;
             margin-top: 15px;
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-sm);
             border: 1px solid var(--border-color);
             background: var(--bg-surface);
             position: relative;
@@ -918,11 +762,9 @@
         .data-table td {
             font-family: var(--font-mono);
             font-variant-numeric: tabular-nums;
-            font-feature-settings: "tnum";
             text-align: right;
         }
 
-        /* La primera columna suele ser la iteración y se formatea diferente */
         .data-table td:first-child {
             text-align: center;
             font-weight: 600;
@@ -931,13 +773,11 @@
         }
 
         .data-table th {
-            background: rgba(14, 19, 32, 0.85);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: var(--bg-surface);
             color: var(--text-muted);
             font-family: var(--font-display);
             font-weight: 600;
-            font-size: 10.5px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.8px;
             white-space: nowrap;
@@ -952,98 +792,32 @@
             text-align: center;
         }
 
-        [data-theme="light"] .data-table th {
-            background: rgba(255, 255, 255, 0.9);
-        }
-
         .data-table tr:last-child td {
             border-bottom: none;
         }
 
-        /* Zebra striping ultra sutil (2%) */
         .data-table tr:nth-child(even) td {
-            background: rgba(255, 255, 255, 0.015);
-        }
-
-        [data-theme="light"] .data-table tr:nth-child(even) td {
-            background: rgba(0, 0, 0, 0.015);
+            background: rgba(var(--primary-rgb), 0.015);
         }
 
         .data-table tr:hover td {
-            background: rgba(var(--primary-rgb), 0.04) !important;
+            background: rgba(var(--primary-rgb), 0.05) !important;
         }
 
-        /* Resaltar última fila convergente en verde tenue con animación */
+        /* Destacar última fila */
         .data-table tr:last-child td {
-            background: rgba(16, 185, 129, 0.06);
-            color: var(--secondary);
+            background: rgba(42, 77, 56, 0.08);
+            color: var(--primary);
             font-weight: 600;
+        }
+
+        [data-theme="light"] .data-table tr:last-child td {
+            background: rgba(42, 77, 56, 0.06);
         }
 
         .data-table tr:last-child td:first-child::after {
             content: " ✓";
-            color: var(--secondary);
-        }
-
-        /* Animación stagger para las filas de la tabla */
-        @keyframes trFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(6px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .data-table tbody tr {
-            animation: trFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-
-        .data-table tbody tr:nth-child(1) {
-            animation-delay: 20ms;
-        }
-
-        .data-table tbody tr:nth-child(2) {
-            animation-delay: 40ms;
-        }
-
-        .data-table tbody tr:nth-child(3) {
-            animation-delay: 60ms;
-        }
-
-        .data-table tbody tr:nth-child(4) {
-            animation-delay: 80ms;
-        }
-
-        .data-table tbody tr:nth-child(5) {
-            animation-delay: 100ms;
-        }
-
-        .data-table tbody tr:nth-child(6) {
-            animation-delay: 120ms;
-        }
-
-        .data-table tbody tr:nth-child(7) {
-            animation-delay: 140ms;
-        }
-
-        .data-table tbody tr:nth-child(8) {
-            animation-delay: 160ms;
-        }
-
-        .data-table tbody tr:nth-child(9) {
-            animation-delay: 180ms;
-        }
-
-        .data-table tbody tr:nth-child(10) {
-            animation-delay: 200ms;
-        }
-
-        .data-table tbody tr:nth-child(n+11) {
-            animation-delay: 220ms;
+            color: var(--primary);
         }
 
         .coeff-list {
@@ -1058,7 +832,7 @@
             background: var(--bg-body);
             border: 1px solid var(--border-color);
             padding: 2px 10px;
-            border-radius: var(--radius-xl);
+            border-radius: var(--radius-sm);
             font-family: var(--font-mono);
             font-size: 11px;
             color: var(--text-main);
@@ -1068,21 +842,25 @@
         #root-result {
             margin-top: 0;
             padding: 16px 20px;
-            background: rgba(16, 185, 129, 0.08);
-            border-left: 4px solid var(--secondary);
-            border-right: 1px solid rgba(16, 185, 129, 0.2);
-            border-top: 1px solid rgba(16, 185, 129, 0.2);
-            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
-            color: var(--secondary);
+            background: rgba(42, 77, 56, 0.08);
+            border-left: 4px solid var(--primary);
+            border-right: 1px solid var(--border-color);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-main);
             font-family: var(--font-display);
             font-weight: 600;
             font-size: 15px;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-success-glow);
-            animation: springUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1) both;
+            border-radius: var(--radius-sm);
+            box-shadow: none;
+            animation: springUp 0.4s ease-out both;
             display: flex;
             align-items: center;
             gap: 12px;
+        }
+
+        [data-theme="light"] #root-result {
+            background: rgba(42, 77, 56, 0.06);
         }
 
         #root-result::before {
@@ -1090,6 +868,7 @@
             font-family: "Font Awesome 6 Free";
             font-weight: 900;
             font-size: 18px;
+            color: var(--primary);
         }
 
         /* Contenedores de Gráficos */
@@ -1098,9 +877,9 @@
         #plotly-container {
             width: 100%;
             height: 100%;
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-sm);
             overflow: hidden;
-            animation: fadeIn 0.5s ease-out;
+            animation: fadeIn 0.4s ease-out;
         }
 
         /* Estilos específicos Punto Fijo Automático */
@@ -1109,7 +888,7 @@
             padding: 18px;
             background-color: var(--bg-surface);
             border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-sm);
         }
 
         .panel-despejes h3 {
@@ -1123,7 +902,7 @@
         .despeje-item {
             padding: 10px 14px;
             margin: 8px 0;
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-sm);
             background-color: var(--bg-panel);
             border: 1px solid var(--border-color);
             display: flex;
@@ -1134,24 +913,23 @@
         }
 
         .despeje-item:hover {
-            transform: translateX(4px);
+            transform: translateX(2px);
             border-color: var(--primary);
         }
 
         .despeje-ganador {
-            background-color: rgba(16, 185, 129, 0.05);
-            border-color: var(--secondary) !important;
-            box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
+            background-color: rgba(42, 77, 56, 0.06);
+            border-color: var(--primary) !important;
             font-weight: 600;
         }
 
         .success-text {
-            color: var(--secondary);
+            color: var(--primary);
             font-weight: 600;
         }
 
         .danger-text {
-            color: var(--danger);
+            color: var(--secondary);
             font-weight: 600;
         }
 
@@ -1169,19 +947,18 @@
         }
 
         .graph-empty-state svg {
-            width: 70px;
-            height: 70px;
-            opacity: 0.65;
+            width: 60px;
+            height: 60px;
+            opacity: 0.5;
             stroke: var(--primary);
-            stroke-width: 1.25;
+            stroke-width: 1.5;
             fill: none;
-            animation: pulseGlow 4s infinite ease-in-out;
         }
 
         .graph-empty-state h4 {
             margin: 0;
             font-family: var(--font-display);
-            font-size: 15px;
+            font-size: 16px;
             color: var(--text-main);
             font-weight: 600;
         }
@@ -1190,7 +967,7 @@
             margin: 0;
             font-size: 12.5px;
             max-width: 320px;
-            line-height: 1.4;
+            line-height: 1.45;
         }
 
         /* Skeleton loader para GeoGebra */
@@ -1216,14 +993,12 @@
         }
 
         .skeleton-text {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-muted);
-            font-weight: 500;
+            font-weight: 600;
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
-
-
 
         /* ----- MEDIA QUERIES (RESPONSIVO Y ACCESIBILIDAD) ----- */
         @media (max-width: 1024px) {
@@ -1239,11 +1014,12 @@
                 width: 250px;
                 transform: translateX(-100%);
                 z-index: 100;
+                box-shadow: none;
+                border-right: 1px solid var(--border-color);
             }
 
             .sidebar.open {
                 transform: translateX(0);
-                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
             }
         }
 
@@ -1284,7 +1060,7 @@
             }
         }
 
-        /* Reducción de animaciones si se prefiere */
+        /* Reducción de animaciones */
         @media (prefers-reduced-motion: reduce) {
             * {
                 animation-delay: 0s !important;
@@ -1302,9 +1078,7 @@
         #admin-modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(5, 7, 12, 0.75);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: rgba(22, 20, 18, 0.6);
             z-index: 2000;
             display: none;
             justify-content: center;
@@ -1319,19 +1093,19 @@
         .admin-modal {
             background: var(--bg-panel);
             border: 1px solid var(--border-color);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-lg), var(--shadow-glow);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
             width: 100%;
             max-width: 560px;
             max-height: 85vh;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            animation: springUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: springUp 0.3s ease-out;
         }
 
         .admin-modal-header {
-            padding: 22px 28px 18px;
+            padding: 20px 24px 16px;
             border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
@@ -1342,7 +1116,7 @@
         .admin-modal-header h3 {
             margin: 0;
             font-family: var(--font-display);
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
             color: var(--text-main);
             display: flex;
@@ -1360,7 +1134,7 @@
             color: var(--text-muted);
             width: 32px;
             height: 32px;
-            border-radius: 50%;
+            border-radius: var(--radius-sm);
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -1369,17 +1143,17 @@
         }
 
         .admin-modal-close:hover {
-            color: var(--danger);
-            border-color: var(--danger);
-            background: rgba(244, 63, 94, 0.08);
+            color: var(--secondary);
+            border-color: var(--secondary);
+            background: rgba(140, 59, 59, 0.08);
         }
 
         .admin-modal-body {
-            padding: 24px 28px;
+            padding: 20px 24px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 20px;
         }
 
         .user-table {
@@ -1401,7 +1175,7 @@
 
         .user-table td {
             padding: 11px 12px;
-            border-bottom: 1px solid rgba(55, 65, 81, 0.2);
+            border-bottom: 1px solid var(--border-color);
             color: var(--text-main);
             font-weight: 500;
             vertical-align: middle;
@@ -1412,11 +1186,7 @@
         }
 
         .user-table tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        [data-theme="light"] .user-table tr:hover td {
-            background: rgba(0, 0, 0, 0.02);
+            background: var(--bg-surface);
         }
 
         .role-badge {
@@ -1424,34 +1194,34 @@
             align-items: center;
             gap: 5px;
             padding: 3px 10px;
-            border-radius: 20px;
+            border-radius: var(--radius-sm);
             font-size: 11px;
             font-weight: 700;
             letter-spacing: 0.5px;
         }
 
         .role-badge.admin {
-            background: rgba(99, 102, 241, 0.12);
+            background: rgba(42, 77, 56, 0.08);
             color: var(--primary);
-            border: 1px solid rgba(99, 102, 241, 0.3);
+            border: 1px solid var(--border-color);
         }
 
         .role-badge.user {
-            background: rgba(16, 185, 129, 0.1);
+            background: rgba(140, 59, 59, 0.06);
             color: var(--secondary);
-            border: 1px solid rgba(16, 185, 129, 0.25);
+            border: 1px solid var(--border-color);
         }
 
         .btn-danger-sm {
             background: transparent;
-            border: 1px solid rgba(244, 63, 94, 0.35);
-            color: var(--danger);
+            border: 1px solid var(--border-color);
+            color: var(--secondary);
             padding: 5px 12px;
             border-radius: var(--radius-sm);
             cursor: pointer;
             font-size: 12px;
             font-weight: 600;
-            font-family: var(--font-display);
+            font-family: var(--font-body);
             transition: all 0.2s;
             display: inline-flex;
             align-items: center;
@@ -1459,21 +1229,21 @@
         }
 
         .btn-danger-sm:hover {
-            background: rgba(244, 63, 94, 0.1);
-            border-color: var(--danger);
+            background: rgba(140, 59, 59, 0.08);
+            border-color: var(--secondary);
         }
 
         .add-user-form {
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
+            border-radius: var(--radius-sm);
             padding: 20px;
         }
 
         .add-user-form h4 {
             margin: 0 0 16px 0;
             font-family: var(--font-display);
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 700;
             color: var(--text-main);
             display: flex;
@@ -1482,7 +1252,7 @@
         }
 
         .add-user-form h4 i {
-            color: var(--secondary);
+            color: var(--primary);
         }
 
         .add-user-form .form-row {
@@ -1494,20 +1264,19 @@
         .add-user-form .form-row input {
             flex: 1;
             min-width: 140px;
-            padding: 10px 14px;
+            padding: 9px 12px;
             background: var(--bg-panel);
             border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-sm);
             color: var(--text-main);
             font-family: var(--font-body);
             font-size: 13px;
             outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: border-color 0.2s;
         }
 
         .add-user-form .form-row input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
         }
 
         .add-user-form .form-row input::placeholder {
@@ -1516,13 +1285,13 @@
         }
 
         .btn-success-sm {
-            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-hover) 100%);
-            color: white;
+            background: var(--primary);
+            color: #ffffff;
             border: none;
-            padding: 10px 18px;
-            border-radius: var(--radius-md);
+            padding: 9px 18px;
+            border-radius: var(--radius-sm);
             cursor: pointer;
-            font-family: var(--font-display);
+            font-family: var(--font-body);
             font-size: 13px;
             font-weight: 600;
             transition: all 0.2s;
@@ -1530,16 +1299,16 @@
             align-items: center;
             gap: 6px;
             white-space: nowrap;
-            box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3);
+            box-shadow: var(--shadow-sm);
         }
 
         .btn-success-sm:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 5px 16px rgba(16, 185, 129, 0.45);
+            background: var(--primary-hover);
+            box-shadow: var(--shadow-md);
         }
 
         .admin-form-error {
-            color: var(--danger);
+            color: var(--secondary);
             font-size: 12px;
             font-weight: 600;
             margin-top: 8px;
@@ -1550,14 +1319,14 @@
             font-size: 12px;
             font-weight: 600;
             color: var(--text-muted);
-            font-family: var(--font-display);
+            font-family: var(--font-body);
             display: none;
             align-items: center;
             gap: 6px;
             padding: 4px 10px;
-            background: rgba(var(--primary-rgb), 0.06);
+            background: var(--bg-surface);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
+            border-radius: var(--radius-sm);
         }
 
         #navbar-username i {
@@ -1573,16 +1342,16 @@
         }
 
         .user-table-empty i {
-            font-size: 28px;
+            font-size: 24px;
             margin-bottom: 8px;
             display: block;
-            opacity: 0.4;
+            opacity: 0.5;
         }
     </style>
 
     <!-- PWA Config -->
     <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#080b11">
+    <meta name="theme-color" content="#161412">
     <link rel="apple-touch-icon" href="./logo-uni.png">
 </head>
 
@@ -1601,7 +1370,7 @@
         <div class="login-box" id="login-form">
             <img src="logo-uni.png" alt="Logo Universidad" />
             <h2>Acceso Académico</h2>
-            <p class="login-subtitle">Métodos Numéricos</p>
+            <p class="login-subtitle">NICANUMTECH</p>
             <input type="text" id="login-user" placeholder="Nombre de usuario" autocomplete="off">
             <input type="password" id="login-pass" placeholder="Contraseña" autocomplete="current-password">
             <button class="btn-primary" onclick="iniciarSesion()">
@@ -1620,7 +1389,7 @@
         <div class="login-box" id="signup-form" style="display: none;">
             <img src="logo-uni.png" alt="Logo Universidad" />
             <h2>Crear Cuenta</h2>
-            <p class="login-subtitle">Métodos Numéricos</p>
+            <p class="login-subtitle">NICANUMTECH</p>
             <input type="text" id="signup-user" placeholder="Nombre de usuario" autocomplete="off">
             <input type="password" id="signup-pass" placeholder="Contraseña (mín. 6 caracteres)" autocomplete="new-password">
             <input type="password" id="signup-pass-confirm" placeholder="Confirmar contraseña" autocomplete="new-password">
@@ -1651,7 +1420,7 @@
             <div id="university-logo-container">
                 <img src="logo-uni.png" alt="Logo Universidad" />
             </div>
-            <span>Métodos Numéricos</span>
+            <span>NICANUMTECH</span>
 
             <!-- Breadcrumb activo -->
             <div class="breadcrumb">
@@ -1755,6 +1524,12 @@
                 <li class="section-title teoremas">Teoremas</li>
                 <li id="tab-bolzano" onclick="showTab('bolzano')"><i class="fa-solid fa-vial-circle-check"></i>
                     Teorema de Bolzano</li>
+
+                <li class="section-title">Ecuaciones Diferenciales</li>
+                <li id="tab-euler" onclick="showTab('euler')"><i class="fa-solid fa-calculator"></i> Método de Euler</li>
+                <li id="tab-euler_mejorado" onclick="showTab('euler_mejorado')"><i class="fa-solid fa-calculator"></i> Euler Mejorado</li>
+                <li id="tab-rk4" onclick="showTab('rk4')"><i class="fa-solid fa-calculator"></i> Runge-Kutta 4 (RK4)</li>
+                <li id="tab-sistemas_edo" onclick="showTab('sistemas_edo')"><i class="fa-solid fa-square-root-variable"></i> Sistemas de EDO</li>
             </ul>
         </nav>
 
@@ -2641,6 +2416,60 @@
                 desc: "Combina dos estimaciones numéricas para cancelar el término dominante del error, obteniendo una aproximación de orden superior.",
                 inputs: [],
                 run: runRichardson
+            },
+            euler: {
+                title: "Método de Euler",
+                desc: "Aproxima la solución de una ecuación diferencial de primer orden dy/dx = f(x, y) utilizando el método de Euler simple (recta tangente).",
+                inputs: [
+                    { id: "ode_f", label: "Función f(x, y) = dy/dx", type: "text", value: "x + y" },
+                    { id: "ode_x0", label: "Condición Inicial x0", type: "number", value: "0" },
+                    { id: "ode_y0", label: "Condición Inicial y0", type: "number", value: "1" },
+                    { id: "ode_h", label: "Tamaño de Paso h", type: "number", value: "0.1" },
+                    { id: "ode_xn", label: "Valor Final xn", type: "number", value: "0.5" },
+                    { id: "ode_exact", label: "Solución Exacta y(x) [Opcional]", type: "text", value: "2*exp(x) - x - 1" }
+                ],
+                run: runEuler
+            },
+            euler_mejorado: {
+                title: "Método de Euler Mejorado (Heun)",
+                desc: "Aproxima la solución de dy/dx = f(x, y) mediante el esquema predictor-corrector (promedio de pendientes de Heun).",
+                inputs: [
+                    { id: "ode_f", label: "Función f(x, y) = dy/dx", type: "text", value: "x + y" },
+                    { id: "ode_x0", label: "Condición Inicial x0", type: "number", value: "0" },
+                    { id: "ode_y0", label: "Condición Inicial y0", type: "number", value: "1" },
+                    { id: "ode_h", label: "Tamaño de Paso h", type: "number", value: "0.1" },
+                    { id: "ode_xn", label: "Valor Final xn", type: "number", value: "0.5" },
+                    { id: "ode_exact", label: "Solución Exacta y(x) [Opcional]", type: "text", value: "2*exp(x) - x - 1" }
+                ],
+                run: runEulerMejorado
+            },
+            rk4: {
+                title: "Método de Runge-Kutta (RK4)",
+                desc: "Aproxima la solución de dy/dx = f(x, y) ponderando 4 pendientes en cada paso para una precisión de 4to orden.",
+                inputs: [
+                    { id: "ode_f", label: "Función f(x, y) = dy/dx", type: "text", value: "x + y" },
+                    { id: "ode_x0", label: "Condición Inicial x0", type: "number", value: "0" },
+                    { id: "ode_y0", label: "Condición Inicial y0", type: "number", value: "1" },
+                    { id: "ode_h", label: "Tamaño de Paso h", type: "number", value: "0.1" },
+                    { id: "ode_xn", label: "Valor Final xn", type: "number", value: "0.5" },
+                    { id: "ode_exact", label: "Solución Exacta y(x) [Opcional]", type: "text", value: "2*exp(x) - x - 1" }
+                ],
+                run: runRK4
+            },
+            sistemas_edo: {
+                title: "Sistemas de EDO (RK4 Vectorial)",
+                desc: "Resuelve sistemas de ecuaciones diferenciales ordinarias de primer orden usando RK4 vectorial generalizado.",
+                inputs: [
+                    { id: "sys_vars", label: "Variables de Estado (separadas por coma)", type: "text", value: "x, y" },
+                    { id: "sys_indep", label: "Variable Independiente", type: "text", value: "t" },
+                    { id: "sys_eqs", label: "Derivadas dx/dt, dy/dt (separadas por coma)", type: "text", value: "y, -x" },
+                    { id: "sys_init", label: "Valores Iniciales x(t0), y(t0) (separados por coma)", type: "text", value: "1, 0" },
+                    { id: "sys_t0", label: "Valor Inicial t0", type: "number", value: "0" },
+                    { id: "sys_h", label: "Tamaño de Paso h", type: "number", value: "0.1" },
+                    { id: "sys_tn", label: "Valor Final tn", type: "number", value: "1" },
+                    { id: "sys_exact", label: "Soluciones Exactas x(t), y(t) (separadas por coma) [Opcional]", type: "text", value: "cos(t), -sin(t)" }
+                ],
+                run: runSistemasEDO
             }
         };
 
@@ -6341,6 +6170,605 @@
                 } catch (e) { console.warn('GeoGebra Richardson error:', e); }
             };
             if (typeof ggbReady !== 'undefined' && ggbReady && window.ggbApplet) doPlot(); else initGeoGebra(doPlot);
+        }
+
+        // =======================================================
+        // ECUACIONES DIFERENCIALES ORDINARIAS (EDO)
+        // =======================================================
+        function runEuler() {
+            clearFieldErrors('ode_f', 'ode_x0', 'ode_y0', 'ode_h', 'ode_xn', 'ode_exact');
+
+            const f_str = document.getElementById('ode_f').value.trim();
+            const x0 = parseFloat(document.getElementById('ode_x0').value);
+            const y0 = parseFloat(document.getElementById('ode_y0').value);
+            const h = parseFloat(document.getElementById('ode_h').value);
+            const xn = parseFloat(document.getElementById('ode_xn').value);
+            const exact_str = document.getElementById('ode_exact').value.trim();
+
+            if (!f_str) { showFieldError('ode_f', 'Ingrese la función f(x, y).'); return; }
+            if (isNaN(x0)) { showFieldError('ode_x0', 'Ingrese un valor numérico.'); return; }
+            if (isNaN(y0)) { showFieldError('ode_y0', 'Ingrese un valor numérico.'); return; }
+            if (isNaN(h) || h <= 0) { showFieldError('ode_h', 'El tamaño del paso h debe ser positivo.'); return; }
+            if (isNaN(xn)) { showFieldError('ode_xn', 'Ingrese un valor numérico.'); return; }
+            if (xn <= x0) { showFieldError('ode_xn', 'El valor final xn debe ser mayor que x0.'); return; }
+
+            let f_node, f_eval;
+            try {
+                const f_fmt = formatMathExpression(f_str);
+                f_node = math.parse(f_fmt);
+                f_eval = (x, y) => f_node.evaluate({ x, y });
+                f_eval(x0, y0);
+            } catch (e) {
+                showFieldError('ode_f', 'Error al procesar la función f(x, y): ' + e.message);
+                return;
+            }
+
+            let exact_fn = null;
+            if (exact_str) {
+                try {
+                    const exact_fmt = formatMathExpression(exact_str);
+                    const exact_node = math.parse(exact_fmt);
+                    exact_fn = (x) => exact_node.evaluate({ x });
+                    exact_fn(x0);
+                } catch (e) {
+                    showFieldError('ode_exact', 'Error al procesar la solución exacta y(x): ' + e.message);
+                    return;
+                }
+            }
+
+            const N = Math.round((xn - x0) / h);
+            if (N > 1000) {
+                alert("El número de pasos excede 1000. Por favor use un paso h mayor.");
+                return;
+            }
+
+            let headers = ["Iteración (i)", "x_i", "y_i", "f(x_i, y_i)", "y_{i+1}"];
+            if (exact_fn) {
+                headers.push("y_exact(x_{i+1})", "Error Absoluto");
+            }
+
+            let rows = [];
+            let points = [{ x: x0, y: y0 }];
+            let x = x0;
+            let y = y0;
+
+            for (let i = 0; i < N; i++) {
+                try {
+                    let f_val = f_eval(x, y);
+                    let y_next = y + h * f_val;
+                    let x_next = x + h;
+
+                    let row = [
+                        i,
+                        formatNumber(x),
+                        formatNumber(y),
+                        formatNumber(f_val),
+                        formatNumber(y_next)
+                    ];
+
+                    if (exact_fn) {
+                        let y_ex = exact_fn(x_next);
+                        let err = Math.abs(y_next - y_ex);
+                        row.push(formatNumber(y_ex), formatNumber(err));
+                    }
+
+                    rows.push(row);
+                    points.push({ x: x_next, y: y_next });
+
+                    x = x_next;
+                    y = y_next;
+                } catch (e) {
+                    alert("Error en el paso " + i + ": " + e.message);
+                    break;
+                }
+            }
+
+            let exact_info = "";
+            if (exact_fn) {
+                let y_ex_final = exact_fn(xn);
+                let final_err = Math.abs(y - y_ex_final);
+                exact_info = `<br><b>Valor Exacto final:</b> y = ${formatNumber(y_ex_final)} &nbsp;|&nbsp; <b>Error Final:</b> ${formatNumber(final_err)}`;
+            }
+
+            renderResults(headers, rows, `<!-- separator --><b>Valor aproximado en x = ${formatNumber(xn)}:</b> y = ${formatNumber(y)}${exact_info}`);
+            updateGeoGebraEDO(f_str, points, exact_str);
+        }
+
+        function runEulerMejorado() {
+            clearFieldErrors('ode_f', 'ode_x0', 'ode_y0', 'ode_h', 'ode_xn', 'ode_exact');
+
+            const f_str = document.getElementById('ode_f').value.trim();
+            const x0 = parseFloat(document.getElementById('ode_x0').value);
+            const y0 = parseFloat(document.getElementById('ode_y0').value);
+            const h = parseFloat(document.getElementById('ode_h').value);
+            const xn = parseFloat(document.getElementById('ode_xn').value);
+            const exact_str = document.getElementById('ode_exact').value.trim();
+
+            if (!f_str) { showFieldError('ode_f', 'Ingrese la función f(x, y).'); return; }
+            if (isNaN(x0)) { showFieldError('ode_x0', 'Ingrese un valor numérico.'); return; }
+            if (isNaN(y0)) { showFieldError('ode_y0', 'Ingrese un valor numérico.'); return; }
+            if (isNaN(h) || h <= 0) { showFieldError('ode_h', 'El tamaño del paso h debe ser positivo.'); return; }
+            if (isNaN(xn)) { showFieldError('ode_xn', 'Ingrese un valor numérico.'); return; }
+            if (xn <= x0) { showFieldError('ode_xn', 'El valor final xn debe ser mayor que x0.'); return; }
+
+            let f_node, f_eval;
+            try {
+                const f_fmt = formatMathExpression(f_str);
+                f_node = math.parse(f_fmt);
+                f_eval = (x, y) => f_node.evaluate({ x, y });
+                f_eval(x0, y0);
+            } catch (e) {
+                showFieldError('ode_f', 'Error al procesar la función f(x, y): ' + e.message);
+                return;
+            }
+
+            let exact_fn = null;
+            if (exact_str) {
+                try {
+                    const exact_fmt = formatMathExpression(exact_str);
+                    const exact_node = math.parse(exact_fmt);
+                    exact_fn = (x) => exact_node.evaluate({ x });
+                    exact_fn(x0);
+                } catch (e) {
+                    showFieldError('ode_exact', 'Error al procesar la solución exacta y(x): ' + e.message);
+                    return;
+                }
+            }
+
+            const N = Math.round((xn - x0) / h);
+            if (N > 1000) {
+                alert("El número de pasos excede 1000. Por favor use un paso h mayor.");
+                return;
+            }
+
+            let headers = ["Iteración (i)", "x_i", "y_i", "Predictor (y^0_{i+1})", "f(x_i, y_i)", "f(x_{i+1}, Predictor)", "y_{i+1}"];
+            if (exact_fn) {
+                headers.push("y_exact(x_{i+1})", "Error Absoluto");
+            }
+
+            let rows = [];
+            let points = [{ x: x0, y: y0 }];
+            let x = x0;
+            let y = y0;
+
+            for (let i = 0; i < N; i++) {
+                try {
+                    let x_next = x + h;
+                    let f_curr = f_eval(x, y);
+                    let y_pred = y + h * f_curr;
+                    let f_pred = f_eval(x_next, y_pred);
+                    let y_next = y + (h / 2) * (f_curr + f_pred);
+
+                    let row = [
+                        i,
+                        formatNumber(x),
+                        formatNumber(y),
+                        formatNumber(y_pred),
+                        formatNumber(f_curr),
+                        formatNumber(f_pred),
+                        formatNumber(y_next)
+                    ];
+
+                    if (exact_fn) {
+                        let y_ex = exact_fn(x_next);
+                        let err = Math.abs(y_next - y_ex);
+                        row.push(formatNumber(y_ex), formatNumber(err));
+                    }
+
+                    rows.push(row);
+                    points.push({ x: x_next, y: y_next });
+
+                    x = x_next;
+                    y = y_next;
+                } catch (e) {
+                    alert("Error en el paso " + i + ": " + e.message);
+                    break;
+                }
+            }
+
+            let exact_info = "";
+            if (exact_fn) {
+                let y_ex_final = exact_fn(xn);
+                let final_err = Math.abs(y - y_ex_final);
+                exact_info = `<br><b>Valor Exacto final:</b> y = ${formatNumber(y_ex_final)} &nbsp;|&nbsp; <b>Error Final:</b> ${formatNumber(final_err)}`;
+            }
+
+            renderResults(headers, rows, `<!-- separator --><b>Valor aproximado en x = ${formatNumber(xn)}:</b> y = ${formatNumber(y)}${exact_info}`);
+            updateGeoGebraEDO(f_str, points, exact_str);
+        }
+
+        function runRK4() {
+            clearFieldErrors('ode_f', 'ode_x0', 'ode_y0', 'ode_h', 'ode_xn', 'ode_exact');
+
+            const f_str = document.getElementById('ode_f').value.trim();
+            const x0 = parseFloat(document.getElementById('ode_x0').value);
+            const y0 = parseFloat(document.getElementById('ode_y0').value);
+            const h = parseFloat(document.getElementById('ode_h').value);
+            const xn = parseFloat(document.getElementById('ode_xn').value);
+            const exact_str = document.getElementById('ode_exact').value.trim();
+
+            if (!f_str) { showFieldError('ode_f', 'Ingrese la función f(x, y).'); return; }
+            if (isNaN(x0)) { showFieldError('ode_x0', 'Ingrese un valor numérico.'); return; }
+            if (isNaN(y0)) { showFieldError('ode_y0', 'Ingrese un valor numérico.'); return; }
+            if (isNaN(h) || h <= 0) { showFieldError('ode_h', 'El tamaño del paso h debe ser positivo.'); return; }
+            if (isNaN(xn)) { showFieldError('ode_xn', 'Ingrese un valor numérico.'); return; }
+            if (xn <= x0) { showFieldError('ode_xn', 'El valor final xn debe ser mayor que x0.'); return; }
+
+            let f_node, f_eval;
+            try {
+                const f_fmt = formatMathExpression(f_str);
+                f_node = math.parse(f_fmt);
+                f_eval = (x, y) => f_node.evaluate({ x, y });
+                f_eval(x0, y0);
+            } catch (e) {
+                showFieldError('ode_f', 'Error al procesar la función f(x, y): ' + e.message);
+                return;
+            }
+
+            let exact_fn = null;
+            if (exact_str) {
+                try {
+                    const exact_fmt = formatMathExpression(exact_str);
+                    const exact_node = math.parse(exact_fmt);
+                    exact_fn = (x) => exact_node.evaluate({ x });
+                    exact_fn(x0);
+                } catch (e) {
+                    showFieldError('ode_exact', 'Error al procesar la solución exacta y(x): ' + e.message);
+                    return;
+                }
+            }
+
+            const N = Math.round((xn - x0) / h);
+            if (N > 1000) {
+                alert("El número de pasos excede 1000. Por favor use un paso h mayor.");
+                return;
+            }
+
+            let headers = ["Iteración (i)", "x_i", "y_i", "k1", "k2", "k3", "k4", "y_{i+1}"];
+            if (exact_fn) {
+                headers.push("y_exact(x_{i+1})", "Error Absoluto");
+            }
+
+            let rows = [];
+            let points = [{ x: x0, y: y0 }];
+            let x = x0;
+            let y = y0;
+
+            for (let i = 0; i < N; i++) {
+                try {
+                    let k1 = f_eval(x, y);
+                    let k2 = f_eval(x + h / 2, y + (h / 2) * k1);
+                    let k3 = f_eval(x + h / 2, y + (h / 2) * k2);
+                    let k4 = f_eval(x + h, y + h * k3);
+                    let y_next = y + (h / 6) * (k1 + 2 * k2 + 2 * k3 + k4);
+                    let x_next = x + h;
+
+                    let row = [
+                        i,
+                        formatNumber(x),
+                        formatNumber(y),
+                        formatNumber(k1),
+                        formatNumber(k2),
+                        formatNumber(k3),
+                        formatNumber(k4),
+                        formatNumber(y_next)
+                    ];
+
+                    if (exact_fn) {
+                        let y_ex = exact_fn(x_next);
+                        let err = Math.abs(y_next - y_ex);
+                        row.push(formatNumber(y_ex), formatNumber(err));
+                    }
+
+                    rows.push(row);
+                    points.push({ x: x_next, y: y_next });
+
+                    x = x_next;
+                    y = y_next;
+                } catch (e) {
+                    alert("Error en el paso " + i + ": " + e.message);
+                    break;
+                }
+            }
+
+            let exact_info = "";
+            if (exact_fn) {
+                let y_ex_final = exact_fn(xn);
+                let final_err = Math.abs(y - y_ex_final);
+                exact_info = `<br><b>Valor Exacto final:</b> y = ${formatNumber(y_ex_final)} &nbsp;|&nbsp; <b>Error Final:</b> ${formatNumber(final_err)}`;
+            }
+
+            renderResults(headers, rows, `<!-- separator --><b>Valor aproximado en x = ${formatNumber(xn)}:</b> y = ${formatNumber(y)}${exact_info}`);
+            updateGeoGebraEDO(f_str, points, exact_str);
+        }
+
+        function runSistemasEDO() {
+            clearFieldErrors('sys_vars', 'sys_indep', 'sys_eqs', 'sys_init', 'sys_t0', 'sys_h', 'sys_tn', 'sys_exact');
+
+            const vars_str = document.getElementById('sys_vars').value.trim();
+            const indep = document.getElementById('sys_indep').value.trim();
+            const eqs_str = document.getElementById('sys_eqs').value.trim();
+            const init_str = document.getElementById('sys_init').value.trim();
+            const t0 = parseFloat(document.getElementById('sys_t0').value);
+            const h = parseFloat(document.getElementById('sys_h').value);
+            const tn = parseFloat(document.getElementById('sys_tn').value);
+            const exact_str = document.getElementById('sys_exact').value.trim();
+
+            if (!vars_str) { showFieldError('sys_vars', 'Ingrese las variables dependientes.'); return; }
+            if (!indep) { showFieldError('sys_indep', 'Ingrese la variable independiente.'); return; }
+            if (!eqs_str) { showFieldError('sys_eqs', 'Ingrese las funciones derivadas.'); return; }
+            if (!init_str) { showFieldError('sys_init', 'Ingrese las condiciones iniciales.'); return; }
+            if (isNaN(t0)) { showFieldError('sys_t0', 'Ingrese un valor numérico.'); return; }
+            if (isNaN(h) || h <= 0) { showFieldError('sys_h', 'El paso h debe ser positivo.'); return; }
+            if (isNaN(tn)) { showFieldError('sys_tn', 'Ingrese un valor numérico.'); return; }
+            if (tn <= t0) { showFieldError('sys_tn', 'El valor final tn debe ser mayor que t0.'); return; }
+
+            const vars = vars_str.split(',').map(v => v.trim()).filter(v => v !== '');
+            const eqs = eqs_str.split(',').map(e => e.trim()).filter(e => e !== '');
+            const init_vals = init_str.split(',').map(v => parseFloat(v.trim()));
+
+            if (vars.length !== eqs.length) {
+                showFieldError('sys_eqs', `El número de ecuaciones (${eqs.length}) debe ser igual al número de variables (${vars.length}).`);
+                return;
+            }
+            if (vars.length !== init_vals.length || init_vals.some(isNaN)) {
+                showFieldError('sys_init', `Las condiciones iniciales deben contener exactamente ${vars.length} números válidos separados por comas.`);
+                return;
+            }
+
+            let eq_nodes = [];
+            try {
+                eq_nodes = eqs.map(eq => {
+                    const fmt = formatMathExpression(eq);
+                    return math.parse(fmt);
+                });
+                // Test evaluation
+                let testScope = {};
+                testScope[indep] = t0;
+                vars.forEach((v, idx) => { testScope[v] = init_vals[idx]; });
+                eq_nodes.forEach(node => node.evaluate(testScope));
+            } catch (e) {
+                showFieldError('sys_eqs', 'Error de sintaxis en las ecuaciones: ' + e.message);
+                return;
+            }
+
+            let exact_strs = exact_str ? exact_str.split(',').map(s => s.trim()) : [];
+            let exact_fns = [];
+            if (exact_strs.length > 0) {
+                if (exact_strs.length !== vars.length) {
+                    showFieldError('sys_exact', `Se requieren exactamente ${vars.length} soluciones exactas separadas por comas.`);
+                    return;
+                }
+                try {
+                    exact_fns = exact_strs.map(s => {
+                        if (!s) return null;
+                        const fmt = formatMathExpression(s);
+                        const node = math.parse(fmt);
+                        return (t_val) => {
+                            let scope = {};
+                            scope[indep] = t_val;
+                            return node.evaluate(scope);
+                        };
+                    });
+                } catch (e) {
+                    showFieldError('sys_exact', 'Error de sintaxis en las soluciones exactas: ' + e.message);
+                    return;
+                }
+            }
+
+            const N = Math.round((tn - t0) / h);
+            if (N > 1000) {
+                alert("El número de pasos excede 1000. Por favor use un paso h mayor.");
+                return;
+            }
+
+            const evaluate_system = (t_val, y_vec) => {
+                let scope = {};
+                scope[indep] = t_val;
+                vars.forEach((v, idx) => {
+                    scope[v] = y_vec[idx];
+                });
+                return eq_nodes.map(node => node.evaluate(scope));
+            };
+
+            const vecAdd = (v1, v2) => v1.map((x, idx) => x + v2[idx]);
+            const vecScale = (v, s) => v.map(x => x * s);
+
+            const formatVector = (vec) => `(${vec.map(v => formatNumber(v)).join(', ')})`;
+
+            let headers = [
+                "i",
+                `${indep}_i`,
+                `Y_i (${vars.join(', ')})`,
+                "k1 (vector)",
+                "k2 (vector)",
+                "k3 (vector)",
+                "k4 (vector)",
+                "Y_{i+1}"
+            ];
+
+            const hasExact = exact_fns.length > 0;
+            if (hasExact) {
+                headers.push("Y_exact (vector)", "Error (Norma)");
+            }
+
+            let rows = [];
+            let t_vals = [t0];
+            let states = [[...init_vals]];
+            let t = t0;
+            let Y = [...init_vals];
+
+            for (let i = 0; i < N; i++) {
+                try {
+                    let k1 = evaluate_system(t, Y);
+                    let Y_mid1 = vecAdd(Y, vecScale(k1, h / 2));
+                    
+                    let k2 = evaluate_system(t + h / 2, Y_mid1);
+                    let Y_mid2 = vecAdd(Y, vecScale(k2, h / 2));
+                    
+                    let k3 = evaluate_system(t + h / 2, Y_mid2);
+                    let Y_end = vecAdd(Y, vecScale(k3, h));
+                    
+                    let k4 = evaluate_system(t + h, Y_end);
+
+                    let slopeSum = vecAdd(vecAdd(vecAdd(k1, vecScale(k2, 2)), vecScale(k3, 2)), k4);
+                    let Y_next = vecAdd(Y, vecScale(slopeSum, h / 6));
+                    let t_next = t + h;
+
+                    let row = [
+                        i,
+                        formatNumber(t),
+                        formatVector(Y),
+                        formatVector(k1),
+                        formatVector(k2),
+                        formatVector(k3),
+                        formatVector(k4),
+                        formatVector(Y_next)
+                    ];
+
+                    if (hasExact) {
+                        let Y_ex = exact_fns.map(fn => fn(t_next));
+                        let norm_err = Math.sqrt(Y_next.reduce((sum, val, idx) => sum + Math.pow(val - Y_ex[idx], 2), 0));
+                        row.push(formatVector(Y_ex), formatNumber(norm_err));
+                    }
+
+                    rows.push(row);
+                    t_vals.push(t_next);
+                    states.push(Y_next);
+
+                    t = t_next;
+                    Y = Y_next;
+                } catch (e) {
+                    alert("Error en el paso " + i + ": " + e.message);
+                    break;
+                }
+            }
+
+            let exact_info = "";
+            if (hasExact) {
+                let Y_ex_final = exact_fns.map(fn => fn(tn));
+                let final_err = Math.sqrt(Y.reduce((sum, val, idx) => sum + Math.pow(val - Y_ex_final[idx], 2), 0));
+                exact_info = `<br><b>Valor Exacto final:</b> ${formatVector(Y_ex_final)} &nbsp;|&nbsp; <b>Error Final (Norma):</b> ${formatNumber(final_err)}`;
+            }
+
+            renderResults(headers, rows, `<!-- separator --><b>Valor aproximado final en ${indep} = ${formatNumber(tn)}:</b> ${formatVector(Y)}${exact_info}`);
+            updateGeoGebraSistemas(t_vals, states, vars, indep, exact_strs);
+        }
+
+        function updateGeoGebraEDO(f_str, points, exact_str) {
+            resetPanels();
+            document.getElementById('geogebra-container').style.display = 'block';
+            const doPlot = () => {
+                if (!window.ggbApplet) return;
+                try {
+                    window.ggbApplet.setPerspective('G');
+                    window.ggbApplet.reset();
+                    window.ggbApplet.setGridVisible(true);
+
+                    // 1. Graficar puntos de la aproximación
+                    let ptsStr = '{' + points.map(pt => `(${pt.x}, ${pt.y})`).join(', ') + '}';
+                    window.ggbApplet.evalCommand('PtsSol = ' + ptsStr);
+                    window.ggbApplet.evalCommand('SolCurve = Polyline[PtsSol]');
+                    window.ggbApplet.setColor('SolCurve', 42, 77, 56); // Verde botella
+                    window.ggbApplet.setLineThickness('SolCurve', 4);
+                    window.ggbApplet.setPointSize('PtsSol', 5);
+                    window.ggbApplet.setColor('PtsSol', 42, 77, 56);
+
+                    // 2. Graficar solución exacta si existe
+                    if (exact_str) {
+                        let ggbExact = exact_str.replace(/log10\(/g, 'lg(').replace(/\bln\(/g, 'log(');
+                        window.ggbApplet.evalCommand('y_{exact}(x) = ' + ggbExact);
+                        window.ggbApplet.setColor('y_{exact}', 140, 59, 59); // Burdeos
+                        window.ggbApplet.setLineThickness('y_{exact}', 3);
+                        window.ggbApplet.setLineStyle('y_{exact}', 1); // Discontinua
+                    }
+
+                    // 3. Ajustar límites
+                    let xArr = points.map(p => p.x);
+                    let yArr = points.map(p => p.y);
+                    let xMin = Math.min(...xArr), xMax = Math.max(...xArr);
+                    let yMin = Math.min(...yArr), yMax = Math.max(...yArr);
+                    let xMargin = (xMax - xMin || 1) * 0.15;
+                    let yMargin = (yMax - yMin || 2) * 0.3;
+                    window.ggbApplet.setCoordSystem(xMin - xMargin, xMax + xMargin, yMin - yMargin, yMax + yMargin);
+                } catch (e) {
+                    console.error("GeoGebra EDO plot error:", e);
+                }
+            };
+            if (typeof ggbReady !== 'undefined' && ggbReady && window.ggbApplet) {
+                doPlot();
+            } else {
+                initGeoGebra(doPlot);
+            }
+        }
+
+        function updateGeoGebraSistemas(t_val_arr, states_arr, vars, indep, exact_strs) {
+            resetPanels();
+            document.getElementById('geogebra-container').style.display = 'block';
+            const doPlot = () => {
+                if (!window.ggbApplet) return;
+                try {
+                    window.ggbApplet.setPerspective('G');
+                    window.ggbApplet.reset();
+                    window.ggbApplet.setGridVisible(true);
+
+                    const varColors = [
+                        [42, 77, 56],    // Verde botella
+                        [140, 59, 59],   // Burdeos
+                        [201, 155, 80],  // Latón / Oro viejo
+                        [43, 68, 128],   // Azul cobalto
+                        [110, 60, 140]   // Morado
+                    ];
+
+                    let allVals = [];
+
+                    vars.forEach((v, vIdx) => {
+                        let pts = t_val_arr.map((t, idx) => {
+                            let val = states_arr[idx][vIdx];
+                            allVals.push(val);
+                            return `(${t}, ${val})`;
+                        });
+                        let ptsStr = '{' + pts.join(', ') + '}';
+                        let ptsName = `PtsSol_${v}`;
+                        let curveName = `Curve_${v}`;
+                        
+                        window.ggbApplet.evalCommand(`${ptsName} = ${ptsStr}`);
+                        window.ggbApplet.evalCommand(`${curveName} = Polyline[${ptsName}]`);
+                        
+                        const color = varColors[vIdx % varColors.length];
+                        window.ggbApplet.setColor(curveName, color[0], color[1], color[2]);
+                        window.ggbApplet.setLineThickness(curveName, 4);
+                        window.ggbApplet.setPointSize(ptsName, 4);
+                        window.ggbApplet.setColor(ptsName, color[0], color[1], color[2]);
+
+                        if (exact_strs && exact_strs[vIdx]) {
+                            let exactStr = exact_strs[vIdx].trim();
+                            if (exactStr) {
+                                let ggbExact = exactStr.replace(new RegExp('\\b' + indep + '\\b', 'g'), 'x');
+                                ggbExact = ggbExact.replace(/log10\(/g, 'lg(').replace(/\bln\(/g, 'log(');
+                                let exName = `Exact_${v}`;
+                                window.ggbApplet.evalCommand(`${exName}(x) = ${ggbExact}`);
+                                window.ggbApplet.setColor(exName, color[0], color[1], color[2]);
+                                window.ggbApplet.setLineThickness(exName, 2);
+                                window.ggbApplet.setLineStyle(exName, 2);
+                            }
+                        }
+                    });
+
+                    let tMin = Math.min(...t_val_arr), tMax = Math.max(...t_val_arr);
+                    let yMin = Math.min(...allVals), yMax = Math.max(...allVals);
+                    let tMargin = (tMax - tMin || 1) * 0.15;
+                    let yMargin = (yMax - yMin || 2) * 0.3;
+                    window.ggbApplet.setCoordSystem(tMin - tMargin, tMax + tMargin, yMin - yMargin, yMax + yMargin);
+                } catch (e) {
+                    console.error("GeoGebra Sistemas plot error:", e);
+                }
+            };
+            if (typeof ggbReady !== 'undefined' && ggbReady && window.ggbApplet) {
+                doPlot();
+            } else {
+                initGeoGebra(doPlot);
+            }
         }
 
         // PWA: Registro del Service Worker
