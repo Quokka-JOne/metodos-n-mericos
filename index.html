@@ -459,6 +459,72 @@
         }
 
         /* ============================
+           ESTILOS: Comparación triple (Sistemas EDO)
+           ============================ */
+        .sys-comparison-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        .sys-method-card {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .sys-method-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 16px;
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .sys-method-header .method-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .sys-method-card--euler   .sys-method-header { background: color-mix(in srgb, #4a8c6a 10%, var(--bg-secondary)); }
+        .sys-method-card--euler   .method-dot        { background: #4a8c6a; }
+        .sys-method-card--heun    .sys-method-header { background: color-mix(in srgb, #b06020 10%, var(--bg-secondary)); }
+        .sys-method-card--heun    .method-dot        { background: #b06020; }
+        .sys-method-card--rk4     .sys-method-header { background: color-mix(in srgb, #4a5d9c 10%, var(--bg-secondary)); }
+        .sys-method-card--rk4     .method-dot        { background: #4a5d9c; }
+        .sys-method-body {
+            overflow-x: auto;
+            background: var(--bg-primary);
+        }
+        .sys-method-result {
+            padding: 10px 16px;
+            border-top: 1px solid var(--border-color);
+            font-size: 13px;
+            font-family: var(--font-body);
+            background: var(--bg-secondary);
+        }
+        .sys-method-result strong { color: var(--accent); }
+        /* Tabla de comparación final */
+        .sys-compare-table-wrap {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .sys-compare-table-header {
+            padding: 11px 16px;
+            background: var(--bg-secondary);
+            font-size: 13px;
+            font-weight: 700;
+            font-family: var(--font-body);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sys-compare-table-header i { color: var(--accent); }
+
+        /* ============================
            ESTILOS: Panel Importar Enunciado EDO
            ============================ */
         .edo-import-panel {
@@ -591,15 +657,20 @@
         }
         .edo-preview-fields { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
         .preview-field {
-            display: grid;
-            grid-template-columns: 140px 1fr auto;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 10px 12px;
             border-radius: var(--radius-sm);
             border: 1px solid var(--border-color);
         }
-        @media (max-width: 600px) { .preview-field { grid-template-columns: 1fr; } }
+        .preview-field-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        @media (max-width: 600px) { .preview-field { padding: 8px 10px; } }
         .preview-field label { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
         .preview-field input {
             padding: 5px 8px;
@@ -6713,25 +6784,25 @@
             clearFieldErrors('sys_vars', 'sys_indep', 'sys_eqs', 'sys_init', 'sys_t0', 'sys_h', 'sys_tn', 'sys_exact');
 
             const vars_str = document.getElementById('sys_vars').value.trim();
-            const indep = document.getElementById('sys_indep').value.trim();
-            const eqs_str = document.getElementById('sys_eqs').value.trim();
+            const indep    = document.getElementById('sys_indep').value.trim();
+            const eqs_str  = document.getElementById('sys_eqs').value.trim();
             const init_str = document.getElementById('sys_init').value.trim();
-            const t0 = parseFloat(document.getElementById('sys_t0').value);
-            const h = parseFloat(document.getElementById('sys_h').value);
-            const tn = parseFloat(document.getElementById('sys_tn').value);
+            const t0       = parseFloat(document.getElementById('sys_t0').value);
+            const h        = parseFloat(document.getElementById('sys_h').value);
+            const tn       = parseFloat(document.getElementById('sys_tn').value);
             const exact_str = document.getElementById('sys_exact').value.trim();
 
             if (!vars_str) { showFieldError('sys_vars', 'Ingrese las variables dependientes.'); return; }
-            if (!indep) { showFieldError('sys_indep', 'Ingrese la variable independiente.'); return; }
-            if (!eqs_str) { showFieldError('sys_eqs', 'Ingrese las funciones derivadas.'); return; }
+            if (!indep)    { showFieldError('sys_indep', 'Ingrese la variable independiente.'); return; }
+            if (!eqs_str)  { showFieldError('sys_eqs', 'Ingrese las funciones derivadas.'); return; }
             if (!init_str) { showFieldError('sys_init', 'Ingrese las condiciones iniciales.'); return; }
             if (isNaN(t0)) { showFieldError('sys_t0', 'Ingrese un valor numérico.'); return; }
             if (isNaN(h) || h <= 0) { showFieldError('sys_h', 'El paso h debe ser positivo.'); return; }
             if (isNaN(tn)) { showFieldError('sys_tn', 'Ingrese un valor numérico.'); return; }
-            if (tn <= t0) { showFieldError('sys_tn', 'El valor final tn debe ser mayor que t0.'); return; }
+            if (tn <= t0)  { showFieldError('sys_tn', 'El valor final tn debe ser mayor que t0.'); return; }
 
-            const vars = vars_str.split(',').map(v => v.trim()).filter(v => v !== '');
-            const eqs = eqs_str.split(',').map(e => e.trim()).filter(e => e !== '');
+            const vars      = vars_str.split(',').map(v => v.trim()).filter(v => v !== '');
+            const eqs       = eqs_str.split(',').map(e => e.trim()).filter(e => e !== '');
             const init_vals = init_str.split(',').map(v => parseFloat(v.trim()));
 
             if (vars.length !== eqs.length) {
@@ -6745,14 +6816,9 @@
 
             let eq_nodes = [];
             try {
-                eq_nodes = eqs.map(eq => {
-                    const fmt = formatMathExpression(eq);
-                    return math.parse(fmt);
-                });
-                // Test evaluation
-                let testScope = {};
-                testScope[indep] = t0;
-                vars.forEach((v, idx) => { testScope[v] = init_vals[idx]; });
+                eq_nodes = eqs.map(eq => math.parse(formatMathExpression(eq)));
+                let testScope = { [indep]: t0 };
+                vars.forEach((v, i) => { testScope[v] = init_vals[i]; });
                 eq_nodes.forEach(node => node.evaluate(testScope));
             } catch (e) {
                 showFieldError('sys_eqs', 'Error de sintaxis en las ecuaciones: ' + e.message);
@@ -6760,22 +6826,17 @@
             }
 
             let exact_strs = exact_str ? exact_str.split(',').map(s => s.trim()) : [];
-            let exact_fns = [];
+            let exact_fns  = [];
             if (exact_strs.length > 0) {
                 if (exact_strs.length !== vars.length) {
-                    showFieldError('sys_exact', `Se requieren exactamente ${vars.length} soluciones exactas separadas por comas.`);
+                    showFieldError('sys_exact', `Se requieren exactamente ${vars.length} soluciones exactas.`);
                     return;
                 }
                 try {
                     exact_fns = exact_strs.map(s => {
                         if (!s) return null;
-                        const fmt = formatMathExpression(s);
-                        const node = math.parse(fmt);
-                        return (t_val) => {
-                            let scope = {};
-                            scope[indep] = t_val;
-                            return node.evaluate(scope);
-                        };
+                        const node = math.parse(formatMathExpression(s));
+                        return t_val => { let sc = { [indep]: t_val }; return node.evaluate(sc); };
                     });
                 } catch (e) {
                     showFieldError('sys_exact', 'Error de sintaxis en las soluciones exactas: ' + e.message);
@@ -6784,102 +6845,273 @@
             }
 
             const N = Math.round((tn - t0) / h);
-            if (N > 1000) {
-                alert("El número de pasos excede 1000. Por favor use un paso h mayor.");
-                return;
-            }
+            if (N > 1000) { alert('El número de pasos excede 1000. Use un paso h mayor.'); return; }
 
-            const evaluate_system = (t_val, y_vec) => {
-                let scope = {};
-                scope[indep] = t_val;
-                vars.forEach((v, idx) => {
-                    scope[v] = y_vec[idx];
-                });
-                return eq_nodes.map(node => node.evaluate(scope));
+            // ─── Helpers vectoriales ───────────────────────────────────────────
+            const evalSys = (t_val, y_vec) => {
+                let sc = { [indep]: t_val };
+                vars.forEach((v, i) => { sc[v] = y_vec[i]; });
+                return eq_nodes.map(node => node.evaluate(sc));
+            };
+            const vadd  = (a, b) => a.map((x, i) => x + b[i]);
+            const vscale = (a, s) => a.map(x => x * s);
+            const fmtV   = vec => `(${vec.map(v => formatNumber(v)).join(', ')})`;
+
+            // ─── Algoritmo Euler Simple ────────────────────────────────────────
+            const solveEuler = () => {
+                const headersE = ['i', `${indep}ᵢ`, `Yᵢ (${vars.join(', ')})`,
+                    ...vars.map(v => `f(${v})ᵢ`), `Yᵢ₊₁ (${vars.join(', ')})`];
+                if (exact_fns.length) headersE.push('Y_exact', 'Error (norma)');
+                let rows = [], t_vals = [t0], states = [[...init_vals]];
+                let t = t0, Y = [...init_vals];
+                for (let i = 0; i < N; i++) {
+                    let f = evalSys(t, Y);
+                    let Y_next = vadd(Y, vscale(f, h));
+                    let t_next = t + h;
+                    let row = [i, formatNumber(t), fmtV(Y), ...f.map(fi => formatNumber(fi)), fmtV(Y_next)];
+                    if (exact_fns.length) {
+                        let Y_ex = exact_fns.map(fn => fn(t_next));
+                        let err  = Math.sqrt(Y_next.reduce((s, v, j) => s + (v - Y_ex[j]) ** 2, 0));
+                        row.push(fmtV(Y_ex), formatNumber(err));
+                    }
+                    rows.push(row); t_vals.push(t_next); states.push(Y_next);
+                    t = t_next; Y = Y_next;
+                }
+                return { headers: headersE, rows, t_vals, states, Y_final: Y };
             };
 
-            const vecAdd = (v1, v2) => v1.map((x, idx) => x + v2[idx]);
-            const vecScale = (v, s) => v.map(x => x * s);
+            // ─── Algoritmo Euler Mejorado (Heun) ──────────────────────────────
+            const solveHeun = () => {
+                const headersH = ['i', `${indep}ᵢ`, `Yᵢ (${vars.join(', ')})`,
+                    `Predictor Ỹᵢ₊₁`, `f(Ỹ)ᵢ₊₁`, `Pendiente promedio`, `Yᵢ₊₁ (${vars.join(', ')})`];
+                if (exact_fns.length) headersH.push('Y_exact', 'Error (norma)');
+                let rows = [], t_vals = [t0], states = [[...init_vals]];
+                let t = t0, Y = [...init_vals];
+                for (let i = 0; i < N; i++) {
+                    let f0     = evalSys(t, Y);
+                    let Y_pred = vadd(Y, vscale(f0, h));
+                    let t_next = t + h;
+                    let f1     = evalSys(t_next, Y_pred);
+                    let slope  = vscale(vadd(f0, f1), 0.5);
+                    let Y_next = vadd(Y, vscale(slope, h));
+                    let row = [i, formatNumber(t), fmtV(Y), fmtV(Y_pred), fmtV(f1), fmtV(slope), fmtV(Y_next)];
+                    if (exact_fns.length) {
+                        let Y_ex = exact_fns.map(fn => fn(t_next));
+                        let err  = Math.sqrt(Y_next.reduce((s, v, j) => s + (v - Y_ex[j]) ** 2, 0));
+                        row.push(fmtV(Y_ex), formatNumber(err));
+                    }
+                    rows.push(row); t_vals.push(t_next); states.push(Y_next);
+                    t = t_next; Y = Y_next;
+                }
+                return { headers: headersH, rows, t_vals, states, Y_final: Y };
+            };
 
-            const formatVector = (vec) => `(${vec.map(v => formatNumber(v)).join(', ')})`;
+            // ─── Algoritmo RK4 Vectorial ───────────────────────────────────────
+            const solveRK4 = () => {
+                // Una columna de k por variable para mayor claridad
+                const kHeaders = [];
+                ['k1', 'k2', 'k3', 'k4'].forEach(k => vars.forEach(v => kHeaders.push(`${k}(${v})`)));
+                const headersR = ['i', `${indep}ᵢ`, `Yᵢ (${vars.join(', ')})`,
+                    ...kHeaders, `Yᵢ₊₁ (${vars.join(', ')})`];
+                if (exact_fns.length) headersR.push('Y_exact', 'Error (norma)');
+                let rows = [], t_vals = [t0], states = [[...init_vals]];
+                let t = t0, Y = [...init_vals];
+                for (let i = 0; i < N; i++) {
+                    let k1     = evalSys(t, Y);
+                    let k2     = evalSys(t + h / 2, vadd(Y, vscale(k1, h / 2)));
+                    let k3     = evalSys(t + h / 2, vadd(Y, vscale(k2, h / 2)));
+                    let k4     = evalSys(t + h,     vadd(Y, vscale(k3, h)));
+                    let wsum   = vadd(vadd(vadd(k1, vscale(k2, 2)), vscale(k3, 2)), k4);
+                    let Y_next = vadd(Y, vscale(wsum, h / 6));
+                    let t_next = t + h;
+                    let row    = [i, formatNumber(t), fmtV(Y),
+                        ...k1.map(v => formatNumber(v)), ...k2.map(v => formatNumber(v)),
+                        ...k3.map(v => formatNumber(v)), ...k4.map(v => formatNumber(v)),
+                        fmtV(Y_next)];
+                    if (exact_fns.length) {
+                        let Y_ex = exact_fns.map(fn => fn(t_next));
+                        let err  = Math.sqrt(Y_next.reduce((s, v, j) => s + (v - Y_ex[j]) ** 2, 0));
+                        row.push(fmtV(Y_ex), formatNumber(err));
+                    }
+                    rows.push(row); t_vals.push(t_next); states.push(Y_next);
+                    t = t_next; Y = Y_next;
+                }
+                return { headers: headersR, rows, t_vals, states, Y_final: Y };
+            };
 
-            let headers = [
-                "i",
-                `${indep}_i`,
-                `Y_i (${vars.join(', ')})`,
-                "k1 (vector)",
-                "k2 (vector)",
-                "k3 (vector)",
-                "k4 (vector)",
-                "Y_{i+1}"
+            // ─── Calcular los 3 ───────────────────────────────────────────────
+            let resEuler, resHeun, resRK4;
+            try { resEuler = solveEuler(); } catch (e) { alert('Error Euler: ' + e.message); return; }
+            try { resHeun  = solveHeun();  } catch (e) { alert('Error Euler Mejorado: ' + e.message); return; }
+            try { resRK4   = solveRK4();   } catch (e) { alert('Error RK4: ' + e.message); return; }
+
+            // ─── Construir tabla HTML interna ──────────────────────────────────
+            const buildTable = (headers, rows) => {
+                let html = `<div class="sys-method-body"><table class="data-table"><thead><tr>`;
+                headers.forEach(h => { html += `<th>${h}</th>`; });
+                html += `</tr></thead><tbody>`;
+                rows.forEach(row => {
+                    html += '<tr>';
+                    row.forEach(cell => { html += `<td>${cell !== undefined && cell !== null ? cell : '-'}</td>`; });
+                    html += '</tr>';
+                });
+                html += `</tbody></table></div>`;
+                return html;
+            };
+
+            // ─── Comparación final entre los 3 métodos ────────────────────────
+            const buildComparison = () => {
+                let html = `<div class="sys-compare-table-wrap">
+                    <div class="sys-compare-table-header">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                        Comparación de resultados en ${indep} = ${formatNumber(tn)}
+                    </div>
+                    <div class="sys-method-body">
+                    <table class="data-table"><thead><tr>
+                        <th>Variable</th>
+                        <th><span style="color:#4a8c6a">● Euler Simple</span></th>
+                        <th><span style="color:#b06020">● Euler Mejorado</span></th>
+                        <th><span style="color:#4a5d9c">● RK4</span></th>
+                        <th>Δ(Euler–RK4)</th>
+                        <th>Δ(Heun–RK4)</th>
+                    </tr></thead><tbody>`;
+                vars.forEach((v, i) => {
+                    const ye = resEuler.Y_final[i], yh = resHeun.Y_final[i], yr = resRK4.Y_final[i];
+                    const d1 = Math.abs(ye - yr), d2 = Math.abs(yh - yr);
+                    html += `<tr><td><strong>${v}</strong></td>
+                        <td>${formatNumber(ye)}</td>
+                        <td>${formatNumber(yh)}</td>
+                        <td>${formatNumber(yr)}</td>
+                        <td>${formatNumber(d1)}</td>
+                        <td>${formatNumber(d2)}</td></tr>`;
+                });
+                if (exact_fns.length) {
+                    let Y_ex = exact_fns.map(fn => fn(tn));
+                    html += `<tr style="font-style:italic;opacity:0.8;"><td>Exacto</td>
+                        <td colspan="2">${fmtV(Y_ex)}</td>
+                        <td>—</td>
+                        <td>${formatNumber(Math.sqrt(resEuler.Y_final.reduce((s,v,i) => s+(v-Y_ex[i])**2,0)))}</td>
+                        <td>${formatNumber(Math.sqrt(resHeun.Y_final.reduce((s,v,i) => s+(v-Y_ex[i])**2,0)))}</td>
+                        <td>${formatNumber(Math.sqrt(resRK4.Y_final.reduce((s,v,i) => s+(v-Y_ex[i])**2,0)))}</td></tr>`;
+                }
+                html += `</tbody></table></div></div>`;
+                return html;
+            };
+
+            // ─── Render en #table-container ────────────────────────────────────
+            const methods = [
+                { key: 'euler', label: 'Euler Simple',           icon: 'fa-forward-step', res: resEuler },
+                { key: 'heun',  label: 'Euler Mejorado (Heun)',  icon: 'fa-forward-fast',  res: resHeun  },
+                { key: 'rk4',   label: 'Runge-Kutta 4 (RK4)',   icon: 'fa-star',          res: resRK4   },
             ];
 
-            const hasExact = exact_fns.length > 0;
-            if (hasExact) {
-                headers.push("Y_exact (vector)", "Error (Norma)");
-            }
+            let outerHTML = `<div class="sys-comparison-wrap">`;
+            methods.forEach(({ key, label, icon, res }) => {
+                outerHTML += `
+                <div class="sys-method-card sys-method-card--${key}">
+                    <div class="sys-method-header">
+                        <span class="method-dot"></span>
+                        <i class="fa-solid ${icon}"></i>
+                        ${label}
+                    </div>
+                    ${buildTable(res.headers, res.rows)}
+                    <div class="sys-method-result">
+                        <strong>Resultado final</strong> en ${indep} = ${formatNumber(tn)}: ${fmtV(res.Y_final)}
+                    </div>
+                </div>`;
+            });
+            outerHTML += buildComparison();
+            outerHTML += `</div>`;
 
-            let rows = [];
-            let t_vals = [t0];
-            let states = [[...init_vals]];
-            let t = t0;
-            let Y = [...init_vals];
+            document.getElementById('table-container').innerHTML = outerHTML;
+            document.getElementById('root-result').style.display = 'none';
 
-            for (let i = 0; i < N; i++) {
+            // ─── Graficar los 3 en GeoGebra ───────────────────────────────────
+            updateGeoGebraSistemas(
+                { t_vals: resEuler.t_vals, states: resEuler.states },
+                { t_vals: resHeun.t_vals,  states: resHeun.states  },
+                { t_vals: resRK4.t_vals,   states: resRK4.states   },
+                vars, indep, exact_strs
+            );
+        }
+
+        function updateGeoGebraSistemas(dataEuler, dataHeun, dataRK4, vars, indep, exact_strs) {
+            resetPanels();
+            document.getElementById('geogebra-container').style.display = 'block';
+
+            const doPlot = () => {
+                if (!window.ggbApplet) return;
                 try {
-                    let k1 = evaluate_system(t, Y);
-                    let Y_mid1 = vecAdd(Y, vecScale(k1, h / 2));
-                    
-                    let k2 = evaluate_system(t + h / 2, Y_mid1);
-                    let Y_mid2 = vecAdd(Y, vecScale(k2, h / 2));
-                    
-                    let k3 = evaluate_system(t + h / 2, Y_mid2);
-                    let Y_end = vecAdd(Y, vecScale(k3, h));
-                    
-                    let k4 = evaluate_system(t + h, Y_end);
+                    window.ggbApplet.setPerspective('G');
+                    window.ggbApplet.reset();
+                    window.ggbApplet.setGridVisible(true);
 
-                    let slopeSum = vecAdd(vecAdd(vecAdd(k1, vecScale(k2, 2)), vecScale(k3, 2)), k4);
-                    let Y_next = vecAdd(Y, vecScale(slopeSum, h / 6));
-                    let t_next = t + h;
-
-                    let row = [
-                        i,
-                        formatNumber(t),
-                        formatVector(Y),
-                        formatVector(k1),
-                        formatVector(k2),
-                        formatVector(k3),
-                        formatVector(k4),
-                        formatVector(Y_next)
+                    // Colores por método: verde (Euler), naranja (Heun), azul (RK4)
+                    const methodColors = [
+                        [74, 140, 106],   // verde — Euler
+                        [176, 96, 32],    // naranja — Heun
+                        [74, 93, 156],    // azul — RK4
                     ];
+                    const methodLabels = ['Euler', 'Heun', 'RK4'];
+                    const methodData   = [dataEuler, dataHeun, dataRK4];
 
-                    if (hasExact) {
-                        let Y_ex = exact_fns.map(fn => fn(t_next));
-                        let norm_err = Math.sqrt(Y_next.reduce((sum, val, idx) => sum + Math.pow(val - Y_ex[idx], 2), 0));
-                        row.push(formatVector(Y_ex), formatNumber(norm_err));
+                    let allVals = [];
+
+                    methodData.forEach(({ t_vals, states }, mIdx) => {
+                        const color = methodColors[mIdx];
+                        const mLabel = methodLabels[mIdx];
+
+                        vars.forEach((v, vIdx) => {
+                            let pts = t_vals.map((t, idx) => {
+                                let val = states[idx][vIdx];
+                                allVals.push(val);
+                                return `(${t}, ${val})`;
+                            });
+                            let ptsName   = `Pts_${mLabel}_${v}`;
+                            let curveName = `Curve_${mLabel}_${v}`;
+
+                            window.ggbApplet.evalCommand(`${ptsName} = {${pts.join(', ')}}`);
+                            window.ggbApplet.evalCommand(`${curveName} = Polyline[${ptsName}]`);
+                            window.ggbApplet.setColor(curveName, color[0], color[1], color[2]);
+                            // Estilo de línea: Euler sólido, Heun guiones, RK4 punteado
+                            window.ggbApplet.setLineStyle(curveName, mIdx);
+                            window.ggbApplet.setLineThickness(curveName, mIdx === 2 ? 5 : 3);
+                            window.ggbApplet.setPointSize(ptsName, 3);
+                            window.ggbApplet.setColor(ptsName, color[0], color[1], color[2]);
+                        });
+                    });
+
+                    // Solución exacta (si existe) — una curva punteada por variable
+                    if (exact_strs && exact_strs.length > 0) {
+                        const exactColor = [120, 60, 60];
+                        vars.forEach((v, vIdx) => {
+                            let s = (exact_strs[vIdx] || '').trim();
+                            if (!s) return;
+                            let ggbExact = s.replace(new RegExp('\\b' + indep + '\\b', 'g'), 'x')
+                                           .replace(/log10\(/g, 'lg(').replace(/\bln\(/g, 'log(');
+                            let exName = `Exact_${v}`;
+                            window.ggbApplet.evalCommand(`${exName}(x) = ${ggbExact}`);
+                            window.ggbApplet.setColor(exName, exactColor[0], exactColor[1], exactColor[2]);
+                            window.ggbApplet.setLineThickness(exName, 2);
+                            window.ggbApplet.setLineStyle(exName, 2);
+                        });
                     }
 
-                    rows.push(row);
-                    t_vals.push(t_next);
-                    states.push(Y_next);
-
-                    t = t_next;
-                    Y = Y_next;
+                    const t_all = dataRK4.t_vals;
+                    let tMin = Math.min(...t_all), tMax = Math.max(...t_all);
+                    let yMin = Math.min(...allVals), yMax = Math.max(...allVals);
+                    let tM = (tMax - tMin || 1) * 0.15, yM = (yMax - yMin || 2) * 0.3;
+                    window.ggbApplet.setCoordSystem(tMin - tM, tMax + tM, yMin - yM, yMax + yM);
                 } catch (e) {
-                    alert("Error en el paso " + i + ": " + e.message);
-                    break;
+                    console.error('GeoGebra Sistemas (triple) plot error:', e);
                 }
-            }
+            };
 
-            let exact_info = "";
-            if (hasExact) {
-                let Y_ex_final = exact_fns.map(fn => fn(tn));
-                let final_err = Math.sqrt(Y.reduce((sum, val, idx) => sum + Math.pow(val - Y_ex_final[idx], 2), 0));
-                exact_info = `<br><b>Valor Exacto final:</b> ${formatVector(Y_ex_final)} &nbsp;|&nbsp; <b>Error Final (Norma):</b> ${formatNumber(final_err)}`;
+            if (typeof ggbReady !== 'undefined' && ggbReady && window.ggbApplet) {
+                doPlot();
+            } else {
+                initGeoGebra(doPlot);
             }
-
-            renderResults(headers, rows, `<!-- separator --><b>Valor aproximado final en ${indep} = ${formatNumber(tn)}:</b> ${formatVector(Y)}${exact_info}`);
-            updateGeoGebraSistemas(t_vals, states, vars, indep, exact_strs);
         }
 
         function updateGeoGebraEDO(f_str, points, exact_str) {
@@ -6920,75 +7152,6 @@
                     window.ggbApplet.setCoordSystem(xMin - xMargin, xMax + xMargin, yMin - yMargin, yMax + yMargin);
                 } catch (e) {
                     console.error("GeoGebra EDO plot error:", e);
-                }
-            };
-            if (typeof ggbReady !== 'undefined' && ggbReady && window.ggbApplet) {
-                doPlot();
-            } else {
-                initGeoGebra(doPlot);
-            }
-        }
-
-        function updateGeoGebraSistemas(t_val_arr, states_arr, vars, indep, exact_strs) {
-            resetPanels();
-            document.getElementById('geogebra-container').style.display = 'block';
-            const doPlot = () => {
-                if (!window.ggbApplet) return;
-                try {
-                    window.ggbApplet.setPerspective('G');
-                    window.ggbApplet.reset();
-                    window.ggbApplet.setGridVisible(true);
-
-                    const varColors = [
-                        [42, 77, 56],    // Verde botella
-                        [140, 59, 59],   // Burdeos
-                        [201, 155, 80],  // Latón / Oro viejo
-                        [43, 68, 128],   // Azul cobalto
-                        [110, 60, 140]   // Morado
-                    ];
-
-                    let allVals = [];
-
-                    vars.forEach((v, vIdx) => {
-                        let pts = t_val_arr.map((t, idx) => {
-                            let val = states_arr[idx][vIdx];
-                            allVals.push(val);
-                            return `(${t}, ${val})`;
-                        });
-                        let ptsStr = '{' + pts.join(', ') + '}';
-                        let ptsName = `PtsSol_${v}`;
-                        let curveName = `Curve_${v}`;
-                        
-                        window.ggbApplet.evalCommand(`${ptsName} = ${ptsStr}`);
-                        window.ggbApplet.evalCommand(`${curveName} = Polyline[${ptsName}]`);
-                        
-                        const color = varColors[vIdx % varColors.length];
-                        window.ggbApplet.setColor(curveName, color[0], color[1], color[2]);
-                        window.ggbApplet.setLineThickness(curveName, 4);
-                        window.ggbApplet.setPointSize(ptsName, 4);
-                        window.ggbApplet.setColor(ptsName, color[0], color[1], color[2]);
-
-                        if (exact_strs && exact_strs[vIdx]) {
-                            let exactStr = exact_strs[vIdx].trim();
-                            if (exactStr) {
-                                let ggbExact = exactStr.replace(new RegExp('\\b' + indep + '\\b', 'g'), 'x');
-                                ggbExact = ggbExact.replace(/log10\(/g, 'lg(').replace(/\bln\(/g, 'log(');
-                                let exName = `Exact_${v}`;
-                                window.ggbApplet.evalCommand(`${exName}(x) = ${ggbExact}`);
-                                window.ggbApplet.setColor(exName, color[0], color[1], color[2]);
-                                window.ggbApplet.setLineThickness(exName, 2);
-                                window.ggbApplet.setLineStyle(exName, 2);
-                            }
-                        }
-                    });
-
-                    let tMin = Math.min(...t_val_arr), tMax = Math.max(...t_val_arr);
-                    let yMin = Math.min(...allVals), yMax = Math.max(...allVals);
-                    let tMargin = (tMax - tMin || 1) * 0.15;
-                    let yMargin = (yMax - yMin || 2) * 0.3;
-                    window.ggbApplet.setCoordSystem(tMin - tMargin, tMax + tMargin, yMin - yMargin, yMax + yMargin);
-                } catch (e) {
-                    console.error("GeoGebra Sistemas plot error:", e);
                 }
             };
             if (typeof ggbReady !== 'undefined' && ggbReady && window.ggbApplet) {
@@ -7133,21 +7296,27 @@
             }
 
             // ── Condición inicial x₀/t₀ ──
+            // NOTA: NO usamos y(t0)=val para x0 — ese patrón extrae el valor de y, no de x/t
             const x0pats = [
-                /[yx]\s*\(\s*0\s*\)\s*=\s*([\d.\-eE]+)/i,
+                /\bx\s*\(\s*([\d.\-eE]+)\s*\)\s*=/i,        // x(t0) = ... → extraer t0
                 /\bx0\s*=\s*([\d.\-eE]+)/i,
                 /\bt0\s*=\s*([\d.\-eE]+)/i,
                 /\bx_0\s*=\s*([\d.\-eE]+)/i,
-                /condici[oó]n inicial\s*[x|t]\s*=\s*([\d.\-eE]+)/i,
-                /en\s*t\s*=\s*([\d.\-eE]+)/i,
+                /\bt_0\s*=\s*([\d.\-eE]+)/i,
+                /condici[oó]n inicial\s*(?:x|t)\s*=\s*([\d.\-eE]+)/i,
+                /en\s+t\s*=\s*([\d.\-eE]+)/i,
             ];
-            for (const p of x0pats) {
-                const m = t.match(p);
-                if (m) {
-                    const key = isSistemas ? 'sys_t0' : 'ode_x0';
-                    result[key].value = m[1].trim();
-                    result[key].detected = true;
-                    break;
+            {
+                const x0key = isSistemas ? 'sys_t0' : 'ode_x0';
+                let foundX0 = false;
+                for (const p of x0pats) {
+                    const m = t.match(p);
+                    if (m) { result[x0key].value = m[1].trim(); result[x0key].detected = true; foundX0 = true; break; }
+                }
+                // Fallback: si aparece y(0)=... significa que t₀=0, x₀=0
+                if (!foundX0 && /[a-zA-Z]\s*\(\s*0\s*\)\s*=/.test(t)) {
+                    result[x0key].value = '0';
+                    result[x0key].detected = true;
                 }
             }
 
@@ -7239,9 +7408,11 @@
                 const detected = d && d.detected;
                 html += `
 <div class="preview-field ${detected ? 'field-ok' : 'field-missing'}">
-  <label>${labels[key]}</label>
-  <input type="text" id="preview_${key}" value="${detected ? d.value : ''}" placeholder="${detected ? '' : 'No detectado — escribe manualmente'}" />
-  <span class="field-badge">${detected ? '<i class="fa-solid fa-check"></i> detectado' : '<i class="fa-solid fa-triangle-exclamation"></i> no detectado'}</span>
+  <div class="preview-field-header">
+    <label>${labels[key]}</label>
+    <span class="field-badge">${detected ? '<i class="fa-solid fa-check"></i> detectado' : '<i class="fa-solid fa-triangle-exclamation"></i> no detectado'}</span>
+  </div>
+  <input type="text" id="preview_${key}" value="${detected ? d.value : ''}" placeholder="${detected ? '' : 'No detectado — completa manualmente'}" />
 </div>`;
             }
             const previewEl = document.getElementById('edo-preview');
